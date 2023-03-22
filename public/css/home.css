@@ -1,0 +1,85 @@
+.text-purple{
+    color: #9500ff;
+}
+
+.bg-purple{
+    background-color: #9500ff;
+}
+
+.custom-shape-divider-bottom-1679437260 {
+    position: relative;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    overflow: hidden;
+    line-height: 0;
+    transform: rotate(180deg);
+}
+
+.custom-shape-divider-bottom-1679437260 svg {
+    position: relative;
+    display: block;
+    width: calc(145% + 1.3px);
+    height: 114px;
+}
+
+.custom-shape-divider-bottom-1679437260 .shape-fill {
+    fill: #9500ff;
+}
+
+.custom-shape-divider-bottom-1666644715 {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	width: 100%;
+	overflow: hidden;
+	line-height: 0;
+	transform: rotate(180deg);
+}
+
+.custom-shape-divider-bottom-1666644715 svg {
+	position: relative;
+	display: block;
+	width: calc(138% + 1.3px);
+	height: 236px;
+}
+
+.custom-shape-divider-bottom-1666644715 .shape-fill {
+	fill: #9500ff;
+}
+
+.custom-shape-divider-bottom-1679472683 {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    overflow: hidden;
+    line-height: 0;
+    transform: rotate(180deg);
+}
+
+.custom-shape-divider-bottom-1679472683 svg {
+    position: relative;
+    display: block;
+    width: calc(154% + 1.3px);
+    height: 148px;
+}
+
+.custom-shape-divider-bottom-1679472683 .shape-fill {
+    fill: #F8F9FA;
+}
+
+.floating { 
+    animation-name: floating;
+    animation-duration: 3s;
+    animation-iteration-count: infinite;
+    animation-timing-function: ease-in-out;
+    margin-left: 30px;
+    margin-top: 5px;
+}
+ 
+@keyframes floating {
+    0% { transform: translate(0,  0px); }
+    50%  { transform: translate(0, 15px); }
+    100%   { transform: translate(0, -0px); }   
+}
