@@ -1,26 +1,31 @@
 <%- layout('layout/boilerplate') %>
 <div class="row d-flex justify-content-center w-100 mx-0">
-    <div class="col-md-5 d-flex justify-content-center order-2">
-            <img class="img-fluid floating" src="/desk.svg" alt="Card image cap">
+    <div class="col-md-5 d-flex justify-content-center order-2 order-md-1">
+            <img class="img-fluid floating" src="images/desk.svg" alt="Card image cap">
     </div>
-    <div class="col-md-6 d-flex align-items-center justify-content-center order-1">
+    <div class="col-md-5 d-flex flex-column justify-content-center order-1 order-md-2">
         <h1 class="display-1 font-weight-bold" style="font-weight:900"><span class="text-purple">E&#8209;Commerce</span><br>Built By <span class="text-purple">You</span><br>For <span class="text-purple">You</span></h1>
+        <form action="/features" class="">
+            <button class="btn-outline-purple btn btn-lg align-sl">How to start</button>
+        </form>
     </div>
 </div>
-<div class='mt-5 px-0 custom-shape-divider-bottom-1666644715' style='position: relative'>
+<div class='px-0 custom-shape-divider-bottom-1666644715' style='position: relative'>
     <svg data-name='Layer 1' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 120' preserveAspectRatio='none'>
         <path d='M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z' class='shape-fill'></path>
     </svg>
 </div>
 <!-- <div class="row bg-purple" style="height: 10vh"></div> -->
-<div class="row w-100 d-flex justify-content-center bg-purple pt-3 mx-0">
-            <div class="col-md-4 text-dark d-flex flex-column justify-content-center mt-5">
+<div class="row w-100 justify-content-center bg-purple pt-3 mx-0">
+            <div class="col-6 col-md-4 text-dark d-flex flex-column justify-content-center mt-5">
                 <h1 class="display-1 font-weight-bold mb-3" style="font-weight:900">Backend Management is Hard,<br><span class="text-light">Let Us Help</span></h1>
                 <form action="/contact" class="">
-                    <button class="btn btn-lg btn-outline-light">Learn More</button>
+                    <button class="btn btn-lg btn-outline-light">Contact Us</button>
                 </form>
             </div>
-            <div class="d-none d-lg-block col-lg-7 d-flex justify-content-center mt-5 ps-5"><img class="img-fluid floating" src="/sittingCalm.svg" alt="Card image cap"></div>
+            <div class="col d-none d-md-block col-md-7 d-flex justify-content-center mt-5 ps-5">
+                <img class="img-fluid floating" src="images/sittingCalm.svg" alt="">
+            </div>
         </div>
     </div>
 </div>
@@ -29,6 +34,14 @@
         <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z" class="shape-fill"></path>
     </svg>
 </div>
-<div class="row">
-    <div class="col"></div>
+<div class="row d-flex align-items-center">
+    <div class="col">
+        <img src="images/CodeOk.svg" alt="" class="img-fluid floating">
+    </div>  
+    <div class="col-7">
+        <h1 class="display-md-1 display-4 font-weight-bold mb-3" style="font-weight:900">Design Your Pages,<br><span class="text-purple">We'll handle the functionality</span></h1>
+        <form action="/contact" class="">
+            <button class="btn-outline-purple btn btn-lg">Find out more</button>
+        </form>
+    </div>
 </div>

@@ -6,6 +6,20 @@
     background-color: #9500ff;
 }
 
+.btn-outline-purple{
+    color:#9500ff !important;
+    border-color: #9500ff !important;
+}
+
+.btn-outline-purple:hover{
+    color:white !important;
+    background-color: #9500ff !important;
+}
+
+.overflow-hidden{
+    overflow:hidden;
+}
+
 .custom-shape-divider-bottom-1679437260 {
     position: relative;
     bottom: 0;
