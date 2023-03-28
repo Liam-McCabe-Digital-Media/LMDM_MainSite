@@ -15,6 +15,30 @@ app.get('/home', (req, res) => {
     res.render('home');
 });
 
+app.get('/features', (req, res) => {
+    res.render('features');
+});
+
+app.get('/pricing', (req, res) => {
+    res.render('pricing');
+});
+
+app.get('/users/login', (req, res) => {
+    res.render('users/login');
+});
+
+app.get('/users/register', (req, res) => {
+    res.render('register');
+});
+
+app.post('/users/login', (req, res) => {
+    res.redirect('/');
+});
+
+app.post('/users/register', (req, res) => {
+    res.redirect('/');
+})
+
 app.get('/', (req, res)=> {
     res.redirect('/home');
 })
