@@ -7,9 +7,6 @@ const methodOverride = require('method-override');
 
 const userRoutes = require('./routes/userRoutes');
 
-const ExpressError = require('./utils/ExpressError');
-const catchAsync = require('./utils/catchAsync');
-
 const session = require('express-session');
 const flash = require('connect-flash');
 const passport = require('passport');
@@ -20,6 +17,7 @@ mongoose.connect('mongodb://localhost:27017/LMDM', {
     useNewUrlParser: true,
     useUnifiedTopology: true,
 });
+
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', () => {

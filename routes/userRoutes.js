@@ -2,13 +2,14 @@ const express = require('express');
 const router = express.Router();
 const passport = require('passport');
 const catchAsync = require('../utils/catchAsync');
+const User = require('../models/User');
 
 router.get('/login', (req, res) => {
-    res.render('users/login');
+    res.render('authenticate/login');
 });
 
 router.get('/register', (req, res) => {
-    res.render('users/register');
+    res.render('authenticate/register');
 });
 
 router.post('/login', passport.authenticate('local', { failureFlash: true, failureRedirect: '/users/login', keepSessionInfo: true, }), (req, res) => {
@@ -45,5 +46,10 @@ router.get('/logout', (req, res) => {
 		}
 	});
 });
+
+router.get('/:id/dashboard', catchAsync(async (req, res) => {
+    const user = await User.findById(req.params.id);
+    res.render('users/dashboard', {user});
+}));
 
 module.exports = router;
