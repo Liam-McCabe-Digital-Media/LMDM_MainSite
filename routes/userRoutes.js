@@ -1,8 +1,11 @@
 const express = require('express');
 const router = express.Router();
+const cmsRoutes = require('./cmsRoutes');
 const passport = require('passport');
 const catchAsync = require('../utils/catchAsync');
 const User = require('../models/User');
+
+router.use('/', cmsRoutes);
 
 router.get('/login', (req, res) => {
     res.render('authenticate/login');
@@ -46,10 +49,5 @@ router.get('/logout', (req, res) => {
 		}
 	});
 });
-
-router.get('/:id/dashboard', catchAsync(async (req, res) => {
-    const user = await User.findById(req.params.id);
-    res.render('users/dashboard', {user});
-}));
 
 module.exports = router;
