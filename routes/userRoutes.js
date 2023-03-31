@@ -10,14 +10,19 @@ const UserSchemas = new Map([['User', User.schema]])
 
 router.use('/', cmsRoutes);
 
+//renders login page
 router.get('/login', (req, res) => {
     res.render('authenticate/login');
 });
 
+//renders register page
 router.get('/register', (req, res) => {
     res.render('authenticate/register');
 });
 
+//logs in the user and sets currentUser to logged in user
+//req.session.returnTo is the link clicked before logging in
+//returns to that link after login
 router.post('/login', passport.authenticate('local', { failureFlash: true, failureRedirect: '/users/login', keepSessionInfo: true, }), (req, res) => {
     req.flash('success', 'welcome back!');
     const redirectUrl = req.session.returnTo || '/';
@@ -25,6 +30,8 @@ router.post('/login', passport.authenticate('local', { failureFlash: true, failu
     res.redirect(redirectUrl);
 });
 
+//registers a user and adds their information to UserInformation database
+//does not yet create a product database for user
 router.post('/register', catchAsync(async (req, res, next) => {
     try{
         const userDB = await switchDB('UserInformation', UserSchemas);
@@ -44,6 +51,7 @@ router.post('/register', catchAsync(async (req, res, next) => {
     }
 }));
 
+//logs out the user from the session
 router.get('/logout', (req, res) => {
 	req.logout((err) => {
 		if (err) {
