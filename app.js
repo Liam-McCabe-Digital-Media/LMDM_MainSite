@@ -13,16 +13,16 @@ const passport = require('passport');
 const LocalStrategy = require('passport-local');
 const User = require('./models/User');
 
-mongoose.connect('mongodb://localhost:27017/LMDM', {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-});
+// mongoose.connect('mongodb://localhost:27017/LMDM', {
+//     useNewUrlParser: true,
+//     useUnifiedTopology: true,
+// });
 
-const db = mongoose.connection;
-db.on('error', console.error.bind(console, 'connection error:'));
-db.once('open', () => {
-    console.log('database connected');
-});
+// const db = mongoose.connection;
+// db.on('error', console.error.bind(console, 'connection error:'));
+// db.once('open', () => {
+//     console.log('database connected');
+// });
 
 app.engine('ejs', ejsMate);
 app.set('view engine', 'ejs');

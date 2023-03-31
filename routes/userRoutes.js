@@ -4,6 +4,9 @@ const cmsRoutes = require('./cmsRoutes');
 const passport = require('passport');
 const catchAsync = require('../utils/catchAsync');
 const User = require('../models/User');
+const {switchDB, getDBModel} = require('../database/index');
+
+const UserSchemas = new Map([['User', User.schema]])
 
 router.use('/', cmsRoutes);
 
@@ -24,9 +27,11 @@ router.post('/login', passport.authenticate('local', { failureFlash: true, failu
 
 router.post('/register', catchAsync(async (req, res, next) => {
     try{
+        const userDB = await switchDB('UserInformation', UserSchemas);
+        const userModel = await getDBModel(userDB, 'User');
         const {firstName, lastName, email, username, password} = req.body.user;
-        const user = new User({firstName, lastName, email, username});
-        const registeredUser = await User.register(user, password);
+        const user = new userModel({firstName, lastName, email, username});
+        const registeredUser = await userModel.register(user, password);
         req.login(registeredUser, err => {
             if(err) return next(err);
             req.flash('success', 'LMDM');

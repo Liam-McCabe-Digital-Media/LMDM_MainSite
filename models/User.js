@@ -21,11 +21,6 @@ const UserSchema = new Schema({
         required: true,
         unique: true
     },
-    key:{
-        type: String,
-        required: false,
-        unique: true
-    },
     status:{
         type: Boolean,
         required: false
