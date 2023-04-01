@@ -15,9 +15,10 @@ const session = require('express-session');
 const flash = require('connect-flash');
 const passport = require('passport');
 const LocalStrategy = require('passport-local');
-
-//database model imports
+const connectDB = require('./services/mongo.connect');
+//database related imports
 const User = require('./models/User');
+const db = connectDB();
 
 //OLD MONGOOSE STATIC CONNECTION ---- NOT USED IN MULTI-TENANT APPLICATION
 // mongoose.connect('mongodb://localhost:27017/LMDM', {

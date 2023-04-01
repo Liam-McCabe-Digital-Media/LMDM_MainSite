@@ -9,4 +9,6 @@ router.get('/:id/dashboard', catchAsync(async (req, res) => {
     res.render('users/dashboard', {user});
 }));
 
+
+
 module.exports = router;
