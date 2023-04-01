@@ -4,6 +4,7 @@ const cmsRoutes = require('./cmsRoutes');
 const passport = require('passport');
 const catchAsync = require('../utils/catchAsync');
 const User = require('../models/User');
+
 const {switchDB, getDBModel} = require('../database/index');
 
 const UserSchemas = new Map([['User', User.schema]])
