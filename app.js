@@ -9,7 +9,7 @@ const methodOverride = require('method-override');
 
 //route imports
 const userRoutes = require('./routes/userRoutes');
-
+const apiRoutes = require('./routes/api/apiRoutes');
 //session related imports --- including authentication imports
 const session = require('express-session');
 const flash = require('connect-flash');
@@ -76,6 +76,7 @@ app.use(flash());
 
 //routes for specific user and private user related pages, including login and register
 app.use('/users', userRoutes);
+app.use('/api', apiRoutes);
 
 //static public webpages
 app.get('/home', (req, res) => {

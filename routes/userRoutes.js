@@ -4,7 +4,8 @@ const cmsRoutes = require('./cmsRoutes');
 const passport = require('passport');
 const catchAsync = require('../utils/catchAsync');
 const User = require('../models/User');
-
+const bcrypt = require('bcrypt');
+const {generateAPIKey} = require('../database/KeysDB')
 const {switchDB, getDBModel} = require('../database/index');
 
 const UserSchemas = new Map([['User', User.schema]])
@@ -40,12 +41,14 @@ router.post('/register', catchAsync(async (req, res, next) => {
         const {firstName, lastName, email, username, password} = req.body.user;
         const user = new userModel({firstName, lastName, email, username});
         const registeredUser = await userModel.register(user, password);
+        const apiKey = await generateAPIKey(registeredUser);
+        registeredUser.key = apiKey;
+        await registeredUser.save();
         req.login(registeredUser, err => {
             if(err) return next(err);
             req.flash('success', 'LMDM');
             res.redirect('/');
         })
-        
     }catch(e){
         req.flash('error', e.message);
         res.redirect('/users/register');
