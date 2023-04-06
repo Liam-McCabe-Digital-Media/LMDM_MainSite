@@ -17,6 +17,13 @@ router.get('/:id/new', isLoggedIn, verifyUser, catchAsync(async (req, res) => {
     res.render('users/newProduct');
 }));
 
+router.post('/:id/new', isLoggedIn, verifyUser, catchAsync(async (req, res) => {
+    console.log(req.body)
+    console.log('new product created');
+    const {id} = req.params;
+    req.flash('success', 'New Product Created');
+    res.redirect(`/users/${id}/dashboard`);
+}))
 
 
 module.exports = router;
