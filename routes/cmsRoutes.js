@@ -4,12 +4,13 @@ const catchAsync = require('../utils/catchAsync');
 const User = require('../models/User');
 const {isLoggedIn, verifyUser} = require('../middleware');
 const {getUser} = require('../database/AccountsDB');
-const {getAllProducts} = require('../database/UserDB');
+const {getAllProducts, createProduct} = require('../database/UserDB');
 
 //renders the dashboard populated with user '/:id' information pulled from database
 router.get('/:id/dashboard', isLoggedIn, verifyUser, catchAsync(async (req, res) => {
     const user = await getUser(req.params.id);
     const products = await getAllProducts(user.username);
+    //changed rendered product list by using req.locals (idea)
     res.render('users/dashboard', {user, products});
 }));
 
@@ -18,7 +19,8 @@ router.get('/:id/new', isLoggedIn, verifyUser, catchAsync(async (req, res) => {
 }));
 
 router.post('/:id/new', isLoggedIn, verifyUser, catchAsync(async (req, res) => {
-    console.log(req.body)
+    const product = req.body;
+    const newProduct = await createProduct(req.user.username, product);
     console.log('new product created');
     const {id} = req.params;
     req.flash('success', 'New Product Created');

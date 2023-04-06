@@ -1,18 +1,18 @@
 <% layout('layout/boilerplate') %>
 <h1 class="text-center">Dashboard for <%=user.username%></h1>
 <div class="row ps-2">
-	<div class="col-6 rounded px-3" style="max-height: 75vh; overflow-y: scroll">
+	<div class="col-6 rounded px-3" style="min-height: 75vh; max-height: 75vh; overflow-y: scroll">
 		<% for(let product of products) {%>
 		<div class="card shadow border-light mb-3 text-dark">
 			<div class="card-header"><b><%=product.category%></b></div>
 			<div class="row no-gutters">
 				<div class="card-body col-7 ps-5">
-					<h5 class="card-title"><%=product.name%> - $<%=product.price%></h5>
+					<h5 class="card-title"><%=product.name%> - $<%=product.startingPrice%></h5>
 					<p class="card-text">
-						With supporting text below as a natural lead-in to additional content.
+						<%= product.description %>
 					</p>
 					<% let total = 0; for(let size of product.stock){ total += size.quantity; } %>
-					<h6 class="card-text"><%=total%></h6>
+					<h6 class="card-text">Total in stock: <%=total%></h6>
 					<a href="/admin/products/<%=product._id%>" class="btn btn-primary">View</a>
 					<a href="/admin/products/<%=product._id%>/edit" class="btn btn-primary">Edit</a>
 				</div>
