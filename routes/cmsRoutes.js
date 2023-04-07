@@ -26,11 +26,11 @@ router.post('/:id/new', isLoggedIn, verifyUser, catchAsync(async (req, res) => {
     res.redirect(`/users/${id}/dashboard`);
 }));
 
-// router.get('/:id', isLoggedIn, verifyUser, catchAsync(async (req, res) => {
-//     const {id} = req.params;
-//     const product = await getProduct(id);
-//     res.render('users/viewProduct', {product});
-// }));
+router.get('/:id/:productId', isLoggedIn, verifyUser, catchAsync(async (req, res) => {
+    const {id, productId} = req.params;
+    const product = await getProduct(req.user.username, productId);
+    res.render('users/viewProduct', {product});
+}));
 
 
 module.exports = router;
