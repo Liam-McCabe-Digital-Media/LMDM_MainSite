@@ -2,10 +2,17 @@
 <h1 class="text-center">Dashboard for <%=user.username%></h1>
 <div class="row ps-2">
 	<div class="col-6" style="min-height: 75vh; max-height: 75vh;">
-		<form class="d-flex mb-3" role="search">
-			<input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-			<button class="btn btn-outline-success" type="submit">Search</button>
-		</form>
+		<div class="row mb-2">
+			<div class="col-10">
+				<form class="d-flex" role="search">
+					<input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+					<button class="btn btn-outline-success" type="submit">Search</button>
+				</form>
+			</div>
+			<div class="col-2 d-flex justify-content-center">
+				<a href="/users/<%=user._id%>/new"><button class="btn btn-success">Create</button></a>
+			</div>
+		</div>
 		<div class="rounded px-3" style="max-height: 90%; overflow-y: scroll;">
 			<% for(let product of products) {%>
 				<div class="card shadow border-light mb-3 text-dark">
@@ -47,6 +54,6 @@
 		
 	</div>
 	<div class="col-6">
-		<a href="/users/<%=user._id%>/new"><button class="btn btn-success">Create Product</button></a>
+		
 	</div>
 </div>

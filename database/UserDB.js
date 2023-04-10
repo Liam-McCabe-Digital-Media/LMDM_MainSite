@@ -18,6 +18,14 @@ module.exports.getProduct = async (store, id) => {
     return product;
 }
 
+module.exports.deleteProduct = async (store, id) => {
+    const dbName = `LMDM_${store}`;
+    const productDB = await switchDB(dbName, ProductSchemas);
+    const productModel = await getDBModel(productDB, 'Product');
+    const product = await productModel.findByIdAndDelete(id);
+
+}
+
 module.exports.createProduct = async (store, product) => {
     const dbName = `LMDM_${store}`;
     let startingPrice = product.stock[0].price;

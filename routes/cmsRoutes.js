@@ -4,7 +4,7 @@ const catchAsync = require('../utils/catchAsync');
 const User = require('../models/User');
 const {isLoggedIn, verifyUser} = require('../middleware');
 const {getUser} = require('../database/AccountsDB');
-const {getAllProducts, createProduct, getProduct} = require('../database/UserDB');
+const {getAllProducts, createProduct, getProduct, deleteProduct} = require('../database/UserDB');
 
 //renders the dashboard populated with user '/:id' information pulled from database
 router.get('/:id/dashboard', isLoggedIn, verifyUser, catchAsync(async (req, res) => {
@@ -28,9 +28,16 @@ router.post('/:id/new', isLoggedIn, verifyUser, catchAsync(async (req, res) => {
 
 router.get('/:id/:productId', isLoggedIn, verifyUser, catchAsync(async (req, res) => {
     const {id, productId} = req.params;
+    const user = await getUser(id);
     const product = await getProduct(req.user.username, productId);
-    res.render('users/viewProduct', {product});
+    res.render('users/viewProduct', {product, user});
 }));
+
+router.delete('/:id/:productId', isLoggedIn, verifyUser, catchAsync(async (req, res) => {
+    const {id, productId} = req.params;
+    deleteProduct(req.user.username, productId);
+    res.redirect(`/users/${id}/dashboard`);
+}))
 
 
 module.exports = router;
