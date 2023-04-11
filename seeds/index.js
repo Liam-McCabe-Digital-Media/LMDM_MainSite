@@ -23,6 +23,8 @@ const seedDB = async () => {
 		const prod = new Product({
 			name: `${adjectives[random1000]} ${types[random5]}`,
 			category: types[random5],
+			description: 'example description of product',
+			startingPrice: price,
 			stock: [{ alternate: 'large', quantity: 5, price }],
 			
 		});

@@ -1,6 +1,5 @@
 const express = require('express');
 const router = express.Router();
-const cmsRoutes = require('./cmsRoutes');
 const passport = require('passport');
 const catchAsync = require('../utils/catchAsync');
 const User = require('../models/User');
@@ -9,8 +8,6 @@ const {generateAPIKey} = require('../database/KeysDB')
 const {switchDB, getDBModel} = require('../database/index');
 
 const UserSchemas = new Map([['User', User.schema]])
-
-router.use('/', cmsRoutes);
 
 //renders login page
 router.get('/login', (req, res) => {

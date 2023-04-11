@@ -1,0 +1,30 @@
+<%- layout('layout/boilerplate') %>
+<div class="row justify-content-center align-items-center mt-5 py-5">
+	<div class="col-5"><img src="/images/images.jpeg" alt="" class="img-fluid w-75 rounded" /></div>
+	<div class="col-5">
+		<h5 class="text-muted">Product Name</h3>
+		<h2><%=product.name%></h2>
+		<h5 class="text-muted">Category</h3>
+		<h2><%=product.category%></h2>
+		<h5 class="text-muted">Starting Price</h3>
+		<h2>$<%=product.startingPrice%></h2>
+        <div class="rounded shadow p-2">
+            <h5 class="text-muted">ALTERNATES</h5>
+            <div class="row">
+                <div class="col"><h5 class="text-muted">Size:</h3></div>
+                <div class="col"><h5 class="text-muted">Quantity:</h3></div>
+                <div class="col"><h5 class="text-muted">Price:</h3></div>
+            </div>
+            <% for( let stock of product.stock ) { %>
+            <div class="row">
+                <div class="col"><h2><%=stock.alternate%></h2></div>
+                <div class="col"><h2><%=stock.quantity%></h2></div>
+                <div class="col"><h2>$<%=stock.price%></h2></div>
+            </div>
+            <% } %>
+            <form action="/users/<%=user._id%>/<%=product._id%>?_method=DELETE" method="POST">
+                <button class="btn btn-danger">Delete</button>
+            </form>
+        </div>
+	</div>
+</div>

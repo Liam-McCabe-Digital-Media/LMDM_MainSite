@@ -18,10 +18,10 @@
       <span class="navbar-nav ms-auto">
 
         <% if(!currentUser) { %>
-          <a href="/users/login" class="nav-link">Login</a>
+          <a href="/login" class="nav-link">Login</a>
         <% }else{ %>
           <a href="/users/<%= currentUser._id %>/dashboard" class="nav-link">Dashboard</a>
-          <a href="/users/logout" class="nav-link">Logout</a>
+          <a href="/logout" class="nav-link">Logout</a>
         <%}%>
       </span>
     </div>
