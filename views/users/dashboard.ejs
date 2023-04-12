@@ -16,7 +16,7 @@
 		<div class="rounded px-3" style="max-height: 90%; overflow-y: scroll;" id="productList">
 			<% for(let product of products) {%>
 				<div class="card shadow border-light mb-3 text-dark" name="<%=product.name%>">
-					<div class="card-header"><b><%=product.category%></b></div>
+					<div class="card-header"><span class="text-muted">Category: </span><%=product.category%></div>
 					<div class="row no-gutters">
 						<div class="card-body col-7 ps-5">
 							<h5 class="card-title"><%=product.name%> - $<%=product.startingPrice%></h5>

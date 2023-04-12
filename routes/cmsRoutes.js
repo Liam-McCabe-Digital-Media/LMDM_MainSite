@@ -4,7 +4,7 @@ const catchAsync = require('../utils/catchAsync');
 const User = require('../models/User');
 const {isLoggedIn, verifyUser} = require('../middleware');
 const {getUser} = require('../database/AccountsDB');
-const {getAllProducts, createProduct, getProduct, deleteProduct} = require('../database/UserDB');
+const {getAllProducts, createProduct, getProduct, deleteProduct, updateProduct} = require('../database/UserDB');
 
 //renders the dashboard populated with user '/:id' information pulled from database
 router.get('/:id/dashboard', isLoggedIn, verifyUser, catchAsync(async (req, res) => {
@@ -32,6 +32,19 @@ router.get('/:id/:productId', isLoggedIn, verifyUser, catchAsync(async (req, res
     const product = await getProduct(req.user.username, productId);
     res.render('users/viewProduct', {product, user});
 }));
+
+router.get('/:id/:productId/edit', isLoggedIn, verifyUser, catchAsync(async (req, res) => {
+    const {id, productId} = req.params;
+    const user = await getUser(id);
+    const product = await getProduct(req.user.username, productId);
+    res.render('users/editProduct', {product, user});
+}));
+
+router.post('/:id/:productId/edit', isLoggedIn, verifyUser, catchAsync(async (req, res) => {
+    const {id, productId} = req.params;
+    const product = await updateProduct(req.user.username, productId, req.body);
+    res.redirect(`/users/${id}/${productId}`);
+}))
 
 router.delete('/:id/:productId', isLoggedIn, verifyUser, catchAsync(async (req, res) => {
     const {id, productId} = req.params;

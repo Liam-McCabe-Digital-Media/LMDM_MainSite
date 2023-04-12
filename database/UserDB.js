@@ -39,3 +39,11 @@ module.exports.createProduct = async (store, product) => {
     const newProduct = await productModel.create(product);
     return newProduct;
 }
+
+module.exports.updateProduct = async (store, productId, update) => {
+    const dbName = `LMDM_${store}`;
+    const productDB = await switchDB(dbName, ProductSchemas);
+    const productModel = await getDBModel(productDB, 'Product');
+    const updated = await productModel.findByIdAndUpdate(productId, update);
+    return updated;
+}
