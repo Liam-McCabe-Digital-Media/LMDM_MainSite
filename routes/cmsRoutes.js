@@ -37,7 +37,7 @@ router.delete('/:id/:productId', isLoggedIn, verifyUser, catchAsync(async (req, 
     const {id, productId} = req.params;
     deleteProduct(req.user.username, productId);
     res.redirect(`/users/${id}/dashboard`);
-}))
+}));
 
 
 module.exports = router;

@@ -5,17 +5,17 @@
 		<div class="row mb-2">
 			<div class="col-10">
 				<form class="d-flex" role="search">
-					<input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-					<button class="btn btn-outline-success" type="submit">Search</button>
+					<input class="form-control me-2" type="search" id="search" oninput="filter()" placeholder="Search" aria-label="Search">
+					<button class="btn btn-outline-success" type="button" onclick="filter()">Search</button>
 				</form>
 			</div>
 			<div class="col-2 d-flex justify-content-center">
 				<a href="/users/<%=user._id%>/new"><button class="btn btn-success">Create</button></a>
 			</div>
 		</div>
-		<div class="rounded px-3" style="max-height: 90%; overflow-y: scroll;">
+		<div class="rounded px-3" style="max-height: 90%; overflow-y: scroll;" id="productList">
 			<% for(let product of products) {%>
-				<div class="card shadow border-light mb-3 text-dark">
+				<div class="card shadow border-light mb-3 text-dark" name="<%=product.name%>">
 					<div class="card-header"><b><%=product.category%></b></div>
 					<div class="row no-gutters">
 						<div class="card-body col-7 ps-5">
@@ -57,3 +57,19 @@
 		
 	</div>
 </div>
+
+<script>
+	function filter(){
+		console.log('click')
+		const text = document.getElementById('search').value;
+		const List = document.getElementById('productList');
+		const children = List.children;
+		for(let child of children){
+			if(child.getAttribute('name').includes(text)){
+				child.classList.remove('d-none');
+			}else{
+				child.classList.add('d-none');
+			}
+		}
+	}
+</script>
