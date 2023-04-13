@@ -22,9 +22,9 @@
                 <div class="col"><h2>$<%=stock.price%></h2></div>
             </div>
             <% } %>
-            <form action="/users/<%=user._id%>/<%=product._id%>?_method=DELETE" method="POST">
+            <form action="/users/<%=currentUser._id%>/<%=product._id%>?_method=DELETE" method="POST">
                 <button class="btn btn-danger">Delete</button>
-                <a href="/users/<%= user._id %>/<%=product._id%>/edit"><button class="btn btn-primary text-decoration-none text-white" type="button">Edit</button></a>
+                <a href="/users/<%= currentUser._id %>/<%=product._id%>/edit"><button class="btn btn-primary text-decoration-none text-white" type="button">Edit</button></a>
             </form>
         </div>
 	</div>

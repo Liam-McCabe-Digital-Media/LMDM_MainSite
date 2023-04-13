@@ -30,14 +30,13 @@ router.get('/:id/:productId', isLoggedIn, verifyUser, catchAsync(async (req, res
     const {id, productId} = req.params;
     const user = await getUser(id);
     const product = await getProduct(req.user.username, productId);
-    res.render('users/viewProduct', {product, user});
+    res.render('users/viewProduct', {product});
 }));
 
 router.get('/:id/:productId/edit', isLoggedIn, verifyUser, catchAsync(async (req, res) => {
     const {id, productId} = req.params;
-    const user = await getUser(id);
     const product = await getProduct(req.user.username, productId);
-    res.render('users/editProduct', {product, user});
+    res.render('users/editProduct', {product});
 }));
 
 router.post('/:id/:productId/edit', isLoggedIn, verifyUser, catchAsync(async (req, res) => {
