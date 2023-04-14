@@ -25,8 +25,8 @@ const seedDB = async () => {
 			category: types[random5],
 			description: 'example description of product',
 			startingPrice: price,
+			startingAlternate: 'large',
 			stock: [{ alternate: 'large', quantity: 5, price }],
-			
 		});
 		await prod.save();
 	}

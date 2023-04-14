@@ -43,16 +43,16 @@ app.use(express.static(path.join(__dirname, '/public')));
 
 //setup for express-session and connect-flash
 const sessionConfig = {
-    secret: 'thisshouldbeabettersecret!',
-    resave: false,
-    saveUninitialized: true,
-    cookie: {
-        httpOnly: true,
-        expires: Date.now() + (1000*60*60*24*7),
-        maxAge: (1000*60*60*24*7)
-    }
-}
-app.use(session(sessionConfig))
+	secret: 'thisshouldbeabettersecret!',
+	resave: false,
+	saveUninitialized: true,
+	cookie: {
+		httpOnly: true,
+		expires: Date.now() + 1000 * 60 * 60 * 24 * 7,
+		maxAge: 1000 * 60 * 60 * 24 * 7,
+	},
+};
+app.use(session(sessionConfig));
 app.use(flash());
 
 //setup for passport
@@ -65,14 +65,14 @@ passport.deserializeUser(User.deserializeUser());
 //middleware to hold flash information to be displayed
 //as well as stores currentUser based on req.user
 app.use((req, res, next) => {
-    res.locals.currentUser = req.user;
-    res.locals.success = req.flash('success');
-    res.locals.error = req.flash('error');
-    next();
-})
+	res.locals.currentUser = req.user;
+	res.locals.success = req.flash('success');
+	res.locals.error = req.flash('error');
+	next();
+});
 
 //use session and flash
-app.use(session(sessionConfig))
+app.use(session(sessionConfig));
 app.use(flash());
 
 //routes for specific user and private user related pages, including login and register
@@ -82,29 +82,29 @@ app.use('/users/', cmsRoutes);
 
 //static public webpages
 app.get('/home', (req, res) => {
-    res.render('home');
+	res.render('home');
 });
 
 app.get('/features', (req, res) => {
-    res.render('features');
+	res.render('features');
 });
 
 app.get('/pricing', (req, res) => {
-    res.render('pricing');
+	res.render('pricing');
 });
 
-app.get('/', (req, res)=> {
-    res.redirect('/home');
-})
+app.get('/', (req, res) => {
+	res.redirect('/home');
+});
 
 //error handler renders error page instead of crashing application, ENOENT errors still crash app right now
 app.use((err, req, res, next) => {
-    const { statusCode = 500 } = err;
-    if(!err.message) err.message = 'Oh No, Something Went Wrong!';
-    res.status(statusCode).render('error', {err});
-})
+	const { statusCode = 500 } = err;
+	if (!err.message) err.message = 'Oh No, Something Went Wrong!';
+	res.status(statusCode).render('error', { err });
+});
 
 //listens on port
 app.listen(port, () => {
-    console.log(`listening on port ${port}`);
+	console.log(`listening on port ${port}`);
 });

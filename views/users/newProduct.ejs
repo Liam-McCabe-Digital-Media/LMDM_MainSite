@@ -16,26 +16,51 @@
 				</div>
 				<div class="mb-3">
 					<label class="form-label" for="description">Description</label>
-					<textarea class="form-control" type="text" id="description" name="description" rows="3" required></textarea>
+					<textarea
+						class="form-control"
+						type="text"
+						id="description"
+						name="description"
+						rows="3"
+						required
+					></textarea>
 					<div class="valid-feedback">Looks good!</div>
 				</div>
 				<h5 class="display-5">Alternates</h5>
 				<div class="row mb-3">
 					<div class="col-4">
 						<label class="form-label" for="alternate0">Alternate</label>
-						<input class="form-control" type="text" id="alternate0" name="stock[0][alternate]" required />
+						<input
+							class="form-control"
+							type="text"
+							id="alternate0"
+							name="stock[0][alternate]"
+							required
+						/>
 						<div class="valid-feedback">Looks good!</div>
 					</div>
 					<div class="col-4">
 						<label for="qunatity0" class="form-label">Quantity Available</label>
-						<input class="form-control" type="number" id="quantity0" name="stock[0][quantity]" required />
+						<input
+							class="form-control"
+							type="number"
+							id="quantity0"
+							name="stock[0][quantity]"
+							required
+						/>
 						<div class="valid-feedback">Looks good!</div>
 					</div>
 					<div class="col-4">
 						<label for="price0" class="form-label">Price</label>
 						<div class="input-group">
 							<div class="input-group-text">$</div>
-							<input type="number" class="form-control" id="price0" name="stock[0][price]" required>
+							<input
+								type="number"
+								class="form-control"
+								id="price0"
+								name="stock[0][price]"
+								required
+							/>
 						</div>
 						<div class="valid-feedback">Looks good!</div>
 					</div>
@@ -47,8 +72,6 @@
 		</form>
 	</div>
 </div>
-
-
 
 <script>
 	let stockCount = 0;

@@ -1,11 +1,18 @@
 <% layout('layout/boilerplate') %>
 <h1 class="text-center">Dashboard for <%=user.username%></h1>
 <div class="row ps-2">
-	<div class="col-6" style="min-height: 75vh; max-height: 75vh;">
+	<div class="col-6" style="min-height: 75vh; max-height: 75vh">
 		<div class="row mb-2">
 			<div class="col-10">
 				<form class="d-flex" role="search">
-					<input class="form-control me-2" type="search" id="search" oninput="filter()" placeholder="Search" aria-label="Search">
+					<input
+						class="form-control me-2"
+						type="search"
+						id="search"
+						oninput="filter()"
+						placeholder="Search"
+						aria-label="Search"
+					/>
 					<button class="btn btn-outline-success" type="button" onclick="filter()">Search</button>
 				</form>
 			</div>
@@ -13,27 +20,27 @@
 				<a href="/users/<%=user._id%>/new"><button class="btn btn-success">Create</button></a>
 			</div>
 		</div>
-		<div class="rounded px-3" style="max-height: 90%; overflow-y: scroll;" id="productList">
+		<div class="rounded px-3" style="max-height: 90%; overflow-y: scroll" id="productList">
 			<% for(let product of products) {%>
-				<div class="card shadow border-light mb-3 text-dark" name="<%=product.name%>">
-					<div class="card-header"><span class="text-muted">Category: </span><%=product.category%></div>
-					<div class="row no-gutters">
-						<div class="card-body col-7 ps-5">
-							<h5 class="card-title"><%=product.name%> - $<%=product.startingPrice%></h5>
-							<p class="card-text">
-								<%= product.description %>
-							</p>
-							<% let total = 0; for(let size of product.stock){ total += size.quantity; } %>
-							<h6 class="card-text">Total in stock: <%=total%></h6>
-							<a href="/users/<%= user._id %>/<%=product._id%>" class="btn btn-primary">View</a>
-							<a href="/users/<%= user._id %>/<%=product._id%>/edit" class="btn btn-primary">Edit</a>
-						</div>
-						<div class="col-5 text-end">
-							<img src="/images.jpeg" alt="" class="rounded-end" />
-						</div>
+			<div class="card shadow border-light mb-3 text-dark" name="<%=product.name%>">
+				<div class="card-header">
+					<span class="text-muted">Category: </span><%=product.category%>
+				</div>
+				<div class="row no-gutters">
+					<div class="card-body col-7 ps-5">
+						<h5 class="card-title"><%=product.name%> - $<%=product.startingPrice%></h5>
+						<p class="card-text"><%= product.description %></p>
+						<% let total = 0; for(let size of product.stock){ total += size.quantity; } %>
+						<h6 class="card-text">Total in stock: <%=total%></h6>
+						<a href="/users/<%= user._id %>/<%=product._id%>" class="btn btn-primary">View</a>
+						<a href="/users/<%= user._id %>/<%=product._id%>/edit" class="btn btn-primary">Edit</a>
+					</div>
+					<div class="col-5 text-end">
+						<img src="/images.jpeg" alt="" class="rounded-end" />
 					</div>
 				</div>
-				<!-- <div class="card" style="width: 500px">
+			</div>
+			<!-- <div class="card" style="width: 500px">
 					<div class="row no-gutters">
 						<div class="col-sm-5">
 							<img class="card-img" src="/images.jpeg" alt="Suresh Dasari Card" />
@@ -51,23 +58,20 @@
 				</div> -->
 			<% } %>
 		</div>
-		
 	</div>
-	<div class="col-6">
-		
-	</div>
+	<div class="col-6"></div>
 </div>
 
 <script>
-	function filter(){
-		console.log('click')
+	function filter() {
+		console.log('click');
 		const text = document.getElementById('search').value;
 		const List = document.getElementById('productList');
 		const children = List.children;
-		for(let child of children){
-			if(child.getAttribute('name').includes(text)){
+		for (let child of children) {
+			if (child.getAttribute('name').includes(text)) {
 				child.classList.remove('d-none');
-			}else{
+			} else {
 				child.classList.add('d-none');
 			}
 		}

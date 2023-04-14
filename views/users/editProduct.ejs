@@ -6,54 +6,104 @@
 			<div id="inputContainer">
 				<div class="mb-3">
 					<label class="form-label" for="name">Product Name</label>
-					<input class="form-control" type="text" id="name" name="name" required value="<%=product.name%>"/>
+					<input
+						class="form-control"
+						type="text"
+						id="name"
+						name="name"
+						required
+						value="<%=product.name%>"
+					/>
 					<div class="valid-feedback">Looks good!</div>
 				</div>
 				<div class="mb-3">
 					<label class="form-label" for="category">Product Category</label>
-					<input class="form-control" type="text" id="category" name="category" required value="<%=product.category%>"/>
+					<input
+						class="form-control"
+						type="text"
+						id="category"
+						name="category"
+						required
+						value="<%=product.category%>"
+					/>
 					<div class="valid-feedback">Looks good!</div>
 				</div>
 				<div class="mb-3">
 					<label class="form-label" for="description">Description</label>
-					<textarea class="form-control" type="text" id="description" name="description" rows="3" required><%=product.description%></textarea>
+					<textarea
+						class="form-control"
+						type="text"
+						id="description"
+						name="description"
+						rows="3"
+						required
+					>
+<%=product.description%></textarea
+					>
 					<div class="valid-feedback">Looks good!</div>
 				</div>
 				<h5 class="display-5">Alternates</h5>
-                <% for(let i = 0; i < product.stock.length; i++) { %>
-                    <div class="row mb-3" id="input<%=i%>">
-                        <div class="col-4">
-                            <label class="form-label" for="alternate<%=i%>">Alternate</label>
-                            <input class="form-control" type="text" id="alternate<%=i%>" name="stock[<%=i%>][alternate]" value="<%=product.stock[i].alternate%>" required />
-                            <div class="valid-feedback">Looks good!</div>
-                        </div>
-                        <div class="col-4">
-                            <label for="quantity<%=i%>" class="form-label">Quantity Available</label>
-                            <input class="form-control" type="number" id="qunatity<%=i%>" name="stock[<%=i%>][quantity]" value="<%=product.stock[i].quantity%>" required />
-                            <div class="valid-feedback">Looks good!</div>
-                        </div>
-                        <span class="col">
-                            <label for="price<%=i%>" class="form-label">Price</label>
-                            <div class="input-group">
-                                <div class="input-group-text">$</div>
-                                <input type="number" class="form-control rounded-end" id="price<%=i%>" name="stock[<%=i%>][price]" value="<%=product.stock[i].price%>" required>
-                                <span class="d-flex ms-2">
-                                    <button type="button" class="btn-close align-self-end mb-2" onClick="removeInput('<%=i%>')"></button>
-                                </span>
-                            </div>
-                        </span>
-                        <div class="valid-feedback">Looks good!</div>
-                    </div>
-                <% } %>
+				<% for(let i = 0; i < product.stock.length; i++) { %>
+				<div class="row mb-3" id="input<%=i%>">
+					<div class="col-4">
+						<label class="form-label" for="alternate<%=i%>">Alternate</label>
+						<input
+							class="form-control"
+							type="text"
+							id="alternate<%=i%>"
+							name="stock[<%=i%>][alternate]"
+							value="<%=product.stock[i].alternate%>"
+							required
+						/>
+						<div class="valid-feedback">Looks good!</div>
+					</div>
+					<div class="col-4">
+						<label for="quantity<%=i%>" class="form-label">Quantity Available</label>
+						<input
+							class="form-control"
+							type="number"
+							id="qunatity<%=i%>"
+							name="stock[<%=i%>][quantity]"
+							value="<%=product.stock[i].quantity%>"
+							required
+						/>
+						<div class="valid-feedback">Looks good!</div>
+					</div>
+					<span class="col">
+						<label for="price<%=i%>" class="form-label">Price</label>
+						<div class="input-group">
+							<div class="input-group-text">$</div>
+							<input
+								type="number"
+								class="form-control rounded-end"
+								id="price<%=i%>"
+								name="stock[<%=i%>][price]"
+								value="<%=product.stock[i].price%>"
+								required
+							/>
+							<span class="d-flex ms-2">
+								<button
+									type="button"
+									class="btn-close align-self-end mb-2"
+									onClick="removeInput('<%=i%>')"
+								></button>
+							</span>
+						</div>
+					</span>
+					<div class="valid-feedback">Looks good!</div>
+				</div>
+				<% } %>
 			</div>
 			<button type="button" class="btn btn-primary" onclick="createInput()">Add Stock</button>
 			<button class="btn btn-success">Update</button>
-			<a class="" href="/users/<%=currentUser._id%>/<%=product._id%>"><button type="button" class="btn btn-danger text-decoration-none text-white">Cancel</button></a>
+			<a class="" href="/users/<%=currentUser._id%>/<%=product._id%>"
+				><button type="button" class="btn btn-danger text-decoration-none text-white">
+					Cancel
+				</button></a
+			>
 		</form>
-    </div>
+	</div>
 </div>
-
-
 
 <script>
 	let stockCount = '<%=product.stock.length%>' - 1;

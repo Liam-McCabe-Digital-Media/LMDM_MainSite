@@ -11,14 +11,24 @@ const productSchema = new mongoose.Schema({
 	},
 	description: {
 		type: String,
-		required: true
+		required: true,
 	},
 	startingPrice: {
 		type: Number,
-		required: true
+		required: true,
+	},
+	startingAlternate: {
+		type: String,
+		required: true,
 	},
 	stock: {
-		type: [{ alternate: { type: String, required: true }, quantity: { type: Number, required: true }, price: { type: Number, required: true } }],
+		type: [
+			{
+				alternate: { type: String, required: true },
+				quantity: { type: Number, required: true },
+				price: { type: Number, required: true },
+			},
+		],
 		required: true,
 	},
 });
