@@ -3,6 +3,7 @@ const express = require('express');
 const app = express();
 const port = 3000;
 const ejsMate = require('ejs-mate');
+const bodyParser = require('body-parser');
 // const mongoose = require('mongoose');
 const path = require('path');
 const methodOverride = require('method-override');
@@ -74,6 +75,10 @@ app.use((req, res, next) => {
 //use session and flash
 app.use(session(sessionConfig));
 app.use(flash());
+
+//body-parser
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 
 //routes for specific user and private user related pages, including login and register
 app.use('/', userRoutes);

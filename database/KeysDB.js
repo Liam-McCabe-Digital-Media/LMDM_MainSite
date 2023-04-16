@@ -17,6 +17,19 @@ module.exports.generateAPIKey = async (user) => {
 	return apiHash;
 };
 
+module.exports.postVerifyKey = async (req, res, next) => {
+	const keyDB = await switchDB('APIKeys', KeySchemas);
+	const keyModel = await getDBModel(keyDB, 'Key');
+	const keyObject = await keyModel.findOne({ user: req.body.store });
+	const approval = await bcrypt.compare(req.body.key, keyObject.key);
+	if (!approval) {
+		req.flash('error', 'api keys do not match');
+		console.log('denied');
+		return res.send('error');
+	}
+	next();
+};
+
 module.exports.verifyKey = async (req, res, next) => {
 	const keyDB = await switchDB('APIKeys', KeySchemas);
 	const keyModel = await getDBModel(keyDB, 'Key');
