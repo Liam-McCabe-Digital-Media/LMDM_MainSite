@@ -40,15 +40,15 @@ router.post(
 // 	}),
 // );
 
-router.get(
-	'/:id',
-	verifyKey,
-	catchAsync(async (req, res) => {
-		const id = req.params.id;
-		const { store } = req.query;
-		const product = await getProduct(store, id);
-		return res.json(product);
-	}),
-);
+// router.get(
+// 	'/:id',
+// 	verifyKey,
+// 	catchAsync(async (req, res) => {
+// 		const id = req.params.id;
+// 		const { store } = req.query;
+// 		const product = await getProduct(store, id);
+// 		return res.json(product);
+// 	}),
+// );
 
 module.exports = router;
