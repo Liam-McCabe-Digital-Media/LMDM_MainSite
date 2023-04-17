@@ -28,7 +28,7 @@ module.exports.deleteProduct = async (store, id) => {
 module.exports.createProduct = async (store, product) => {
 	const dbName = `LMDM_${store}`;
 	let startingPrice = product.stock[0].price;
-	let startingSize = '';
+	let startingAlternate = product.stock[0].alternate;
 	for (let stock of product.stock) {
 		console.log(stock.price);
 		if (stock.price < startingPrice) {
@@ -37,6 +37,7 @@ module.exports.createProduct = async (store, product) => {
 		}
 	}
 	product.startingPrice = startingPrice;
+	product.startingAlternate = startingAlternate;
 	const productDB = await switchDB(dbName, ProductSchemas);
 	const productModel = await getDBModel(productDB, 'Product');
 	const newProduct = await productModel.create(product);

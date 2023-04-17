@@ -18,6 +18,7 @@ module.exports.generateAPIKey = async (user) => {
 };
 
 module.exports.postVerifyKey = async (req, res, next) => {
+	console.log('verify');
 	const keyDB = await switchDB('APIKeys', KeySchemas);
 	const keyModel = await getDBModel(keyDB, 'Key');
 	const keyObject = await keyModel.findOne({ user: req.body.store });
@@ -27,6 +28,7 @@ module.exports.postVerifyKey = async (req, res, next) => {
 		console.log('denied');
 		return res.send('error');
 	}
+	console.log('confirm');
 	next();
 };
 

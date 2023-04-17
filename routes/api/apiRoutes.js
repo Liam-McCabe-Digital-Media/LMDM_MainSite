@@ -20,6 +20,31 @@ router.post(
 );
 
 router.post(
+	'/addToCart',
+	postVerifyKey,
+	catchAsync(async (req, res) => {
+		const { store } = req.body;
+		const { quantity, alternateID, productID } = req.body.cartProduct;
+		const product = await getProduct(store, productID);
+		const fullProduct = await product.populate('stock');
+		const alternate = fullProduct.stock.find((alt) => alt._id.toHexString() === alternateID);
+		let cartObj = { quantity, product, alternate };
+		console.log(cartObj);
+		return res.json(cartObj);
+	}),
+);
+
+router.post(
+	'/removeFromCart',
+	verifyKey,
+	catchAsync(async (req, res) => {
+		const { store } = req.body;
+		const { productID, alternateID } = req.body.cartProduct;
+		return req.json({ productID, alternateID });
+	}),
+);
+
+router.post(
 	'/:id',
 	postVerifyKey,
 	catchAsync(async (req, res) => {
@@ -29,7 +54,6 @@ router.post(
 		return res.json(product);
 	}),
 );
-
 // router.get(
 // 	'/allProducts',
 // 	verifyKey,
