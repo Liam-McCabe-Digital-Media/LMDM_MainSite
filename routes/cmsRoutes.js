@@ -93,15 +93,7 @@ router.get(
 		});
 	}),
 );
-///<%=user._id%>/removeFromCart/<%=productList[i].product._id%>/<%=productList[i].alternate._id%>
-// app.delete('/removeFromCart/:id/:altID', async (req, res) => {
-// 	const alternateID = req.params.altID;
-// 	req.session.cart.splice(
-// 		req.session.cart.findIndex((item) => item.alternate._id === alternateID),
-// 		1,
-// 	);
-// 	res.redirect('/cart');
-// });
+
 router.delete(
 	'/:id/removeFromCart/:productId/:alternateId',
 	isLoggedIn,
@@ -113,6 +105,7 @@ router.delete(
 			req.session.cart.findIndex((item) => item.alternate._id === alternateId),
 			1,
 		);
+		//need to fix redirect giving cannot change headers
 		res.redirect(`/users/${id}/newOrder`);
 	}),
 );

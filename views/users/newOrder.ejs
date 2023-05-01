@@ -61,7 +61,7 @@
 	</div>
 	<!-- THIS IS THE OFFCANVAS, ONLY ACTIVE WHEN SCREEN IS SMALL ENOUGH -->
 	<div
-		class="offcanvas offcanvas-start"
+		class="offcanvas offcanvas-start d-block d-xl-none"
 		tabindex="-1"
 		style="width: 100vw"
 		id="offcanvasExample"
@@ -76,6 +76,7 @@
 				aria-label="Close"
 			></button>
 		</div>
+
 		<div class="offcanvas-body">
 			<div class="row justify-content-center">
 				<div class="col-10">
@@ -122,11 +123,11 @@
 										</div>
 										<div class="col-4">
 											<form
-												action="/removeFromCart/<%=productList[i].product._id%>/<%=productList[i].alternate._id%>?_method=DELETE"
-												class="col-sm-3"
+												action="/users/<%=user._id%>/removeFromCart/<%=productList[i].product._id%>/<%=productList[i].alternate._id%>?_method=DELETE"
+												class=""
 												method="POST"
 											>
-												<button class="btn btn-outline-danger">Remove</button>
+												<button class="btn btn-outline-danger px-1 ms-2">Remove</button>
 											</form>
 										</div>
 									</div>
@@ -135,6 +136,26 @@
 						</div>
 					</div>
 					<% } %>
+				</div>
+			</div>
+			<hr />
+			<div>
+				<div class="row">
+					<div class="col">
+						<h5>Subtotal:</h5>
+						<h5>Shipping:</h5>
+						<h5>Tax:</h5>
+					</div>
+					<div class="col">
+						<h5>$<%= details.total %></h5>
+						<h5>$0</h5>
+						<h5>$0</h5>
+					</div>
+				</div>
+				<hr />
+				<div class="row">
+					<div class="col"><h5>Total:</h5></div>
+					<div class="col"><h5>$<%= details.total %></h5></div>
 				</div>
 			</div>
 		</div>
