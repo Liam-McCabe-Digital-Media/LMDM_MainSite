@@ -66,6 +66,7 @@ router.post(
 		return res.json(product);
 	}),
 );
+
 // router.get(
 // 	'/allProducts',
 // 	verifyKey,

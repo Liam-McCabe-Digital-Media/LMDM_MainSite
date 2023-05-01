@@ -1,0 +1,6 @@
+.no-hover-light:hover {
+	background-color: aliceblue;
+}
+.no-click-light:active {
+	background-color: aliceblue;
+}

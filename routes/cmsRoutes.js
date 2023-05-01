@@ -11,7 +11,7 @@ const {
 	deleteProduct,
 	updateProduct,
 } = require('../database/UserDB');
-
+const { getOrderObject } = require('../utils/orders');
 //renders the dashboard populated with user '/:id' information pulled from database
 router.get(
 	'/:id/dashboard',
@@ -22,6 +22,98 @@ router.get(
 		const products = await getAllProducts(user.username);
 		//changed rendered product list by using req.locals (idea)
 		res.render('users/dashboard', { user, products });
+	}),
+);
+
+router.get(
+	'/:id/orders',
+	isLoggedIn,
+	verifyUser,
+	catchAsync(async (req, res) => {
+		const user = await getUser(req.params.id);
+		res.render('users/orders', { user });
+	}),
+);
+
+router.get(
+	'/:id/:productId/viewProduct',
+	isLoggedIn,
+	verifyUser,
+	catchAsync(async (req, res) => {
+		const { id, productId } = req.params;
+		const user = await getUser(id);
+		const product = await getProduct(req.user.username, productId);
+		res.render('users/viewProduct', { user, product, cart: true });
+	}),
+);
+
+router.post(
+	'/:id/:productId/:alternateId/addToOrder',
+	isLoggedIn,
+	verifyUser,
+	catchAsync(async (req, res) => {
+		const { id, productId, alternateId } = req.params;
+		console.log(req.body.quantity);
+		const { quantity } = req.body;
+		if (req.session.cart.find((item) => item.alternate._id === alternateId)) {
+			req.flash('error', 'Item already in cart');
+		} else {
+			let orderObject = await getOrderObject(id, productId, alternateId, quantity);
+			if (req.session.cart == null) req.session.cart = [];
+			req.session.cart.push(orderObject);
+			console.log('cart:' + req.session.cart);
+			req.flash('success', `added ${orderObject.product.name} to order`);
+		}
+		res.redirect(`/users/${id}/newOrder`);
+	}),
+);
+
+router.get(
+	'/:id/newOrder',
+	isLoggedIn,
+	verifyUser,
+	catchAsync(async (req, res) => {
+		const user = await getUser(req.params.id);
+		const products = await getAllProducts(user.username);
+		if (!req.session.cart) req.session.cart = [];
+		req.session.cartDetails = {
+			total: 0,
+			itemCount: 0,
+		};
+		if (req.session.cart.length != 0)
+			for (let cartObject of req.session.cart) {
+				req.session.cartDetails.total += cartObject.quantity * cartObject.alternate.price;
+				req.session.cartDetails.itemCount += cartObject.quantity;
+			}
+		res.render('users/newOrder', {
+			user,
+			products,
+			productList: req.session.cart,
+			details: req.session.cartDetails,
+		});
+	}),
+);
+///<%=user._id%>/removeFromCart/<%=productList[i].product._id%>/<%=productList[i].alternate._id%>
+// app.delete('/removeFromCart/:id/:altID', async (req, res) => {
+// 	const alternateID = req.params.altID;
+// 	req.session.cart.splice(
+// 		req.session.cart.findIndex((item) => item.alternate._id === alternateID),
+// 		1,
+// 	);
+// 	res.redirect('/cart');
+// });
+router.delete(
+	'/:id/removeFromCart/:productId/:alternateId',
+	isLoggedIn,
+	verifyUser,
+	catchAsync((req, res) => {
+		const alternateId = req.params.alternateId;
+		const id = req.params.id;
+		req.session.cart.splice(
+			req.session.cart.findIndex((item) => item.alternate._id === alternateId),
+			1,
+		);
+		res.redirect(`/users/${id}/newOrder`);
 	}),
 );
 
@@ -55,7 +147,7 @@ router.get(
 		const { id, productId } = req.params;
 		const user = await getUser(id);
 		const product = await getProduct(req.user.username, productId);
-		res.render('users/viewProduct', { product });
+		res.render('users/viewProduct', { product, cart: false });
 	}),
 );
 
