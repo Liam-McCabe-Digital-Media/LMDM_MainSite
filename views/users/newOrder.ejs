@@ -1,0 +1,277 @@
+<% layout('layout/userBoilerplate') %>
+<h1 class="dispaly-5">New Order</h1>
+<div class="row ps-2">
+	<div class="col" style="min-height: 75vh; max-height: 75vh">
+		<div class="row mb-2">
+			<div class="col">
+				<form class="d-flex" role="search">
+					<input
+						class="form-control me-2"
+						type="search"
+						id="search"
+						oninput="filter()"
+						placeholder="Search"
+						aria-label="Search"
+					/>
+					<button class="btn btn-outline-success" type="button" onclick="filter()">Search</button>
+				</form>
+			</div>
+			<div class="col-2 d-flex justify-content-center">
+				<a href="/users/<%=user._id%>/new"><button class="btn btn-success">Create</button></a>
+			</div>
+			<div class="col-2 d-flex justify-content-center d-block d-xl-none">
+				<button
+					class="btn btn-primary"
+					type="button"
+					data-bs-toggle="offcanvas"
+					data-bs-target="#offcanvasExample"
+					aria-controls="offcanvasExample"
+				>
+					View Order
+				</button>
+			</div>
+		</div>
+		<div
+			class="rounded px-3"
+			style="min-height: 90%; max-height: 90%; overflow-y: scroll"
+			id="productList"
+		>
+			<% for(let product of products) {%>
+			<div class="card shadow border-light mb-3 text-dark" name="<%=product.name%>">
+				<div class="card-header">
+					<span class="text-muted">Category: </span><%=product.category%>
+				</div>
+				<div class="row no-gutters">
+					<div class="card-body col-7 ps-5">
+						<h5 class="card-title"><%=product.name%> - $<%=product.startingPrice%></h5>
+						<p class="card-text"><%= product.description %></p>
+						<% let total = 0; for(let size of product.stock){ total += size.quantity; } %>
+						<h6 class="card-text">Total in stock: <%=total%></h6>
+						<a href="/users/<%=user._id%>/<%=product._id%>/viewProduct">
+							<button class="btn btn-primary">Add To Order</button>
+						</a>
+					</div>
+					<div class="col-5 text-end">
+						<img src="/images.jpeg" alt="" class="rounded-end" />
+					</div>
+				</div>
+			</div>
+			<% } %>
+		</div>
+	</div>
+	<!-- THIS IS THE OFFCANVAS, ONLY ACTIVE WHEN SCREEN IS SMALL ENOUGH -->
+	<div
+		class="offcanvas offcanvas-start d-block d-xl-none"
+		tabindex="-1"
+		style="width: 100vw"
+		id="offcanvasExample"
+		aria-labelledby="offcanvasExampleLabel"
+	>
+		<div class="offcanvas-header">
+			<h5 class="offcanvas-title" id="offcanvasExampleLabel">Order</h5>
+			<button
+				type="button"
+				class="btn-close text-reset"
+				data-bs-dismiss="offcanvas"
+				aria-label="Close"
+			></button>
+		</div>
+
+		<div class="offcanvas-body">
+			<div class="row justify-content-center">
+				<div class="col-10">
+					<% for( let i = 0; i < productList.length; i++ ) { %>
+					<div class="row shadow rounded-end mb-3" style="max-height: 150px">
+						<div class="col-3 px-0">
+							<img
+								src="/images/images.jpeg"
+								alt=""
+								class="rounded-start"
+								style="max-width: 100%; max-height: 100px"
+							/>
+						</div>
+						<div class="col-9 pt-3">
+							<h5>
+								<b><%=productList[i].product.name%></b> | <%=productList[i].alternate.alternate%> -
+								$<%=productList[i].alternate.price%>
+							</h5>
+							<div class="row">
+								<label for="quantity" class="col-sm-3 col-form-label">Quantity:</label>
+								<div class="col-sm-8">
+									<div class="row">
+										<div class="col-8">
+											<form
+												action="/updateCartQuantity/<%=productList[i].alternate._id%>?_method=PUT"
+												method="POST"
+												class="row"
+											>
+												<div class="col-6 p-0">
+													<input
+														type="number"
+														class="form-control"
+														id="quantity"
+														name="quantity"
+														min="1"
+														max="<%=productList[i].alternate.quantity%>"
+														value="<%=productList[i].quantity%>"
+													/>
+												</div>
+												<div class="col-6">
+													<button class="btn btn-warning">Update</button>
+												</div>
+											</form>
+										</div>
+										<div class="col-4">
+											<form
+												action="/users/<%=user._id%>/removeFromCart/<%=productList[i].product._id%>/<%=productList[i].alternate._id%>?_method=DELETE"
+												class=""
+												method="POST"
+											>
+												<button class="btn btn-outline-danger px-1 ms-2">Remove</button>
+											</form>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<% } %>
+				</div>
+			</div>
+			<hr />
+			<div>
+				<div class="row">
+					<div class="col">
+						<h5>Subtotal:</h5>
+						<h5>Shipping:</h5>
+						<h5>Tax:</h5>
+					</div>
+					<div class="col">
+						<h5>$<%= details.total %></h5>
+						<h5>$0</h5>
+						<h5>$0</h5>
+					</div>
+				</div>
+				<hr />
+				<div class="row">
+					<div class="col"><h5>Total:</h5></div>
+					<div class="col"><h5>$<%= details.total %></h5></div>
+				</div>
+				<div class="row justify-content-center">
+					<div class="col-3">
+						<form action="/users/<%=user._id%>/selectPayment" method="POST">
+							<button class="btn btn-sm btn-warning">Continue to Payment</button>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- THIS IS THE SPLIT SCREEN DISPLAY OF THE ORDER CONTENTS -->
+	<div class="col-6 d-none d-xl-block">
+		<div class="row justify-content-center">
+			<div class="col-10">
+				<% for( let i = 0; i < productList.length; i++ ) { %>
+				<div class="row shadow rounded-end mb-3" style="max-height: 150px">
+					<div class="col-3 px-0">
+						<img
+							src="/images/images.jpeg"
+							alt=""
+							class="rounded-start"
+							style="max-width: 100%; max-height: 100px"
+						/>
+					</div>
+					<div class="col-9 pt-3">
+						<h5>
+							<b><%=productList[i].product.name%></b> | <%=productList[i].alternate.alternate%> -
+							$<%=productList[i].alternate.price%>
+						</h5>
+						<div class="row">
+							<label for="quantity" class="col-sm-3 col-form-label">Quantity:</label>
+							<div class="col-sm-8">
+								<div class="row">
+									<div class="col-8">
+										<form
+											action="/updateCartQuantity/<%=productList[i].alternate._id%>?_method=PUT"
+											method="POST"
+											class="row"
+										>
+											<div class="col-6 p-0">
+												<input
+													type="number"
+													class="form-control"
+													id="quantity"
+													name="quantity"
+													min="1"
+													max="<%=productList[i].alternate.quantity%>"
+													value="<%=productList[i].quantity%>"
+												/>
+											</div>
+											<div class="col-6">
+												<button class="btn btn-warning">Update</button>
+											</div>
+										</form>
+									</div>
+									<div class="col-4">
+										<form
+											action="/users/<%=user._id%>/removeFromCart/<%=productList[i].product._id%>/<%=productList[i].alternate._id%>?_method=DELETE"
+											class=""
+											method="POST"
+										>
+											<button class="btn btn-outline-danger px-1 ms-2">Remove</button>
+										</form>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<% } %>
+			</div>
+		</div>
+		<hr />
+		<div>
+			<div class="row">
+				<div class="col">
+					<h5>Subtotal:</h5>
+					<h5>Shipping:</h5>
+					<h5>Tax:</h5>
+				</div>
+				<div class="col">
+					<h5>$<%= details.total %></h5>
+					<h5>$0</h5>
+					<h5>$0</h5>
+				</div>
+			</div>
+			<hr />
+			<div class="row">
+				<div class="col"><h5>Total:</h5></div>
+				<div class="col"><h5>$<%= details.total %></h5></div>
+			</div>
+			<div class="row justify-content-center">
+				<div class="col-3">
+					<form action="/users/<%=user._id%>/selectPayment" method="POST">
+						<button class="btn btn-sm btn-warning">Continue to Payment</button>
+					</form>
+				</div>
+			</div>
+		</div>
+		<!-- This is where the req.session.cart will be displayed and totaled -->
+	</div>
+</div>
+
+<script>
+	function filter() {
+		console.log('click');
+		const text = document.getElementById('search').value;
+		const List = document.getElementById('productList');
+		const children = List.children;
+		for (let child of children) {
+			if (child.getAttribute('name').includes(text)) {
+				child.classList.remove('d-none');
+			} else {
+				child.classList.add('d-none');
+			}
+		}
+	}
+</script>

@@ -1,95 +1,62 @@
 const express = require('express');
 const router = express.Router();
 const catchAsync = require('../utils/catchAsync');
-const User = require('../models/User');
 const { isLoggedIn, verifyUser } = require('../middleware');
-const { getUser } = require('../database/AccountsDB');
+
 const {
-	getAllProducts,
-	createProduct,
-	getProduct,
-	deleteProduct,
-	updateProduct,
-} = require('../database/UserDB');
+	deleteProductMethod,
+	modifyProduct,
+	renderEdit,
+	renderViewProduct,
+	renderViewProductForCart,
+	createNewProduct,
+	renderNewProduct,
+	removeAlternateFromCart,
+	renderNewOrder,
+	addAlternateToOrder,
+	renderOrders,
+	renderDashboard,
+} = require('../controllers/cmsController');
 
 //renders the dashboard populated with user '/:id' information pulled from database
-router.get(
-	'/:id/dashboard',
-	isLoggedIn,
-	verifyUser,
-	catchAsync(async (req, res) => {
-		const user = await getUser(req.params.id);
-		const products = await getAllProducts(user.username);
-		//changed rendered product list by using req.locals (idea)
-		res.render('users/dashboard', { user, products });
-	}),
-);
+router.get('/:id/dashboard', isLoggedIn, verifyUser, catchAsync(renderDashboard));
+
+router.get('/:id/orders', isLoggedIn, verifyUser, catchAsync(renderOrders));
 
 router.get(
-	'/:id/new',
+	'/:id/:productId/viewProduct',
 	isLoggedIn,
 	verifyUser,
-	catchAsync(async (req, res) => {
-		res.render('users/newProduct');
-	}),
+	catchAsync(renderViewProductForCart),
 );
 
 router.post(
-	'/:id/new',
+	'/:id/:productId/:alternateId/addToOrder',
 	isLoggedIn,
 	verifyUser,
-	catchAsync(async (req, res) => {
-		const product = req.body;
-		const newProduct = await createProduct(req.user.username, product);
-		const { id } = req.params;
-		req.flash('success', 'New Product Created');
-		res.redirect(`/users/${id}/dashboard`);
-	}),
+	catchAsync(addAlternateToOrder),
 );
 
-router.get(
-	'/:id/:productId',
-	isLoggedIn,
-	verifyUser,
-	catchAsync(async (req, res) => {
-		const { id, productId } = req.params;
-		const user = await getUser(id);
-		const product = await getProduct(req.user.username, productId);
-		res.render('users/viewProduct', { product });
-	}),
-);
-
-router.get(
-	'/:id/:productId/edit',
-	isLoggedIn,
-	verifyUser,
-	catchAsync(async (req, res) => {
-		const { id, productId } = req.params;
-		const product = await getProduct(req.user.username, productId);
-		res.render('users/editProduct', { product });
-	}),
-);
-
-router.post(
-	'/:id/:productId/edit',
-	isLoggedIn,
-	verifyUser,
-	catchAsync(async (req, res) => {
-		const { id, productId } = req.params;
-		const product = await updateProduct(req.user.username, productId, req.body);
-		res.redirect(`/users/${id}/${productId}`);
-	}),
-);
+router.get('/:id/newOrder', isLoggedIn, verifyUser, catchAsync(renderNewOrder));
 
 router.delete(
-	'/:id/:productId',
+	'/:id/removeFromCart/:productId/:alternateId',
 	isLoggedIn,
 	verifyUser,
-	catchAsync(async (req, res) => {
-		const { id, productId } = req.params;
-		deleteProduct(req.user.username, productId);
-		res.redirect(`/users/${id}/dashboard`);
-	}),
+	catchAsync(removeAlternateFromCart),
 );
+
+router
+	.route('/:id/new')
+	.get(isLoggedIn, verifyUser, catchAsync(renderNewProduct))
+	.post(isLoggedIn, verifyUser, catchAsync(createNewProduct));
+
+router
+	.route('/:id/:productId')
+	.get(isLoggedIn, verifyUser, catchAsync(renderViewProduct))
+	.post(isLoggedIn, verifyUser, catchAsync(modifyProduct))
+	.delete(isLoggedIn, verifyUser, catchAsync(deleteProductMethod));
+
+router.get('/:id/:productId/edit', isLoggedIn, verifyUser, catchAsync(renderEdit));
 
 module.exports = router;

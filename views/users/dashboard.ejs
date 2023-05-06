@@ -1,4 +1,4 @@
-<% layout('layout/boilerplate') %>
+<% layout('layout/userBoilerplate') %>
 <h1 class="text-center">Dashboard for <%=user.username%></h1>
 <div class="row ps-2">
 	<div class="col-6" style="min-height: 75vh; max-height: 75vh">
@@ -59,7 +59,10 @@
 			<% } %>
 		</div>
 	</div>
-	<div class="col-6"></div>
+	<div class="col-6 px-5" style="position: relative; height: 40vh; width: 50vw">
+		<%- include('./partials/salesChart') %>
+		<a href="newOrder"><button class="btn btn-outline-primary">New Order</button></a>
+	</div>
 </div>
 
 <script>
