@@ -157,6 +157,13 @@
 					<div class="col"><h5>Total:</h5></div>
 					<div class="col"><h5>$<%= details.total %></h5></div>
 				</div>
+				<div class="row justify-content-center">
+					<div class="col-3">
+						<form action="/users/<%=user._id%>/selectPayment" method="POST">
+							<button class="btn btn-sm btn-warning">Continue to Payment</button>
+						</form>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -208,7 +215,7 @@
 									<div class="col-4">
 										<form
 											action="/users/<%=user._id%>/removeFromCart/<%=productList[i].product._id%>/<%=productList[i].alternate._id%>?_method=DELETE"
-											class="col-sm-3"
+											class=""
 											method="POST"
 										>
 											<button class="btn btn-outline-danger px-1 ms-2">Remove</button>
@@ -240,6 +247,13 @@
 			<div class="row">
 				<div class="col"><h5>Total:</h5></div>
 				<div class="col"><h5>$<%= details.total %></h5></div>
+			</div>
+			<div class="row justify-content-center">
+				<div class="col-3">
+					<form action="/users/<%=user._id%>/selectPayment" method="POST">
+						<button class="btn btn-sm btn-warning">Continue to Payment</button>
+					</form>
+				</div>
 			</div>
 		</div>
 		<!-- This is where the req.session.cart will be displayed and totaled -->

@@ -60,34 +60,11 @@
 		</div>
 	</div>
 	<div class="col-6 px-5" style="position: relative; height: 40vh; width: 50vw">
-		<div>
-			<canvas class="shadow w-100 h-100" id="myChart"></canvas>
-		</div>
+		<%- include('./partials/salesChart') %>
 		<a href="newOrder"><button class="btn btn-outline-primary">New Order</button></a>
 	</div>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
-<script>
-	const ctx = document.getElementById('myChart');
-	const labels = ['january', 'february', 'march', 'april', 'may', 'june', 'july'];
-	new Chart(ctx, {
-		type: 'line',
-		data: {
-			labels: labels,
-			datasets: [
-				{
-					label: 'My First Dataset',
-					data: [65, 59, 80, 81, 56, 55, 40],
-					fill: false,
-					borderColor: 'rgb(75, 192, 192)',
-					tension: 0.1,
-				},
-			],
-		},
-	});
-</script>
 <script>
 	function filter() {
 		console.log('click');
