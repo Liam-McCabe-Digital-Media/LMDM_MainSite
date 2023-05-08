@@ -6,6 +6,7 @@ const {
 	renderLogin,
 	renderRegister,
 	loginUser,
+	logoutUser,
 	registerUser,
 } = require('../controllers/userController');
 

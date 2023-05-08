@@ -1,4 +1,4 @@
-const { getAllProducts, getProduct } = require('../../database/UserDB');
+const { getAllProducts, getProduct } = require('../database/UserDB');
 
 module.exports.getProductFromDB = async (req, res) => {
 	const id = req.params.id;
