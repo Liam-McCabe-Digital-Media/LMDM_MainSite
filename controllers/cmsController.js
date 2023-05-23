@@ -1,29 +1,31 @@
 const express = require('express');
-const { getUser } = require('../database/AccountsDB');
+const { getUser } = require('../newDatabase/AccountsDB');
 const {
 	getAllProducts,
 	createProduct,
 	getProduct,
 	deleteProduct,
 	updateProduct,
-} = require('../database/UserDB');
+} = require('../newDatabase/ProductDB');
 const { getOrderObject } = require('../utils/orders');
 
 module.exports.deleteProductMethod = async (req, res) => {
 	const { id, productId } = req.params;
-	deleteProduct(req.user.username, productId);
+	deleteProduct(productId);
 	res.redirect(`/users/${id}/dashboard`);
 };
 
 module.exports.modifyProduct = async (req, res) => {
 	const { id, productId } = req.params;
-	const product = await updateProduct(req.user.username, productId, req.body);
+	let updated = req.body;
+	updated.store = id;
+	const product = await updateProduct(productId, updated);
 	res.redirect(`/users/${id}/${productId}`);
 };
 
 module.exports.renderEdit = async (req, res) => {
 	const { id, productId } = req.params;
-	const product = await getProduct(req.user.username, productId);
+	const product = await getProduct(productId);
 	res.render('users/editProduct', { product });
 };
 
@@ -36,7 +38,8 @@ module.exports.renderViewProduct = async (req, res) => {
 
 module.exports.createNewProduct = async (req, res) => {
 	const product = req.body;
-	const newProduct = await createProduct(req.user.username, product);
+	product.store = req.user._id;
+	const newProduct = await createProduct(req.user._id, product);
 	const { id } = req.params;
 	req.flash('success', 'New Product Created');
 	res.redirect(`/users/${id}/dashboard`);
@@ -59,7 +62,7 @@ module.exports.removeAlternateFromCart = (req, res) => {
 
 module.exports.renderNewOrder = async (req, res) => {
 	const user = await getUser(req.params.id);
-	const products = await getAllProducts(user.username);
+	const products = await getAllProducts(user._id);
 	if (!req.session.cart) req.session.cart = [];
 	req.session.cartDetails = {
 		total: 0,
@@ -97,7 +100,7 @@ module.exports.addAlternateToOrder = async (req, res) => {
 module.exports.renderViewProductForCart = async (req, res) => {
 	const { id, productId } = req.params;
 	const user = await getUser(id);
-	const product = await getProduct(req.user.username, productId);
+	const product = await getProduct(productId);
 	res.render('users/viewProduct', { user, product, cart: true });
 };
 
@@ -108,7 +111,7 @@ module.exports.renderOrders = async (req, res) => {
 
 module.exports.renderDashboard = async (req, res) => {
 	const user = await getUser(req.params.id);
-	const products = await getAllProducts(user.username);
+	const products = await getAllProducts(user._id);
 	//changed rendered product list by using req.locals (idea)
 	res.render('users/dashboard', { user, products });
 };

@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const catchAsync = require('../../utils/catchAsync');
-const { verifyKey, postVerifyKey } = require('../../database/KeysDB');
+const { verifyKey, postVerifyKey } = require('../../newDatabase/KeysDB');
 
 const {
 	getProductFromDB,

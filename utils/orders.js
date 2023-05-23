@@ -1,6 +1,6 @@
 const ExpressError = require('./ExpressError');
-const { getUser } = require('../database/AccountsDB');
-const { getProduct } = require('../database/UserDB');
+const { getUser } = require('../newDatabase/AccountsDB');
+const { getProduct } = require('../newDatabase/ProductDB');
 
 module.exports.getOrderObject = async (userId, productId, alternateId, quantity) => {
 	const user = await getUser(userId);

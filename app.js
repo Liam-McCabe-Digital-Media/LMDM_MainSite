@@ -19,7 +19,7 @@ const passport = require('passport');
 const LocalStrategy = require('passport-local');
 const connectDB = require('./services/mongo.connect');
 //database related imports
-const User = require('./models/User');
+const User = require('./newModels/User');
 const db = connectDB();
 
 //OLD MONGOOSE STATIC CONNECTION ---- NOT USED IN MULTI-TENANT APPLICATION
