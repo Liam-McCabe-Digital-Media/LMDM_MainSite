@@ -11,7 +11,8 @@ const mongoOptions = {
 //returns a promise containing the mongoose connection
 const connectDB = () => {
 	return new Promise((resolve, reject) => {
-		const mongoURL = `mongodb://127.0.0.1/UserInformation`;
+		const mongoURL = `mongodb://127.0.0.1/LMDM_Database`;
+		// const mongoURL = `mongodb://127.0.0.1/UserInformation`;
 		mongoose
 			.connect(mongoURL, mongoOptions)
 			.then((conn) => {

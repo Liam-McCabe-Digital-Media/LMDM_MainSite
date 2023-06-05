@@ -1,0 +1,14 @@
+req.session({
+    ...
+    cart: [
+        {
+            quantity: Number,
+            product: ProductObject,
+            alternate: AlternateObject
+        }
+    ],
+    cartDetails: {
+        total: Number, //total cost for the cart
+        itemCount: Number, //total num of items in the cart
+    }
+})

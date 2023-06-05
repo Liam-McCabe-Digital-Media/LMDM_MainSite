@@ -1,9 +1,10 @@
-const { getAllProducts, getProduct } = require('../../database/UserDB');
+const { getAllProducts, getProduct } = require('../newDatabase/ProductDB');
+const User = require('../newModels/User');
 
 module.exports.getProductFromDB = async (req, res) => {
 	const id = req.params.id;
 	const { store } = req.body;
-	const product = await getProduct(store, id);
+	const product = await getProduct(id);
 	return res.json(product);
 };
 
@@ -21,7 +22,7 @@ module.exports.addProductToCart = async (req, res) => {
 	console.log(alternateID);
 	console.log(productID);
 	let alternate = null;
-	const product = await getProduct(store, productID);
+	const product = await getProduct(productID);
 	const fullProduct = await product.populate('stock');
 	if (alternateID) {
 		console.log('if');
@@ -38,6 +39,8 @@ module.exports.addProductToCart = async (req, res) => {
 
 module.exports.getAllProductsFromDB = async (req, res) => {
 	const { store } = req.body;
-	const products = await getAllProducts(store);
+	const user = await User.findOne({ username: store });
+	const products = await getAllProducts(user._id);
+	console.log(products);
 	return res.json(products);
 };

@@ -1,0 +1,151 @@
+<% layout('layout/userBoilerplate') %> <% if (!user.address) { %>
+<div class="row my-5">
+	<form
+		action="/users/<%=user._id%>/profile/editShipping"
+		method="POST"
+		class="col-8 offset-2 rounded shadow"
+	>
+		<div class="row">
+			<div class="col text-start align-self-center fs-5">
+				<a href="/users/<%=user._id%>/profile" style="text-decoration: none"
+					><i class="bi bi-caret-left"></i>Back</a
+				>
+			</div>
+			<div class="col-8"><h1 class="display-4 mb-2 text-center">Edit Shipping</h1></div>
+			<div class="col"></div>
+		</div>
+		<div class="row">
+			<div class="col">
+				<label for="street" class="form-label">Street</label>
+				<input
+					class="form-control mb-3"
+					id="street"
+					name="street"
+					type="text"
+					placeholder="Street"
+					required
+				/>
+				<label for="streetTwo" class="form-label">Street Two</label>
+				<input
+					class="form-control mb-3"
+					id="streetTwo"
+					name="streetTwo"
+					type="text"
+					placeholder="Street Two"
+				/>
+				<label for="city" class="form-label">City</label>
+				<input
+					class="form-control mb-3"
+					id="city"
+					name="city"
+					type="text"
+					placeholder="City"
+					required
+				/>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col">
+				<label for="zipcode" class="form-label">Zipcode</label
+				><input
+					class="form-control mb-3"
+					id="zipcode"
+					name="zipcode"
+					type="text"
+					placeholder="Zipcode"
+					required
+				/>
+			</div>
+			<div class="col">
+				<label for="state" class="form-label">State</label
+				><input
+					class="form-control mb-3"
+					id="state"
+					name="state"
+					type="text"
+					placeholder="State"
+					required
+				/>
+			</div>
+		</div>
+		<div class="row d-flex justify-content-end mb-3">
+			<div class="col-3">
+				<button class="btn btn-primary align-self-end">Save Information</button>
+			</div>
+		</div>
+	</form>
+</div>
+<% } else {%>
+<div class="row my-5">
+	<form
+		action="/users/<%=user._id%>/profile/editShipping"
+		method="POST"
+		class="col-8 offset-2 rounded shadow"
+	>
+		<div class="row">
+			<div class="col text-start align-self-center fs-5">
+				<a href="/users/<%=user._id%>/profile" style="text-decoration: none"
+					><i class="bi bi-caret-left"></i>Back</a
+				>
+			</div>
+			<div class="col-8"><h1 class="display-4 mb-2 text-center">Edit Shipping</h1></div>
+			<div class="col"></div>
+		</div>
+		<div class="row">
+			<div class="col">
+				<label for="street" class="form-label">Street</label>
+				<input
+					class="form-control mb-3"
+					id="street"
+					type="text"
+					placeholder="Street"
+					value="<%=user.address.street%>"
+				/>
+				<label for="streetTwo" class="form-label">Street Two</label>
+				<input
+					class="form-control mb-3"
+					id="streetTwo"
+					type="text"
+					placeholder="Street Two"
+					value="<%=user.address.streetTwo%>"
+				/>
+				<label for="city" class="form-label">City</label>
+				<input
+					class="form-control mb-3"
+					id="city"
+					type="text"
+					placeholder="City"
+					value="<%=user.address.city%>"
+				/>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col">
+				<label for="zipcode" class="form-label">Zipcode</label
+				><input
+					class="form-control mb-3"
+					id="zipcode"
+					type="text"
+					placeholder="Zipcode"
+					value="<%=user.address.zipcode%>"
+				/>
+			</div>
+			<div class="col">
+				<label for="state" class="form-label">State</label
+				><input
+					class="form-control mb-3"
+					id="state"
+					type="text"
+					placeholder="State"
+					value="<%=user.address.state%>"
+				/>
+			</div>
+		</div>
+		<div class="row d-flex justify-content-end mb-3">
+			<div class="col-3">
+				<button class="btn btn-primary align-self-end">Save Information</button>
+			</div>
+		</div>
+	</form>
+</div>
+<%}%>

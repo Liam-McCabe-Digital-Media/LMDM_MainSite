@@ -24,6 +24,7 @@
 			</li>
 		</ul>
 		<span class="navbar-nav ms-auto">
+			<a href="/users/<%=currentUser._id%>/profile" class="nav-link">Profile</a>
 			<% if(!currentUser) { %>
 			<a href="/login" class="nav-link">Login</a>
 			<% }else{ %>

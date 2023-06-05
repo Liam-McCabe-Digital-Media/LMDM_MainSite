@@ -1,29 +1,32 @@
 const express = require('express');
-const { getUser } = require('../database/AccountsDB');
+const { getUser } = require('../newDatabase/AccountsDB');
 const {
 	getAllProducts,
 	createProduct,
 	getProduct,
 	deleteProduct,
 	updateProduct,
-} = require('../database/UserDB');
+} = require('../newDatabase/ProductDB');
 const { getOrderObject } = require('../utils/orders');
+const { createAddress } = require('../newDatabase/AddressDB');
 
 module.exports.deleteProductMethod = async (req, res) => {
 	const { id, productId } = req.params;
-	deleteProduct(req.user.username, productId);
+	deleteProduct(productId);
 	res.redirect(`/users/${id}/dashboard`);
 };
 
 module.exports.modifyProduct = async (req, res) => {
 	const { id, productId } = req.params;
-	const product = await updateProduct(req.user.username, productId, req.body);
+	let updated = req.body;
+	updated.store = id;
+	const product = await updateProduct(productId, updated);
 	res.redirect(`/users/${id}/${productId}`);
 };
 
 module.exports.renderEdit = async (req, res) => {
 	const { id, productId } = req.params;
-	const product = await getProduct(req.user.username, productId);
+	const product = await getProduct(productId);
 	res.render('users/editProduct', { product });
 };
 
@@ -36,7 +39,8 @@ module.exports.renderViewProduct = async (req, res) => {
 
 module.exports.createNewProduct = async (req, res) => {
 	const product = req.body;
-	const newProduct = await createProduct(req.user.username, product);
+	product.store = req.user._id;
+	const newProduct = await createProduct(req.user._id, product);
 	const { id } = req.params;
 	req.flash('success', 'New Product Created');
 	res.redirect(`/users/${id}/dashboard`);
@@ -54,12 +58,12 @@ module.exports.removeAlternateFromCart = (req, res) => {
 		1,
 	);
 	//need to fix redirect giving cannot change headers
-	return res.redirect(`/users/${id}/newOrder`);
+	return res.redirect(`/users/${id}/orders/newOrder`);
 };
 
 module.exports.renderNewOrder = async (req, res) => {
 	const user = await getUser(req.params.id);
-	const products = await getAllProducts(user.username);
+	const products = await getAllProducts(user._id);
 	if (!req.session.cart) req.session.cart = [];
 	req.session.cartDetails = {
 		total: 0,
@@ -78,6 +82,18 @@ module.exports.renderNewOrder = async (req, res) => {
 	});
 };
 
+module.exports.renderPaymentSelect = async (req, res) => {
+	const { id } = req.params;
+	const user = await getUser(id);
+	res.render('users/paymentSelect', { user });
+};
+
+module.exports.renderShippingInfo = async (req, res) => {
+	const { id } = req.params;
+	const user = await getUser(id);
+	res.render('users/shippingInfo', { user });
+};
+
 module.exports.addAlternateToOrder = async (req, res) => {
 	const { id, productId, alternateId } = req.params;
 	console.log(req.body.quantity);
@@ -91,13 +107,28 @@ module.exports.addAlternateToOrder = async (req, res) => {
 		console.log('cart:' + req.session.cart);
 		req.flash('success', `added ${orderObject.product.name} to order`);
 	}
-	res.redirect(`/users/${id}/newOrder`);
+	res.redirect(`/users/${id}/orders/newOrder`);
+};
+
+module.exports.updateCartQuantity = async (req, res) => {
+	const { id, alternateId } = req.params;
+	const { quantity } = req.body;
+	req.session.cart.find((item) => {
+		if (item.alternate._id === alternateId) {
+			if (item.alternate.quantity >= quantity) {
+				item.quantity = quantity;
+			} else {
+				req.flash('error', 'Quantity not available');
+			}
+		}
+	});
+	res.redirect(`/users/${id}/orders/newOrder`);
 };
 
 module.exports.renderViewProductForCart = async (req, res) => {
 	const { id, productId } = req.params;
 	const user = await getUser(id);
-	const product = await getProduct(req.user.username, productId);
+	const product = await getProduct(productId);
 	res.render('users/viewProduct', { user, product, cart: true });
 };
 
@@ -108,7 +139,32 @@ module.exports.renderOrders = async (req, res) => {
 
 module.exports.renderDashboard = async (req, res) => {
 	const user = await getUser(req.params.id);
-	const products = await getAllProducts(user.username);
+	const products = await getAllProducts(user._id);
 	//changed rendered product list by using req.locals (idea)
 	res.render('users/dashboard', { user, products });
+};
+
+module.exports.renderProfile = async (req, res) => {
+	const user = await getUser(req.params.id);
+	await user.populate('address');
+	res.render('users/profile', { user });
+};
+
+module.exports.renderEditShipping = async (req, res) => {
+	const user = await getUser(req.params.id);
+	if (user.address) await user.populate('address');
+	res.render('users/editShipping', { user });
+};
+
+module.exports.saveShippingInfo = async (req, res) => {
+	const user = await getUser(req.params.id);
+	await user.populate('address');
+	if (user.address) {
+		console.log(user.address);
+	} else {
+		let newAddress = await createAddress(req.body);
+		user.address = newAddress._id;
+		await user.save();
+	}
+	res.redirect(`/users/${user._id}/profile`);
 };

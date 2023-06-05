@@ -1,8 +1,5 @@
-const User = require('../models/User');
-const { generateAPIKey } = require('../database/KeysDB');
-const { switchDB, getDBModel } = require('../database/index');
-
-const UserSchemas = new Map([['User', User.schema]]);
+const User = require('../newModels/User');
+const { generateAPIKey } = require('../newDatabase/KeysDB');
 
 module.exports.renderLogin = (req, res) => {
 	res.render('authenticate/login');
@@ -21,11 +18,9 @@ module.exports.loginUser = (req, res) => {
 
 module.exports.registerUser = async (req, res, next) => {
 	try {
-		const userDB = await switchDB('UserInformation', UserSchemas);
-		const userModel = await getDBModel(userDB, 'User');
 		const { firstName, lastName, email, username, password } = req.body.user;
-		const user = new userModel({ firstName, lastName, email, username });
-		const registeredUser = await userModel.register(user, password);
+		const user = new User({ firstName, lastName, email, username });
+		const registeredUser = await User.register(user, password);
 		const apiKey = await generateAPIKey(registeredUser);
 		registeredUser.key = apiKey;
 		await registeredUser.save();
