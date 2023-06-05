@@ -32,7 +32,9 @@
 						<p class="card-text"><%= product.description %></p>
 						<% let total = 0; for(let size of product.stock){ total += size.quantity; } %>
 						<h6 class="card-text">Total in stock: <%=total%></h6>
-						<a href="/users/<%= user._id %>/<%=product._id%>" class="btn btn-primary">View</a>
+						<a href="/users/<%= user._id %>/<%=product._id%>/viewProduct" class="btn btn-primary"
+							>View</a
+						>
 						<a href="/users/<%= user._id %>/<%=product._id%>/edit" class="btn btn-primary">Edit</a>
 					</div>
 					<div class="col-5 text-end">
@@ -40,28 +42,12 @@
 					</div>
 				</div>
 			</div>
-			<!-- <div class="card" style="width: 500px">
-					<div class="row no-gutters">
-						<div class="col-sm-5">
-							<img class="card-img" src="/images.jpeg" alt="Suresh Dasari Card" />
-						</div>
-						<div class="col-sm-7">
-							<div class="card-body">
-								<h5 class="card-title">Suresh Dasari</h5>
-								<p class="card-text">
-									Suresh Dasari is a founder and technical lead developer in tutlane.
-								</p>
-								<a href="#" class="btn btn-primary">View Profile</a>
-							</div>
-						</div>
-					</div>
-				</div> -->
 			<% } %>
 		</div>
 	</div>
 	<div class="col-6 px-5" style="position: relative; height: 40vh; width: 50vw">
 		<%- include('./partials/salesChart') %>
-		<a href="newOrder"><button class="btn btn-outline-primary">New Order</button></a>
+		<a href="orders/newOrder"><button class="btn btn-outline-primary">New Order</button></a>
 	</div>
 </div>
 

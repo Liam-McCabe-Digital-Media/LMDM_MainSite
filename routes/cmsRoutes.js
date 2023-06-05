@@ -12,16 +12,32 @@ const {
 	createNewProduct,
 	renderNewProduct,
 	removeAlternateFromCart,
-	renderNewOrder,
 	addAlternateToOrder,
-	renderOrders,
 	renderDashboard,
+	renderNewOrder,
+	renderOrders,
+	renderPaymentSelect,
+	renderShippingInfo,
+	updateCartQuantity,
+	renderProfile,
+	renderEditShipping,
+	saveShippingInfo,
 } = require('../controllers/cmsController');
+
+router.get('/:id/profile', isLoggedIn, verifyUser, catchAsync(renderProfile));
+router.get('/:id/profile/editShipping', isLoggedIn, verifyUser, catchAsync(renderEditShipping));
+router.post('/:id/profile/editShipping', isLoggedIn, verifyUser, catchAsync(saveShippingInfo));
+
+router.get('/:id/orders', isLoggedIn, verifyUser, catchAsync(renderOrders));
+
+router.get('/:id/orders/newOrder', isLoggedIn, verifyUser, catchAsync(renderNewOrder));
+
+router.get('/:id/orders/selectPayment', isLoggedIn, verifyUser, catchAsync(renderPaymentSelect));
+
+router.get('/:id/orders/shippingInfo', isLoggedIn, verifyUser, catchAsync(renderShippingInfo));
 
 //renders the dashboard populated with user '/:id' information pulled from database
 router.get('/:id/dashboard', isLoggedIn, verifyUser, catchAsync(renderDashboard));
-
-router.get('/:id/orders', isLoggedIn, verifyUser, catchAsync(renderOrders));
 
 router.get(
 	'/:id/:productId/viewProduct',
@@ -37,8 +53,6 @@ router.post(
 	catchAsync(addAlternateToOrder),
 );
 
-router.get('/:id/newOrder', isLoggedIn, verifyUser, catchAsync(renderNewOrder));
-
 router.delete(
 	'/:id/removeFromCart/:productId/:alternateId',
 	isLoggedIn,
@@ -46,6 +60,12 @@ router.delete(
 	catchAsync(removeAlternateFromCart),
 );
 
+router.put(
+	'/:id/updateQuantity/:alternateId',
+	isLoggedIn,
+	verifyUser,
+	catchAsync(updateCartQuantity),
+);
 router
 	.route('/:id/new')
 	.get(isLoggedIn, verifyUser, catchAsync(renderNewProduct))

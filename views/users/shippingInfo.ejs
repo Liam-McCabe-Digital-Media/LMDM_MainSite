@@ -1,0 +1,35 @@
+<% layout('layout/userBoilerplate') %>
+
+<div class="row my-5">
+	<form action="" class="col-8 offset-2 rounded shadow">
+		<div class="row">
+			<div class="col text-start align-self-center fs-5">
+				<a href="/users/<%=user._id%>/orders/newOrder" style="text-decoration: none"
+					><i class="bi bi-caret-left"></i>Back to Order</a
+				>
+			</div>
+			<div class="col"><h1 class="display-4 mb-2 text-center">Shipping Info</h1></div>
+			<div class="col"></div>
+		</div>
+		<div class="row mb-3 pt-3">
+			<div class="col"><input class="form-control" type="text" placeholder="First Name" /></div>
+			<div class="col"><input class="form-control" type="text" placeholder="Last Name" /></div>
+		</div>
+		<div class="row">
+			<div class="col">
+				<input class="form-control mb-3" type="text" placeholder="Address" />
+				<input class="form-control mb-3" type="text" placeholder="Address 2" />
+				<input class="form-control mb-3" type="text" placeholder="City" />
+			</div>
+		</div>
+		<div class="row">
+			<div class="col"><input class="form-control mb-3" type="text" placeholder="Zipcode" /></div>
+			<div class="col"><input class="form-control mb-3" type="text" placeholder="State" /></div>
+		</div>
+		<div class="row d-flex justify-content-end mb-3">
+			<div class="col-3">
+				<button class="btn btn-primary align-self-end">Continue to Overview</button>
+			</div>
+		</div>
+	</form>
+</div>

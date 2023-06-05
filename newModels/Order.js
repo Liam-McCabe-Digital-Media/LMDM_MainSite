@@ -6,18 +6,53 @@ const OrderSchema = new Schema({
 		type: mongoose.Schema.Types.ObjectId,
 		required: true,
 	},
-	product: {
-		type: mongoose.Schema.Types.ObjectId,
-		ref: 'Product',
+	orderContent: {
+		type: Object,
 		required: true,
 	},
-	alternateID: {
-		type: String,
+	orderDetails: {
+		type: Object,
 		required: true,
 	},
-	quantity: {
-		type: Number,
-		required: true,
+	payment: {
+		recieved: {
+			type: Boolean,
+			required: true,
+			default: false,
+		},
+		method: {
+			type: String,
+			enum: ['Cash', 'Digital', 'Stripe', 'Other'],
+			default: 'Other',
+			required: true,
+		},
+		date: {
+			type: Date,
+			default: Date.now,
+			required: true,
+		},
+	},
+	fulfillment: {
+		fulfilled: {
+			type: Boolean,
+			required: true,
+			default: false,
+		},
+		method: {
+			type: String,
+			enum: ['inPerson', 'UPS', 'other'],
+			default: 'other',
+			required: true,
+		},
+		Date: {
+			type: Date,
+			default: Date.now,
+			required: true,
+		},
+		planned: {
+			type: Date,
+			required: false,
+		},
 	},
 });
 

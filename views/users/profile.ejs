@@ -1,0 +1,52 @@
+<% layout('layout/userBoilerplate') %>
+<div class="row my-4">
+	<div class="col-6">
+		<div class="row justify-content-center">
+			<div class="col-8 shadow rounded py-3">
+				<h3 class="text-center fw-light"><b>Profile</b></h3>
+				<h6 class="fw-light">Store Name</h6>
+				<h4 class="fw-light"><%=user.username%></h4>
+				<div class="row">
+					<div class="col">
+						<h6 class="fw-light">First Name</h6>
+						<h4 class="fw-light"><%=user.firstName%></h4>
+					</div>
+					<div class="col">
+						<h6 class="fw-light">Last Name</h6>
+						<h4 class="fw-light"><%=user.lastName%></h4>
+					</div>
+				</div>
+				<h6 class="fw-light">email</h6>
+				<h4 class="fw-light"><%=user.email%></h4>
+				<hr />
+				<h3 class="text-center fw-light"><b>Shipping</b></h3>
+				<% if (!user.address) { %>
+				<a href="profile/editShipping"><button class="btn btn-primary">Add Shipping</button></a>
+				<% } else { %>
+				<h6 class="fw-light">Street</h6>
+				<h4 class="fw-light"><%=user.address.street%></h4>
+				<% if (user.address.streetTwo) { %>
+				<h6 class="fw-light">Street Two</h6>
+				<h4 class="fw-light"><%=user.address.streetTwo%></h4>
+				<% } %>
+				<h6 class="fw-light">City</h6>
+				<h4 class="fw-light"><%=user.address.city%></h4>
+				<div class="row">
+					<div class="col">
+						<h6 class="fw-light">Zipcode</h6>
+						<h4 class="fw-light"><%=user.address.zipcode%></h4>
+					</div>
+					<div class="col">
+						<h6 class="fw-light">State</h6>
+						<h4 class="fw-light"><%=user.address.state%></h4>
+					</div>
+				</div>
+				<a href="profile/editShipping" class="d-flex justify-content-end text-decoration-none"
+					><button class="btn btn-primary">Edit Shipping</button></a
+				>
+				<% } %>
+			</div>
+		</div>
+	</div>
+	<div class="col-6"></div>
+</div>

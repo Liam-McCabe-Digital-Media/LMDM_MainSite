@@ -30,6 +30,11 @@ const UserSchema = new Schema({
 		required: false,
 		unique: true,
 	},
+	address: {
+		type: mongoose.Schema.Types.ObjectId,
+		required: false,
+		ref: 'Address',
+	},
 });
 
 UserSchema.plugin(passportLocalMongoose);
