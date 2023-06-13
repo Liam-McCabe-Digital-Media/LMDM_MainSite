@@ -18,8 +18,8 @@ module.exports.loginUser = (req, res) => {
 
 module.exports.registerUser = async (req, res, next) => {
 	try {
-		const { firstName, lastName, email, username, password } = req.body.user;
-		const user = new User({ firstName, lastName, email, username });
+		const { firstName, lastName, phone, email, username, password } = req.body.user;
+		const user = new User({ firstName, lastName, phone, email, username });
 		const registeredUser = await User.register(user, password);
 		const apiKey = await generateAPIKey(registeredUser);
 		registeredUser.key = apiKey;

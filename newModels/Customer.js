@@ -11,16 +11,9 @@ const CustomerSchema = new Schema({
 		required: true,
 	},
 	address: {
-		type: String,
-		required: true,
-	},
-	city: {
-		type: String,
-		required: true,
-	},
-	zip: {
-		type: Number,
-		required: true,
+		type: mongoose.Schema.Types.ObjectId,
+		ref: 'Address',
+		required: false,
 	},
 	email: {
 		type: String,
@@ -28,7 +21,7 @@ const CustomerSchema = new Schema({
 	},
 	phone: {
 		type: Number,
-		required: true,
+		required: false,
 	},
 	marketing: {
 		type: Boolean,
@@ -37,5 +30,5 @@ const CustomerSchema = new Schema({
 	},
 });
 
-const Customer = Mongoose.model('Customer', CustomerSchema);
+const Customer = mongoose.model('Customer', CustomerSchema);
 module.exports = Customer;

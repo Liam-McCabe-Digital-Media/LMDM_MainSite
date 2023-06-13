@@ -21,7 +21,7 @@ const seedDB = async () => {
 		const random1000 = Math.floor(Math.random() * 1000);
 		const price = Math.floor(Math.random() * 20) + 10;
 		const prod = new Product({
-			store: '646d30a72da7df395f9dc48f',
+			store: '647fa760bcfbc22c4e0796ac',
 			name: `${adjectives[random1000]} ${types[random5]}`,
 			category: types[random5],
 			description: 'example description of product',

@@ -1,5 +1,5 @@
 const express = require('express');
-const { getUser } = require('../newDatabase/AccountsDB');
+const { getUser, getShipmentObjects } = require('../newDatabase/AccountsDB');
 const {
 	getAllProducts,
 	createProduct,
@@ -8,7 +8,10 @@ const {
 	updateProduct,
 } = require('../newDatabase/ProductDB');
 const { getOrderObject } = require('../utils/orders');
-const { createAddress } = require('../newDatabase/AddressDB');
+const { createAddress, updateAddress } = require('../newDatabase/AddressDB');
+const { createCustomer } = require('../newDatabase/CustomerDB');
+const { getRatesWithShipmentDetails } = require('../utils/ShipEngine');
+const { createOrder } = require('../newDatabase/OrdersDB');
 
 module.exports.deleteProductMethod = async (req, res) => {
 	const { id, productId } = req.params;
@@ -160,11 +163,43 @@ module.exports.saveShippingInfo = async (req, res) => {
 	const user = await getUser(req.params.id);
 	await user.populate('address');
 	if (user.address) {
-		console.log(user.address);
+		await updateAddress(user.address._id, req.body);
 	} else {
 		let newAddress = await createAddress(req.body);
 		user.address = newAddress._id;
 		await user.save();
 	}
 	res.redirect(`/users/${user._id}/profile`);
+};
+
+module.exports.calculateRates = async (req, res) => {
+	const user = await getUser(req.params.id);
+	const shipFrom = await getShipmentObjects(user);
+	const { firstName, lastName, phone, street, streetTwo, city, zipcode, state } = req.body;
+	const shipTo = {
+		name: `${firstName} ${lastName}`,
+		phone,
+		addressLine1: street,
+		addressLine2: streetTwo,
+		cityLocality: city,
+		stateProvince: state,
+		postalCode: zipcode,
+		countryCode: 'US',
+		addressResidentialIndicator: 'yes',
+	};
+	await getRatesWithShipmentDetails(shipTo, shipFrom);
+};
+module.exports.createOrderNoShipping = async (req, res) => {
+	const { customer } = req.body;
+	const { id } = req.params;
+	const newCustomer = await createCustomer(customer);
+	const order = await createOrder(req.session, newCustomer);
+	console.log(order);
+	res.redirect(`/users/${id}/orders`);
+};
+
+module.exports.renderCustomerInfo = async (req, res) => {
+	const { id } = req.params;
+	const user = await getUser(id);
+	res.render('users/customerInfo', { user });
 };

@@ -2,7 +2,7 @@
 
 <div class="row my-5">
 	<form
-		action="/users/<%=user._id%>/orders/shippingInfo"
+		action="/users/<%=user._id%>/orders/customerInfo"
 		method="POST"
 		class="col-8 offset-2 rounded shadow"
 	>
@@ -26,13 +26,7 @@
 				/>
 			</div>
 			<div class="col">
-				<input
-					class="form-control"
-					name="customer[lastName]"
-					type="text"
-					placeholder="Last Name"
-					required
-				/>
+				<input class="form-control" name="customer[lastName]" type="text" placeholder="Last Name" required />
 			</div>
 		</div>
 		<div class="row">
@@ -44,66 +38,18 @@
 					placeholder="Phone Number"
 					required
 				/>
-				<input
-					class="form-control mb-3"
-					type="email"
-					name="customer[email]"
-					placeholder="Email"
-					required
-				/>
-				<input
-					class="form-control mb-3"
-					type="text"
-					name="address[street]"
-					placeholder="Address"
-					required
-				/>
-				<input
-					class="form-control mb-3"
-					type="text"
-					name="streetTwo"
-					placeholder="Address 2"
-					required
-				/>
-				<input
-					class="form-control mb-3"
-					type="text"
-					name="address[city]"
-					placeholder="City"
-					required
-				/>
-			</div>
-		</div>
-		<div class="row">
-			<div class="col">
-				<input
-					class="form-control mb-3"
-					name="address[zipcode]"
-					type="text"
-					placeholder="Zipcode"
-					required
-				/>
-			</div>
-			<div class="col">
-				<input
-					class="form-control mb-3"
-					name="address[state]"
-					type="text"
-					placeholder="State"
-					required
-				/>
-			</div>
-		</div>
+				<input class="form-control mb-3" type="email" name="customer[email]" placeholder="Email" required />
+				
 		<div class="row d-flex justify-content-end mb-3">
 			<div class="col-2 justify-content-end">
-				<a href="/users/<%=user._id%>/orders/customerInfo"
+				<a href="/users/<%=user._id%>/orders/shippingInfo"
 					><button
 						action="button"
 						type="button"
 						id="shippingToggle"
 						class="btn btn-warning align-self-end text-decoration-none"
 					>
-						No Shipping
+						Add Shipping
 					</button></a
 				>
 			</div>

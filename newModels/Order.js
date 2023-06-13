@@ -4,6 +4,7 @@ const Schema = mongoose.Schema;
 const OrderSchema = new Schema({
 	customer: {
 		type: mongoose.Schema.Types.ObjectId,
+		ref: 'Customer',
 		required: true,
 	},
 	orderContent: {

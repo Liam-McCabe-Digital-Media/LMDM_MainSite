@@ -13,14 +13,21 @@
 	<div class="col-md-5 px-5 px-md-0">
 		<h1 class="text-center d-none d-md-block">Your Info:</h1>
 		<form action="/register" method="POST" novalidate class="needs-validation">
-			<div class="mb-3">
-				<label class="form-label" for="firstName">First Name</label>
-				<input class="form-control" type="text" id="firstName" name="user[firstName]" required />
-				<div class="valid-feedback">Looks good!</div>
+			<div class="row mb-3">
+				<div class="col-6">
+					<label class="form-label" for="firstName">First Name</label>
+					<input class="form-control" type="text" id="firstName" name="user[firstName]" required />
+					<div class="valid-feedback">Looks good!</div>
+				</div>
+				<div class="col-6">
+					<label class="form-label" for="lastName">Last Name</label>
+					<input class="form-control" type="text" id="lastName" name="user[lastName]" required />
+					<div class="valid-feedback">Looks good!</div>
+				</div>
 			</div>
 			<div class="mb-3">
-				<label class="form-label" for="lastName">Last Name</label>
-				<input class="form-control" type="text" id="lastName" name="user[lastName]" required />
+				<label class="form-label" for="phone">Phone Number</label>
+				<input class="form-control" type="text" id="phone" name="user[phone]" required />
 				<div class="valid-feedback">Looks good!</div>
 			</div>
 			<div class="mb-3">

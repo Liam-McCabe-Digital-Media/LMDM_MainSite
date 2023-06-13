@@ -22,12 +22,16 @@ const {
 	renderProfile,
 	renderEditShipping,
 	saveShippingInfo,
+	calculateRates,
+	renderCustomerInfo,
+	createOrderNoShipping,
+	createOrder,
 } = require('../controllers/cmsController');
 
 router.get('/:id/profile', isLoggedIn, verifyUser, catchAsync(renderProfile));
 router.get('/:id/profile/editShipping', isLoggedIn, verifyUser, catchAsync(renderEditShipping));
 router.post('/:id/profile/editShipping', isLoggedIn, verifyUser, catchAsync(saveShippingInfo));
-
+router.post('/:id/');
 router.get('/:id/orders', isLoggedIn, verifyUser, catchAsync(renderOrders));
 
 router.get('/:id/orders/newOrder', isLoggedIn, verifyUser, catchAsync(renderNewOrder));
@@ -35,7 +39,9 @@ router.get('/:id/orders/newOrder', isLoggedIn, verifyUser, catchAsync(renderNewO
 router.get('/:id/orders/selectPayment', isLoggedIn, verifyUser, catchAsync(renderPaymentSelect));
 
 router.get('/:id/orders/shippingInfo', isLoggedIn, verifyUser, catchAsync(renderShippingInfo));
-
+router.post('/:id/orders/shippingInfo', isLoggedIn, verifyUser, catchAsync(calculateRates));
+router.get('/:id/orders/customerInfo', isLoggedIn, verifyUser, catchAsync(renderCustomerInfo));
+router.post('/:id/orders/customerInfo', isLoggedIn, verifyUser, catchAsync(createOrderNoShipping));
 //renders the dashboard populated with user '/:id' information pulled from database
 router.get('/:id/dashboard', isLoggedIn, verifyUser, catchAsync(renderDashboard));
 
