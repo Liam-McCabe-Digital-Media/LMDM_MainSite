@@ -1,0 +1,77 @@
+<% layout('layout/userBoilerplate') %>
+<div class="row my-4 justify-content-center">
+	<div class="col-4 rounded hideScroll" style="max-height: 80vh; overflow-y: scroll">
+		<h1 class="display-5">Select Shipping</h1>
+		<div class="row justify-content-center">
+			<% for( let i = 0; i < rates.rates.length; i++ ) { %>
+			<a
+				class="bg-warning col-5 mx-3 my-2 rounded shadow p-2 grow text-decoration-none text-dark cursor-pointer"
+				onclick="selectShipping('<%= JSON.stringify(rates.rates[i]) %>')"
+			>
+				<h6>Estimated Delivery Date</h6>
+				<h6><%=JSON.stringify(rates.rates[i].estimatedDeliveryDate)%></h6>
+				<h6>Shipment Cost</h6>
+				<h6>$<%=JSON.stringify(rates.rates[i].shippingAmount.amount)%></h6>
+			</a>
+			<% } %>
+		</div>
+	</div>
+	<div class="col-4">
+		<h5 class="display-6">Shipping to:</h5>
+		<div class="rounded">
+			<h4 class="text-muted fw-light">Name:</h4>
+			<h4><%= JSON.parse(JSON.stringify(shipTo.name)) %></h4>
+			<h4 class="text-muted fw-light">Phone:</h4>
+			<h4><%= JSON.parse(JSON.stringify(shipTo.phone)) %></h4>
+			<h4 class="text-muted fw-light">Email:</h4>
+			<% if (shipTo.email) { %>
+			<h4><%= JSON.parse(JSON.stringify(shipTo.email)) %></h4>
+			<% } else {%>
+			<h4>NONE</h4>
+			<%}%>
+			<h4 class="text-muted fw-light">Address One:</h4>
+			<h4><%= JSON.parse(JSON.stringify(shipTo.addressLine1)) %></h4>
+			<% if (shipTo.addressLine2) { %>
+			<h4 class="text-muted fw-light">Address Two:</h4>
+			<h4><%= JSON.parse(JSON.stringify(shipTo.addressLine2)) %></h4>
+			<% } %>
+			<h4 class="text-muted fw-light">City:</h4>
+			<h4><%= JSON.parse(JSON.stringify(shipTo.cityLocality)) %></h4>
+			<h4 class="text-muted fw-light">State:</h4>
+			<h4><%= JSON.parse(JSON.stringify(shipTo.stateProvince)) %></h4>
+			<h4 class="text-muted fw-light">Zipcode:</h4>
+			<h4><%= JSON.parse(JSON.stringify(shipTo.postalCode)) %></h4>
+		</div>
+	</div>
+	<div class="col-4">
+		<h5 class="text-center display-6">Total:</h5>
+		<div class="rounded">
+			<h4 class="text-muted fw-light">Cart:</h4>
+			<h4 id="cartLabel">$<%= JSON.stringify(cartDetails.total) %></h4>
+			<h4 class="text-muted fw-light">Shipping:</h4>
+			<h4 id="shippingCostLabel">Please Select Shipping</h4>
+			<h4 class="text-muted fw-light">Total:</h4>
+			<h4 id="totalLabel">Please Select Shipping</h4>
+			<form action="/users/<%= user._id %>/shippingInfo?_method=PUT" method="POST">
+				<input type="hidden" id="selectedShipping" name="selectedShipping" value="hello" />
+				<button id="continueBtn" class="btn btn-primary d-none">Continue</button>
+			</form>
+		</div>
+	</div>
+</div>
+
+<script>
+	function selectShipping(method) {
+		document.getElementById('selectedShipping').value = method;
+		document.getElementById('continueBtn').classList.remove('d-none');
+		let shippingLabel = document.getElementById('shippingCostLabel');
+		let cartLabel = document.getElementById('cartLabel');
+		shippingLabel.innerHTML = '$' + JSON.parse(method).shippingAmount.amount;
+		document.getElementById('totalLabel').innerHTML =
+			'$' +
+			(
+				parseFloat(shippingLabel.innerHTML.replace('$', '')) +
+				parseFloat(cartLabel.innerHTML.replace('$', ''))
+			).toFixed(2);
+	}
+</script>

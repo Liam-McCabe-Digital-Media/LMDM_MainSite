@@ -4,3 +4,19 @@
 .no-click-light:active {
 	background-color: aliceblue;
 }
+
+.hideScroll::-webkit-scrollbar {
+	display: none;
+}
+
+.grow {
+	transition: all 0.2s ease-in-out;
+}
+
+.grow:hover {
+	transform: scale(1.025);
+}
+
+.cursor-pointer {
+	cursor: pointer;
+}

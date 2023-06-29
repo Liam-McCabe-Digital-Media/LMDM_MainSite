@@ -59,10 +59,10 @@ module.exports.getRatesWithShipmentDetails = async (shipTo, shipFrom) => {
 		};
 		// const label = await shipengine.createLabelFromRate(params2);
 		console.log(result);
-		return result.rateResponse.rates;
+		return result.rateResponse;
 		// console.log(result.rateResponse.rates);
 	} catch (e) {
-		console.log('Error creating rates: ', e.message);
+		console.log('Error creating rates: ', e);
 	}
 };
 

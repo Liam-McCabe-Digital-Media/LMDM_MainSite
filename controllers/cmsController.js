@@ -175,7 +175,9 @@ module.exports.saveShippingInfo = async (req, res) => {
 module.exports.calculateRates = async (req, res) => {
 	const user = await getUser(req.params.id);
 	const shipFrom = await getShipmentObjects(user);
-	const { firstName, lastName, phone, street, streetTwo, city, zipcode, state } = req.body;
+	const { street, streetTwo, city, zipcode, state } = req.body.address;
+	const { firstName, lastName, phone, email } = req.body.customer;
+	const { cartDetails } = req.session;
 	const shipTo = {
 		name: `${firstName} ${lastName}`,
 		phone,
@@ -187,8 +189,15 @@ module.exports.calculateRates = async (req, res) => {
 		countryCode: 'US',
 		addressResidentialIndicator: 'yes',
 	};
-	await getRatesWithShipmentDetails(shipTo, shipFrom);
+	const rates = await getRatesWithShipmentDetails(shipTo, shipFrom);
+	// res.send(rates);
+	res.render('users/selectShippingMethod', { user, rates, shipTo, cartDetails });
 };
+
+module.exports.applyShipping = async (req, res) => {
+	res.send(req.body);
+};
+
 module.exports.createOrderNoShipping = async (req, res) => {
 	const { customer } = req.body;
 	const { id } = req.params;
