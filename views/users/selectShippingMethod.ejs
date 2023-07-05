@@ -52,7 +52,7 @@
 			<h4 id="shippingCostLabel">Please Select Shipping</h4>
 			<h4 class="text-muted fw-light">Total:</h4>
 			<h4 id="totalLabel">Please Select Shipping</h4>
-			<form action="/users/<%= user._id %>/shippingInfo?_method=PUT" method="POST">
+			<form action="/users/<%= user._id %>/orders/shippingInfo?_method=PUT" method="POST">
 				<input type="hidden" id="selectedShipping" name="selectedShipping" value="hello" />
 				<button id="continueBtn" class="btn btn-primary d-none">Continue</button>
 			</form>

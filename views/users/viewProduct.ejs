@@ -2,6 +2,15 @@
 <div class="row justify-content-center align-items-center mt-5 py-5">
 	<div class="col-5"><img src="/images/images.jpeg" alt="" class="img-fluid w-75 rounded" /></div>
 	<div class="col-5">
+		<% if (!cart) { %>
+		<a href="/users/<%=user._id%>/Dashboard" class="fs-5" style="text-decoration: none"
+			><i class="bi bi-caret-left"></i>Back to Dashboard</a
+		>
+		<% } else{ %>
+		<a href="/users/<%=user._id%>/orders/newOrder" class="fs-5" style="text-decoration: none"
+			><i class="bi bi-caret-left"></i>Back to Order</a
+		>
+		<%}%>
 		<h5 class="text-muted">Product Name</h5>
 		<h2><%=product.name%></h2>
 		<h5 class="text-muted">Category</h5>

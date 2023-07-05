@@ -36,8 +36,8 @@ module.exports.renderEdit = async (req, res) => {
 module.exports.renderViewProduct = async (req, res) => {
 	const { id, productId } = req.params;
 	const user = await getUser(id);
-	const product = await getProduct(req.user.username, productId);
-	res.render('users/viewProduct', { product, cart: false });
+	const product = await getProduct(productId);
+	res.render('users/viewProduct', { user, product, cart: false });
 };
 
 module.exports.createNewProduct = async (req, res) => {
@@ -195,7 +195,20 @@ module.exports.calculateRates = async (req, res) => {
 };
 
 module.exports.applyShipping = async (req, res) => {
-	res.send(req.body);
+	const { selectedShipping } = req.body;
+	const { id } = req.params;
+	req.session.shippingMethod = selectedShipping;
+	req.session.cartDetails.shippingCost = JSON.parse(selectedShipping).shippingAmount.amount;
+	console.log(JSON.stringify(req.session));
+	res.redirect(`/users${id}/orders/overview`);
+};
+
+module.exports.renderOverview = async (req, res) => {
+	const { id } = req.params;
+	let { cart, shippingMethod, cartDetails } = req.session;
+	console.log('shipping Method' + shippingMethod);
+	if (!shippingMethod) shippingMethod = null;
+	res.render('users/orderOverview', { id, cart, shippingMethod, cartDetails });
 };
 
 module.exports.createOrderNoShipping = async (req, res) => {
@@ -204,7 +217,7 @@ module.exports.createOrderNoShipping = async (req, res) => {
 	const newCustomer = await createCustomer(customer);
 	const order = await createOrder(req.session, newCustomer);
 	console.log(order);
-	res.redirect(`/users/${id}/orders`);
+	res.redirect(`/users/${id}/orders/overview`);
 };
 
 module.exports.renderCustomerInfo = async (req, res) => {

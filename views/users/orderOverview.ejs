@@ -1,0 +1,74 @@
+<% layout('layout/userBoilerplate') %>
+<div class="row">
+	<div class="col" style="min-height: 75vh; max-height: 75vh">
+		<h5 class="display-6 text-center">Cart Content</h5>
+		<div
+			class="rounded px-3"
+			style="min-height: 90%; max-height: 90%; overflow-y: scroll"
+			id="productList"
+		>
+			<% for(let i = 0; i < cart.length; i++) {%>
+			<div class="card shadow border-light mb-3 text-dark" name="<%=cart[i].product.name%>">
+				<div class="card-header">
+					<span class="text-muted">Category: </span><%=cart[i].product.category%>
+				</div>
+				<div class="row no-gutters">
+					<div class="card-body col-7 ps-5">
+						<h5 class="card-title"><%=cart[i].product.name%> - $<%=cart[i].alternate.price%></h5>
+						<h5 class="fw-light"><%=cart[i].alternate.alternate%></h5>
+						<p class="card-text"><%= cart[i].product.description %></p>
+					</div>
+					<div class="col-5 text-end">
+						<img src="/images.jpeg" alt="" class="rounded-end" />
+					</div>
+				</div>
+			</div>
+			<% } %>
+			<h5>Cart Total - $<%=cartDetails.total%></h5>
+		</div>
+	</div>
+	<div class="col">
+		<div class="row">
+			<div class="col-4 align-self-center fs-5">
+				<a href="/users/<%=id%>/orders/newOrder" style="text-decoration: none"
+					><i class="bi bi-caret-left"></i>Back to order</a
+				>
+			</div>
+			<div class="col">
+				<h5 class="display-6">Total</h5>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col">
+				<h5>Subtotal:</h5>
+				<% if (shippingMethod) { %>
+				<h5>Shipping:</h5>
+				<% } %>
+				<h5>Tax:</h5>
+			</div>
+			<div class="col">
+				<h5>$<%= cartDetails.total %></h5>
+				<% if (shippingMethod) { %>
+				<h5>$<%= shippingMethod.shippingAmount.amount %></h5>
+				<% } %>
+				<h5>$0</h5>
+			</div>
+		</div>
+		<hr class="me-5" />
+		<div class="row">
+			<div class="col">
+				<h5>Total:</h5>
+				<form action="">
+					<button class="btn btn-primary">Payment Select</button>
+				</form>
+			</div>
+			<div class="col">
+				<% if (shippingMethod) { %>
+				<h5>$<%= cartDetails.total + shippingMethod.shippingAmount.amount %></h5>
+				<% } else { %>
+				<h5>$<%= cartDetails.total %></h5>
+				<%}%>
+			</div>
+		</div>
+	</div>
+</div>

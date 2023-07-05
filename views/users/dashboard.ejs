@@ -32,9 +32,7 @@
 						<p class="card-text"><%= product.description %></p>
 						<% let total = 0; for(let size of product.stock){ total += size.quantity; } %>
 						<h6 class="card-text">Total in stock: <%=total%></h6>
-						<a href="/users/<%= user._id %>/<%=product._id%>/viewProduct" class="btn btn-primary"
-							>View</a
-						>
+						<a href="/users/<%= user._id %>/<%=product._id%>" class="btn btn-primary">View</a>
 						<a href="/users/<%= user._id %>/<%=product._id%>/edit" class="btn btn-primary">Edit</a>
 					</div>
 					<div class="col-5 text-end">

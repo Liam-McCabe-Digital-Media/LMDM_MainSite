@@ -2,6 +2,9 @@
 <h1 class="display-1 text-center">New Product</h1>
 <div class="row">
 	<div class="col-8 offset-2">
+		<a href="/users/<%=currentUser._id%>/Dashboard" class="fs-5" style="text-decoration: none"
+			><i class="bi bi-caret-left"></i>Back to Dashboard</a
+		>
 		<form action="/users/<%=currentUser._id%>/new" method="POST" id="productForm">
 			<div id="inputContainer">
 				<div class="mb-3">

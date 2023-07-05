@@ -7,8 +7,12 @@ req.session({
             alternate: AlternateObject
         }
     ],
+    shippingMethod: {
+        
+    }
     cartDetails: {
         total: Number, //total cost for the cart
+        shippingCost: Number
         itemCount: Number, //total num of items in the cart
     }
 })
