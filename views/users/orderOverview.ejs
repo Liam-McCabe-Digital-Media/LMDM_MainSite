@@ -49,22 +49,33 @@
 			<div class="col">
 				<h5>$<%= cartDetails.total %></h5>
 				<% if (shippingMethod) { %>
-				<h5>$<%= shippingMethod.shippingAmount.amount %></h5>
+				<h5>$<%= JSON.parse(shippingMethod).shippingAmount.amount %></h5>
 				<% } %>
 				<h5>$0</h5>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-8">
+				<p class="fw-light">
+					*This is only notifying you the amount of tax to collect from the customer, LMDM is not
+					collecting taxes from customer
+				</p>
 			</div>
 		</div>
 		<hr class="me-5" />
 		<div class="row">
 			<div class="col">
 				<h5>Total:</h5>
-				<form action="">
-					<button class="btn btn-primary">Payment Select</button>
+				<form action="users/<%=id%>/orders/createOrder" method="POST">
+					<button class="btn btn-primary">Complete Order</button>
+					<p class="fw-light">
+						*Note shipping cost will be billled to your account at the end of your billing cycle
+					</p>
 				</form>
 			</div>
 			<div class="col">
 				<% if (shippingMethod) { %>
-				<h5>$<%= cartDetails.total + shippingMethod.shippingAmount.amount %></h5>
+				<h5>$<%= cartDetails.total + JSON.parse(shippingMethod).shippingAmount.amount %></h5>
 				<% } else { %>
 				<h5>$<%= cartDetails.total %></h5>
 				<%}%>

@@ -177,6 +177,8 @@ module.exports.calculateRates = async (req, res) => {
 	const shipFrom = await getShipmentObjects(user);
 	const { street, streetTwo, city, zipcode, state } = req.body.address;
 	const { firstName, lastName, phone, email } = req.body.customer;
+	req.session.customer = req.body.customer;
+	req.session.customerAddress = req.body.address;
 	const { cartDetails } = req.session;
 	const shipTo = {
 		name: `${firstName} ${lastName}`,
@@ -200,7 +202,7 @@ module.exports.applyShipping = async (req, res) => {
 	req.session.shippingMethod = selectedShipping;
 	req.session.cartDetails.shippingCost = JSON.parse(selectedShipping).shippingAmount.amount;
 	console.log(JSON.stringify(req.session));
-	res.redirect(`/users${id}/orders/overview`);
+	res.redirect(`/users/${id}/orders/overview`);
 };
 
 module.exports.renderOverview = async (req, res) => {
@@ -211,11 +213,23 @@ module.exports.renderOverview = async (req, res) => {
 	res.render('users/orderOverview', { id, cart, shippingMethod, cartDetails });
 };
 
+module.exports.finalizeOrder = async (req, res) => {
+	const { id } = req.params;
+	const { cart, cartDetails, customer, customerAddress, shippingMethod } = req.session;
+	if (shippingMethod) {
+		const newCustomer = await createCustomer(customer, customerAddress);
+		//need to assingn shippingMethod to orderschema and fix routes from information pages
+	}
+};
+
 module.exports.createOrderNoShipping = async (req, res) => {
 	const { customer } = req.body;
 	const { id } = req.params;
+	const { cart, cartDetails } = req.session;
+	req.session.customer = customer;
+
 	const newCustomer = await createCustomer(customer);
-	const order = await createOrder(req.session, newCustomer);
+	const order = await createOrder(cart, cartDetails, newCustomer);
 	console.log(order);
 	res.redirect(`/users/${id}/orders/overview`);
 };
