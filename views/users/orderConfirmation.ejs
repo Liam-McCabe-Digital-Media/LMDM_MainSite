@@ -1,0 +1,14 @@
+<% layout('layout/userBoilerplate') %>
+<div class="row justify-content-center align-items-center" style="height: 75vh">
+	<div
+		class="col-5 rounded shadow h-50 text-center align-items-center d-flex flex-column justify-content-center"
+	>
+		<h4 class="">Order Number:<br /><%= orderId %><br />Confirmed!</h4>
+		<a href="<%= labelLink %>" class="text-decoration-none"
+			><button class="btn btn-outline-primary">Shipping Label</button></a
+		>
+		<a href="/users/<%=id%>/dashboard" class="text-decoration-none"
+			><button class="btn btn-outline-success">To Dashboard</button></a
+		>
+	</div>
+</div>

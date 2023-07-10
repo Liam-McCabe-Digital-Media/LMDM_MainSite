@@ -50,8 +50,12 @@ const OrderSchema = new Schema({
 			default: Date.now,
 			required: true,
 		},
-		planned: {
-			type: Date,
+		shipping: {
+			type: Object,
+			required: false,
+		},
+		shippingLabel: {
+			type: Object,
 			required: false,
 		},
 	},

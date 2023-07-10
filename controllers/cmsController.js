@@ -10,8 +10,8 @@ const {
 const { getOrderObject } = require('../utils/orders');
 const { createAddress, updateAddress } = require('../newDatabase/AddressDB');
 const { createCustomer } = require('../newDatabase/CustomerDB');
-const { getRatesWithShipmentDetails } = require('../utils/ShipEngine');
-const { createOrder } = require('../newDatabase/OrdersDB');
+const { getRatesWithShipmentDetails, getLabelFromRate } = require('../utils/ShipEngine');
+const { createOrder, getOrder } = require('../newDatabase/OrdersDB');
 
 module.exports.deleteProductMethod = async (req, res) => {
 	const { id, productId } = req.params;
@@ -201,6 +201,7 @@ module.exports.applyShipping = async (req, res) => {
 	const { id } = req.params;
 	req.session.shippingMethod = selectedShipping;
 	req.session.cartDetails.shippingCost = JSON.parse(selectedShipping).shippingAmount.amount;
+	// res.redirect(label.labelDownload.href);
 	console.log(JSON.stringify(req.session));
 	res.redirect(`/users/${id}/orders/overview`);
 };
@@ -216,10 +217,24 @@ module.exports.renderOverview = async (req, res) => {
 module.exports.finalizeOrder = async (req, res) => {
 	const { id } = req.params;
 	const { cart, cartDetails, customer, customerAddress, shippingMethod } = req.session;
+	const newCustomer = await createCustomer(customer, customerAddress);
 	if (shippingMethod) {
-		const newCustomer = await createCustomer(customer, customerAddress);
-		//need to assingn shippingMethod to orderschema and fix routes from information pages
+		const params = {
+			rateId: JSON.parse(shippingMethod).rateId,
+			validateAddress: 'no_validation',
+			labelLayout: '4x6',
+			labelFormat: 'pdf',
+			labelDownloadType: 'url',
+			displayScheme: 'label',
+		};
+		const label = await getLabelFromRate(params);
+		const newOrder = await createOrder(cart, cartDetails, newCustomer, shippingMethod, label);
+		res.redirect(`/users/${id}/orders/${newOrder._id}/confirmation`);
+	} else {
+		const newOrder = await createOrder(cart, cartDetails, newCustomer);
+		res.redirect(`/users/${id}/orders/${newOrder._id}/confirmation`);
 	}
+	//need to assingn shippingMethod to orderschema and fix routes from information pages
 };
 
 module.exports.createOrderNoShipping = async (req, res) => {
@@ -230,8 +245,14 @@ module.exports.createOrderNoShipping = async (req, res) => {
 
 	const newCustomer = await createCustomer(customer);
 	const order = await createOrder(cart, cartDetails, newCustomer);
-	console.log(order);
 	res.redirect(`/users/${id}/orders/overview`);
+};
+
+module.exports.renderOrderConfirmation = async (req, res) => {
+	const { id, orderId } = req.params;
+	const order = await getOrder(orderId);
+	const labelLink = order.fulfillment.shippingLabel.labelDownload.href;
+	res.render('users/orderConfirmation', { id, orderId, labelLink });
 };
 
 module.exports.renderCustomerInfo = async (req, res) => {

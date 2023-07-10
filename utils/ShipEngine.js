@@ -80,3 +80,8 @@ module.exports.verifyAddress = async (address) => {
 		address_residential_indicator: 'unknown',
 	};
 };
+
+module.exports.getLabelFromRate = async (rate) => {
+	const label = await shipengine.createLabelFromRate(rate);
+	return label;
+};
