@@ -27,6 +27,8 @@ const {
 	createOrderNoShipping,
 	renderOverview,
 	applyShipping,
+	finalizeOrder,
+	renderOrderConfirmation,
 } = require('../controllers/cmsController');
 const { getUser } = require('../newDatabase/AccountsDB');
 // router.get(
@@ -307,6 +309,13 @@ router.put('/:id/orders/shippingInfo', isLoggedIn, verifyUser, catchAsync(applyS
 router.get('/:id/orders/customerInfo', isLoggedIn, verifyUser, catchAsync(renderCustomerInfo));
 router.post('/:id/orders/customerInfo', isLoggedIn, verifyUser, catchAsync(createOrderNoShipping));
 router.get('/:id/orders/overview', isLoggedIn, verifyUser, catchAsync(renderOverview));
+router.post('/:id/orders/createOrder', isLoggedIn, verifyUser, catchAsync(finalizeOrder));
+router.get(
+	'/:id/orders/:orderId/confirmation',
+	isLoggedIn,
+	verifyUser,
+	catchAsync(renderOrderConfirmation),
+);
 //renders the dashboard populated with user '/:id' information pulled from database
 router.get('/:id/dashboard', isLoggedIn, verifyUser, catchAsync(renderDashboard));
 
