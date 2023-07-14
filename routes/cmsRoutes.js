@@ -29,6 +29,7 @@ const {
 	applyShipping,
 	finalizeOrder,
 	renderOrderConfirmation,
+	renderDashboardTw,
 } = require('../controllers/cmsController');
 const { getUser } = require('../newDatabase/AccountsDB');
 // router.get(
@@ -237,61 +238,63 @@ const { getUser } = require('../newDatabase/AccountsDB');
 // 	}),
 // );
 
-router.get(
-	'/:id/test',
-	isLoggedIn,
-	verifyUser,
-	catchAsync(async (req, res) => {
-		req.session.cart = [
-			{
-				quantity: '1',
-				product: {
-					_id: '647fa78f48239a2f7fe6fc67',
-					store: '647fa760bcfbc22c4e0796ac',
-					name: 'decorous jacket',
-					category: 'jacket',
-					description: 'example description of product',
-					startingPrice: 15,
-					startingAlternate: 'large',
-					stock: [{ alternate: 'large', quantity: 5, price: 15, _id: '647fa78f48239a2f7fe6fc68' }],
-					__v: 0,
-				},
-				alternate: { alternate: 'large', quantity: 5, price: 15, _id: '647fa78f48239a2f7fe6fc68' },
-			},
-		];
-		req.session.cartDetails = { total: 15, itemCount: '01', shippingCost: 17.5 };
-		req.session.shippingMethod = {
-			rateId: 'se-3219579941',
-			rateType: 'shipment',
-			carrierId: 'se-4800261',
-			shippingAmount: { currency: 'usd', amount: 17.5 },
-			insuranceAmount: { currency: 'usd', amount: 0 },
-			confirmationAmount: { currency: 'usd', amount: 0 },
-			otherAmount: { currency: 'usd', amount: 0 },
-			taxAmount: null,
-			zone: null,
-			packageType: null,
-			deliveryDays: 1,
-			guaranteedService: true,
-			estimatedDeliveryDate: '2023-07-01T23:00:00Z',
-			carrierDeliveryDays: 'Tomorrow by 11:00 PM',
-			shipDate: '2023-06-30T00:00:00Z',
-			negotiatedRate: false,
-			serviceType: 'UPS® Ground',
-			serviceCode: 'ups_ground',
-			trackable: true,
-			carrierCode: 'ups',
-			carrierNickname: 'ShipEngine Test Account - UPS',
-			carrierFriendlyName: 'UPS',
-			validationStatus: 'valid',
-			warningMessages: [],
-			errorMessages: [],
-		};
-		const { cart, cartDetails, shippingMethod } = req.session;
-		const { id } = req.params;
-		res.render('users/orderOverview', { id, cart, cartDetails, shippingMethod });
-	}),
-);
+// router.get(
+// 	'/:id/test',
+// 	isLoggedIn,
+// 	verifyUser,
+// 	catchAsync(async (req, res) => {
+// 		req.session.cart = [
+// 			{
+// 				quantity: '1',
+// 				product: {
+// 					_id: '647fa78f48239a2f7fe6fc67',
+// 					store: '647fa760bcfbc22c4e0796ac',
+// 					name: 'decorous jacket',
+// 					category: 'jacket',
+// 					description: 'example description of product',
+// 					startingPrice: 15,
+// 					startingAlternate: 'large',
+// 					stock: [{ alternate: 'large', quantity: 5, price: 15, _id: '647fa78f48239a2f7fe6fc68' }],
+// 					__v: 0,
+// 				},
+// 				alternate: { alternate: 'large', quantity: 5, price: 15, _id: '647fa78f48239a2f7fe6fc68' },
+// 			},
+// 		];
+// 		req.session.cartDetails = { total: 15, itemCount: '01', shippingCost: 17.5 };
+// 		req.session.shippingMethod = {
+// 			rateId: 'se-3219579941',
+// 			rateType: 'shipment',
+// 			carrierId: 'se-4800261',
+// 			shippingAmount: { currency: 'usd', amount: 17.5 },
+// 			insuranceAmount: { currency: 'usd', amount: 0 },
+// 			confirmationAmount: { currency: 'usd', amount: 0 },
+// 			otherAmount: { currency: 'usd', amount: 0 },
+// 			taxAmount: null,
+// 			zone: null,
+// 			packageType: null,
+// 			deliveryDays: 1,
+// 			guaranteedService: true,
+// 			estimatedDeliveryDate: '2023-07-01T23:00:00Z',
+// 			carrierDeliveryDays: 'Tomorrow by 11:00 PM',
+// 			shipDate: '2023-06-30T00:00:00Z',
+// 			negotiatedRate: false,
+// 			serviceType: 'UPS® Ground',
+// 			serviceCode: 'ups_ground',
+// 			trackable: true,
+// 			carrierCode: 'ups',
+// 			carrierNickname: 'ShipEngine Test Account - UPS',
+// 			carrierFriendlyName: 'UPS',
+// 			validationStatus: 'valid',
+// 			warningMessages: [],
+// 			errorMessages: [],
+// 		};
+// 		const { cart, cartDetails, shippingMethod } = req.session;
+// 		const { id } = req.params;
+// 		res.render('users/orderOverview', { id, cart, cartDetails, shippingMethod });
+// 	}),
+// );
+
+router.get('/:id/test', isLoggedIn, verifyUser, catchAsync(renderDashboardTw));
 
 router.get('/:id/profile', isLoggedIn, verifyUser, catchAsync(renderProfile));
 router.get('/:id/profile/editShipping', isLoggedIn, verifyUser, catchAsync(renderEditShipping));

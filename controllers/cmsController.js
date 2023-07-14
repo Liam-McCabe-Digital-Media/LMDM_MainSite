@@ -147,6 +147,12 @@ module.exports.renderDashboard = async (req, res) => {
 	res.render('users/dashboard', { user, products });
 };
 
+module.exports.renderDashboardTw = async (req, res) => {
+	const user = await getUser(req.params.id);
+	const products = await getAllProducts(user._id);
+	res.render('tailwind/dashboard', { user, products });
+};
+
 module.exports.renderProfile = async (req, res) => {
 	const user = await getUser(req.params.id);
 	await user.populate('address');
