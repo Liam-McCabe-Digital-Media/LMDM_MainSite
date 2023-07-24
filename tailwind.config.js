@@ -5,6 +5,9 @@ module.exports = {
 	// 	preflight: false,
 	// },
 	theme: {
+		minWidth: {
+			xl: '36rem',
+		},
 		extend: {},
 	},
 	plugins: [],

@@ -30,6 +30,10 @@ const {
 	finalizeOrder,
 	renderOrderConfirmation,
 	renderDashboardTw,
+	renderProductsTW,
+	renderEditProductTW,
+	renderNewProductTW,
+	renderOrdersTW,
 } = require('../controllers/cmsController');
 const { getUser } = require('../newDatabase/AccountsDB');
 // router.get(
@@ -294,13 +298,16 @@ const { getUser } = require('../newDatabase/AccountsDB');
 // 	}),
 // );
 
-router.get('/:id/test', isLoggedIn, verifyUser, catchAsync(renderDashboardTw));
+//test routes for the tailwind update
+// router.get('/:id/test', isLoggedIn, verifyUser, catchAsync(renderDashboardTw));
+router.get('/:id/products', isLoggedIn, verifyUser, catchAsync(renderProductsTW));
+router.get('/:id/:productId/edit', isLoggedIn, verifyUser, catchAsync(renderEditProductTW));
 
 router.get('/:id/profile', isLoggedIn, verifyUser, catchAsync(renderProfile));
 router.get('/:id/profile/editShipping', isLoggedIn, verifyUser, catchAsync(renderEditShipping));
 router.post('/:id/profile/editShipping', isLoggedIn, verifyUser, catchAsync(saveShippingInfo));
 router.post('/:id/');
-router.get('/:id/orders', isLoggedIn, verifyUser, catchAsync(renderOrders));
+router.get('/:id/orders', isLoggedIn, verifyUser, catchAsync(renderOrdersTW));
 
 router.get('/:id/orders/newOrder', isLoggedIn, verifyUser, catchAsync(renderNewOrder));
 
@@ -320,7 +327,7 @@ router.get(
 	catchAsync(renderOrderConfirmation),
 );
 //renders the dashboard populated with user '/:id' information pulled from database
-router.get('/:id/dashboard', isLoggedIn, verifyUser, catchAsync(renderDashboard));
+router.get('/:id/dashboard', isLoggedIn, verifyUser, catchAsync(renderDashboardTw));
 
 router.get(
 	'/:id/:productId/viewProduct',
@@ -351,7 +358,7 @@ router.put(
 );
 router
 	.route('/:id/new')
-	.get(isLoggedIn, verifyUser, catchAsync(renderNewProduct))
+	.get(isLoggedIn, verifyUser, catchAsync(renderNewProductTW))
 	.post(isLoggedIn, verifyUser, catchAsync(createNewProduct));
 
 router
@@ -360,6 +367,6 @@ router
 	.post(isLoggedIn, verifyUser, catchAsync(modifyProduct))
 	.delete(isLoggedIn, verifyUser, catchAsync(deleteProductMethod));
 
-router.get('/:id/:productId/edit', isLoggedIn, verifyUser, catchAsync(renderEdit));
+router.get('/:id/:productId/edit', isLoggedIn, verifyUser, catchAsync(renderNewProductTW));
 
 module.exports = router;

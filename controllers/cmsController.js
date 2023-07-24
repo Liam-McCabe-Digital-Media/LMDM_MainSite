@@ -16,7 +16,7 @@ const { createOrder, getOrder } = require('../newDatabase/OrdersDB');
 module.exports.deleteProductMethod = async (req, res) => {
 	const { id, productId } = req.params;
 	deleteProduct(productId);
-	res.redirect(`/users/${id}/dashboard`);
+	res.redirect(`/users/${id}/products`);
 };
 
 module.exports.modifyProduct = async (req, res) => {
@@ -149,8 +149,34 @@ module.exports.renderDashboard = async (req, res) => {
 
 module.exports.renderDashboardTw = async (req, res) => {
 	const user = await getUser(req.params.id);
-	const products = await getAllProducts(user._id);
-	res.render('tailwind/dashboard', { user, products });
+	// const products = await getAllProducts(user._id);
+	res.render('tailwind/dashboard', { user });
+};
+
+module.exports.renderProductsTW = async (req, res) => {
+	const user = await getUser(req.params.id);
+	const products = await getAllProducts(user.id);
+	res.render('tailwind/products', { user, products });
+	// res.render('tailwind/testProd', { user });
+};
+
+module.exports.renderEditProductTW = async (req, res) => {
+	const { id, productId } = req.params;
+	const user = await getUser(id);
+	const product = await getProduct(productId);
+	res.render('tailwind/editProduct', { user, product });
+};
+
+module.exports.renderNewProductTW = async (req, res) => {
+	const { id } = req.params;
+	const user = await getUser(id);
+	res.render('tailwind/newProduct', { user });
+};
+
+module.exports.renderOrdersTW = async (req, res) => {
+	const { id } = req.params;
+	const user = await getUser(id);
+	res.render('tailwind/orders', { user });
 };
 
 module.exports.renderProfile = async (req, res) => {
