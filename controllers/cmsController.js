@@ -11,7 +11,12 @@ const { getOrderObject } = require('../utils/orders');
 const { createAddress, updateAddress } = require('../newDatabase/AddressDB');
 const { createCustomer } = require('../newDatabase/CustomerDB');
 const { getRatesWithShipmentDetails, getLabelFromRate } = require('../utils/ShipEngine');
-const { createOrder, getOrder } = require('../newDatabase/OrdersDB');
+const {
+	createOrder,
+	createOrderNoShipping,
+	getOrder,
+	getAllOrders,
+} = require('../newDatabase/OrdersDB');
 
 module.exports.deleteProductMethod = async (req, res) => {
 	const { id, productId } = req.params;
@@ -137,7 +142,8 @@ module.exports.renderViewProductForCart = async (req, res) => {
 
 module.exports.renderOrders = async (req, res) => {
 	const user = await getUser(req.params.id);
-	res.render('users/orders', { user });
+	const orders = await getAllOrders(user._id);
+	res.render('users/orders', { user, orders });
 };
 
 module.exports.renderDashboard = async (req, res) => {
@@ -176,7 +182,8 @@ module.exports.renderNewProductTW = async (req, res) => {
 module.exports.renderOrdersTW = async (req, res) => {
 	const { id } = req.params;
 	const user = await getUser(id);
-	res.render('tailwind/orders', { user });
+	const orders = await getAllOrders(id);
+	res.render('tailwind/orders', { user, orders });
 };
 
 module.exports.renderProfile = async (req, res) => {
@@ -250,7 +257,13 @@ module.exports.finalizeOrder = async (req, res) => {
 	const { id } = req.params;
 	const { cart, cartDetails, customer, customerAddress, shippingMethod } = req.session;
 	const newCustomer = await createCustomer(customer, customerAddress);
-	if (shippingMethod) {
+	console.log('LOOK HERE ' + typeof shippingMethod);
+	req.session.cart = null;
+	req.session.cartDetails = null;
+	req.session.customer = null;
+	req.session.customerAddress = null;
+	req.session.shippingMethod = null;
+	if (typeof shippingMethod !== typeof undefined) {
 		const params = {
 			rateId: JSON.parse(shippingMethod).rateId,
 			validateAddress: 'no_validation',
@@ -260,30 +273,35 @@ module.exports.finalizeOrder = async (req, res) => {
 			displayScheme: 'label',
 		};
 		const label = await getLabelFromRate(params);
-		const newOrder = await createOrder(cart, cartDetails, newCustomer, shippingMethod, label);
+		const newOrder = await createOrder(id, cart, cartDetails, newCustomer, shippingMethod, label);
 		res.redirect(`/users/${id}/orders/${newOrder._id}/confirmation`);
 	} else {
-		const newOrder = await createOrder(cart, cartDetails, newCustomer);
+		const newOrder = await createOrderNoShipping(id, cart, cartDetails, newCustomer);
 		res.redirect(`/users/${id}/orders/${newOrder._id}/confirmation`);
 	}
 	//need to assingn shippingMethod to orderschema and fix routes from information pages
 };
 
-module.exports.createOrderNoShipping = async (req, res) => {
+module.exports.confirmCusomerInfo = async (req, res) => {
 	const { customer } = req.body;
 	const { id } = req.params;
 	const { cart, cartDetails } = req.session;
 	req.session.customer = customer;
 
-	const newCustomer = await createCustomer(customer);
-	const order = await createOrder(cart, cartDetails, newCustomer);
+	// const newCustomer = await createCustomer(customer);
+	// const order = await createOrder(id, cart, cartDetails, newCustomer);
 	res.redirect(`/users/${id}/orders/overview`);
 };
 
 module.exports.renderOrderConfirmation = async (req, res) => {
 	const { id, orderId } = req.params;
 	const order = await getOrder(orderId);
-	const labelLink = order.fulfillment.shippingLabel.labelDownload.href;
+	let labelLink = null;
+	try {
+		const labelLink = order.fulfillment.shippingLabel.labelDownload.href;
+	} catch (e) {
+		labelLink = null;
+	}
 	res.render('users/orderConfirmation', { id, orderId, labelLink });
 };
 

@@ -24,7 +24,7 @@ const {
 	saveShippingInfo,
 	calculateRates,
 	renderCustomerInfo,
-	createOrderNoShipping,
+	confirmCusomerInfo,
 	renderOverview,
 	applyShipping,
 	finalizeOrder,
@@ -317,7 +317,7 @@ router.get('/:id/orders/shippingInfo', isLoggedIn, verifyUser, catchAsync(render
 router.post('/:id/orders/shippingInfo', isLoggedIn, verifyUser, catchAsync(calculateRates));
 router.put('/:id/orders/shippingInfo', isLoggedIn, verifyUser, catchAsync(applyShipping));
 router.get('/:id/orders/customerInfo', isLoggedIn, verifyUser, catchAsync(renderCustomerInfo));
-router.post('/:id/orders/customerInfo', isLoggedIn, verifyUser, catchAsync(createOrderNoShipping));
+router.post('/:id/orders/customerInfo', isLoggedIn, verifyUser, catchAsync(confirmCusomerInfo));
 router.get('/:id/orders/overview', isLoggedIn, verifyUser, catchAsync(renderOverview));
 router.post('/:id/orders/createOrder', isLoggedIn, verifyUser, catchAsync(finalizeOrder));
 router.get(
