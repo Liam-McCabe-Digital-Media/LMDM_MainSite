@@ -186,6 +186,34 @@ module.exports.renderOrdersTW = async (req, res) => {
 	res.render('tailwind/orders', { user, orders });
 };
 
+module.exports.renderNewOrderTw = async (req, res) => {
+	const user = await getUser(req.params.id);
+	const products = await getAllProducts(user._id);
+	if (!req.session.cart) req.session.cart = [];
+	req.session.cartDetails = {
+		total: 0,
+		itemCount: 0,
+	};
+	if (req.session.cart.length != 0)
+		for (let cartObject of req.session.cart) {
+			req.session.cartDetails.total += cartObject.quantity * cartObject.alternate.price;
+			req.session.cartDetails.itemCount += cartObject.quantity;
+		}
+	res.render('tailwind/newOrder', {
+		user,
+		products,
+		productList: req.session.cart,
+		details: req.session.cartDetails,
+	});
+};
+
+module.exports.renderViewProductForCartTw = async (req, res) => {
+	const { id, productId } = req.params;
+	const user = await getUser(id);
+	const product = await getProduct(productId);
+	res.render('tailwind/viewProduct', { user, product, cart: false });
+};
+
 module.exports.renderProfile = async (req, res) => {
 	const user = await getUser(req.params.id);
 	await user.populate('address');

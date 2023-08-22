@@ -14,7 +14,7 @@ const {
 	removeAlternateFromCart,
 	addAlternateToOrder,
 	renderDashboard,
-	renderNewOrder,
+	renderNewOrderTw,
 	renderOrders,
 	renderPaymentSelect,
 	renderShippingInfo,
@@ -34,6 +34,7 @@ const {
 	renderEditProductTW,
 	renderNewProductTW,
 	renderOrdersTW,
+	renderViewProductForCartTw,
 } = require('../controllers/cmsController');
 const { getUser } = require('../newDatabase/AccountsDB');
 // router.get(
@@ -309,7 +310,7 @@ router.post('/:id/profile/editShipping', isLoggedIn, verifyUser, catchAsync(save
 router.post('/:id/');
 router.get('/:id/orders', isLoggedIn, verifyUser, catchAsync(renderOrdersTW));
 
-router.get('/:id/orders/newOrder', isLoggedIn, verifyUser, catchAsync(renderNewOrder));
+router.get('/:id/orders/newOrder', isLoggedIn, verifyUser, catchAsync(renderNewOrderTw));
 
 router.get('/:id/orders/selectPayment', isLoggedIn, verifyUser, catchAsync(renderPaymentSelect));
 
@@ -333,7 +334,7 @@ router.get(
 	'/:id/:productId/viewProduct',
 	isLoggedIn,
 	verifyUser,
-	catchAsync(renderViewProductForCart),
+	catchAsync(renderViewProductForCartTw),
 );
 
 router.post(
