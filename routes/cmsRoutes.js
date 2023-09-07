@@ -35,6 +35,7 @@ const {
 	renderNewProductTW,
 	renderOrdersTW,
 	renderViewProductForCartTw,
+	renderShippingInfoTw,
 } = require('../controllers/cmsController');
 const { getUser } = require('../newDatabase/AccountsDB');
 // router.get(
@@ -301,6 +302,9 @@ const { getUser } = require('../newDatabase/AccountsDB');
 
 //test routes for the tailwind update
 // router.get('/:id/test', isLoggedIn, verifyUser, catchAsync(renderDashboardTw));
+
+router.get('/:id/test', isLoggedIn, verifyUser, catchAsync(renderShippingInfoTw));
+
 router.get('/:id/products', isLoggedIn, verifyUser, catchAsync(renderProductsTW));
 router.get('/:id/:productId/edit', isLoggedIn, verifyUser, catchAsync(renderEditProductTW));
 

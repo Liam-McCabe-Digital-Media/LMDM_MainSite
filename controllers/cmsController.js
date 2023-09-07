@@ -214,6 +214,12 @@ module.exports.renderViewProductForCartTw = async (req, res) => {
 	res.render('tailwind/viewProduct', { user, product, cart: false });
 };
 
+module.exports.renderShippingInfoTw = async (req, res) => {
+	const { id } = req.params;
+	const user = await getUser(id);
+	res.render('tailwind/shippingInfo', { user });
+};
+
 module.exports.renderProfile = async (req, res) => {
 	const user = await getUser(req.params.id);
 	await user.populate('address');
