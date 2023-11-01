@@ -207,11 +207,23 @@ module.exports.renderNewOrderTw = async (req, res) => {
 	});
 };
 
+module.exports.renderViewProductTw = async (req, res) => {
+	const { id, productId } = req.params;
+	const user = await getUser(id);
+	const product = await getProduct(productId);
+	res.render('tailwind/editProduct', {
+		user,
+		product,
+		productList: req.session.cart,
+		details: req.session.cartDetails,
+	});
+};
+
 module.exports.renderViewProductForCartTw = async (req, res) => {
 	const { id, productId } = req.params;
 	const user = await getUser(id);
 	const product = await getProduct(productId);
-	res.render('tailwind/viewProduct', { user, product, cart: false });
+	res.render('tailwind/viewProduct', { user, product, cart: true });
 };
 
 module.exports.renderShippingInfoTw = async (req, res) => {

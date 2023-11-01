@@ -34,6 +34,7 @@ const {
 	renderEditProductTW,
 	renderNewProductTW,
 	renderOrdersTW,
+	renderViewProductTw,
 	renderViewProductForCartTw,
 	renderShippingInfoTw,
 } = require('../controllers/cmsController');
@@ -318,7 +319,7 @@ router.get('/:id/orders/newOrder', isLoggedIn, verifyUser, catchAsync(renderNewO
 
 router.get('/:id/orders/selectPayment', isLoggedIn, verifyUser, catchAsync(renderPaymentSelect));
 
-router.get('/:id/orders/shippingInfo', isLoggedIn, verifyUser, catchAsync(renderShippingInfo));
+router.get('/:id/orders/shippingInfo', isLoggedIn, verifyUser, catchAsync(renderShippingInfoTw));
 router.post('/:id/orders/shippingInfo', isLoggedIn, verifyUser, catchAsync(calculateRates));
 router.put('/:id/orders/shippingInfo', isLoggedIn, verifyUser, catchAsync(applyShipping));
 router.get('/:id/orders/customerInfo', isLoggedIn, verifyUser, catchAsync(renderCustomerInfo));
@@ -348,15 +349,15 @@ router.post(
 	catchAsync(addAlternateToOrder),
 );
 
-router.delete(
-	'/:id/removeFromCart/:productId/:alternateId',
+router.put(
+	'/:id/:productId/:alternateId/removeFromOrder',
 	isLoggedIn,
 	verifyUser,
 	catchAsync(removeAlternateFromCart),
 );
 
 router.put(
-	'/:id/updateQuantity/:alternateId',
+	'/:id/:productId/:alternateId/updateQuantity',
 	isLoggedIn,
 	verifyUser,
 	catchAsync(updateCartQuantity),
@@ -368,7 +369,7 @@ router
 
 router
 	.route('/:id/:productId')
-	.get(isLoggedIn, verifyUser, catchAsync(renderViewProduct))
+	.get(isLoggedIn, verifyUser, catchAsync(renderViewProductTw))
 	.post(isLoggedIn, verifyUser, catchAsync(modifyProduct))
 	.delete(isLoggedIn, verifyUser, catchAsync(deleteProductMethod));
 

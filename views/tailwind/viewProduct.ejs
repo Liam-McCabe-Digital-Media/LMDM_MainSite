@@ -28,38 +28,15 @@
 	</div>
 	<div class="flex flex-col w-2/3 mb-3">
 		<label for="name" class="text-light">Product Name</label>
-		<input
-			type="text"
-			id="name"
-			name="name"
-			class="rounded-lg text-black"
-			value="<%= product.name %>"
-			required
-		/>
+		<h1 class="text-white text-3xl"><%= product.name %></h1>
 	</div>
 	<div class="flex flex-col w-2/3 mb-3">
 		<label for="category" class="text-light">Product Category</label>
-		<input
-			type="text"
-			id="category"
-			name="category"
-			class="rounded-lg text-black"
-			value="<%= product.category %>"
-			required
-		/>
+		<h1 class="text-hwite text-3xl"><%= product.category %></h1>
 	</div>
 	<div class="flex flex-col w-2/3 mb-3">
 		<label for="description" class="text-light">Description</label>
-		<textarea
-			name="description"
-			id="description"
-			rows="3"
-			class="px-2 rounded-lg text-black"
-			required
-		>
-<%= product.description %>
-        </textarea
-		>
+		<p class="text-white text-2xl"><%= product.description %></p>
 	</div>
 	<h3 class="text-2xl font-light">Alternates</h3>
 	<div class="flex flex-col w-2/3 mb-3" id="inputContainer">
@@ -67,46 +44,33 @@
 		<div class="flex flex-row mb-3" id="input<%=i%>">
 			<div class="w-1/3 flex flex-col pr-2">
 				<label for="alternate<%i%>" class="text-light">Alternate</label>
-				<input
-					type="text"
-					id="alternate<%i%>"
-					name="stock[<%=i%>][alternate]"
-					class="rounded-lg text-black"
-					value="<%= product.stock[i].alternate %>"
-					required
-				/>
+				<p class="text-white text-3xl"><%= product.stock[i].alternate %></p>
 			</div>
 			<div class="w-1/3 flex flex-col px-2">
-				<label for="quantity<%i%>" class="text-light">Quantity</label>
-				<input
-					type="number"
-					id="quantity<%i%>"
-					name="stock[<%=i%>][quantity]"
-					class="rounded-lg text-black"
-					value="<%= product.stock[i].quantity %>"
-					required
-				/>
+				<label for="quantity<%i%>" class="text-light">Available</label>
+				<p class="text-white text-3xl"><%= product.stock[i].quantity %></p>
 			</div>
 			<div class="w-1/3 flex flex-row pl-2">
 				<div class="flex flex-col w-1/2">
 					<label for="price<%i%>" class="text-light">Price</label>
-					<input
-						type="number"
-						id="price<%i%>"
-						name="stock[<%=i%>][price]"
-						class="rounded-lg text-black"
-						value="<%= product.stock[i].price %>"
-						required
-					/>
+					<p class="text-white text-3xl"><%= product.stock[i].price %></p>
 				</div>
 				<form
 					action="/users/<%=user._id%>/<%=product._id%>/<%=product.stock[i]._id%>/addToOrder"
 					method="POST"
-					class="flex flex-row ml-2 items-end w-1/2"
+					class="flex flex-row ml-2 items-end justify-between"
 				>
-					<button class="rounded-lg p-2 px-2 border border-green-500 bg-green-500 w-full">
-						Add To Order
-					</button>
+					<div class="flex-col">
+						<input
+							type="number"
+							min="1"
+							name="quantity"
+							value="1"
+							max="<%= product.stock[i].quantity %>"
+							class="rounded-lg text-black"
+						/>
+					</div>
+					<button class="rounded-lg flex-col p-2 border border-green-500 bg-green-500">Add</button>
 				</form>
 			</div>
 		</div>
