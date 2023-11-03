@@ -232,6 +232,36 @@ module.exports.renderShippingInfoTw = async (req, res) => {
 	res.render('tailwind/shippingInfo', { user });
 };
 
+module.exports.renderCustomerInfoTw = async (req, res) => {
+	const { id } = req.params;
+	const user = await getUser(id);
+	res.render('tailwind/customerInfo', { user });
+};
+
+module.exports.calculateRatesTw = async (req, res) => {
+	const user = await getUser(req.params.id);
+	const shipFrom = await getShipmentObjects(user);
+	const { street, streetTwo, city, zipcode, state } = req.body.address;
+	const { firstName, lastName, phone, email } = req.body.customer;
+	req.session.customer = req.body.customer;
+	req.session.customerAddress = req.body.address;
+	const { cartDetails } = req.session;
+	const shipTo = {
+		name: `${firstName} ${lastName}`,
+		phone,
+		addressLine1: street,
+		addressLine2: streetTwo,
+		cityLocality: city,
+		stateProvince: state,
+		postalCode: zipcode,
+		countryCode: 'US',
+		addressResidentialIndicator: 'yes',
+	};
+	const rates = await getRatesWithShipmentDetails(shipTo, shipFrom);
+	// res.send(rates);
+	res.render('tailwind/selectShippingMethod', { user, rates, shipTo, cartDetails });
+};
+
 module.exports.renderProfile = async (req, res) => {
 	const user = await getUser(req.params.id);
 	await user.populate('address');
