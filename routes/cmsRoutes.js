@@ -37,6 +37,7 @@ const {
 	renderViewProductTw,
 	renderViewProductForCartTw,
 	renderShippingInfoTw,
+	renderCustomerInfoTw,
 } = require('../controllers/cmsController');
 const { getUser } = require('../newDatabase/AccountsDB');
 router.get(
@@ -322,7 +323,7 @@ router.get('/:id/orders/selectPayment', isLoggedIn, verifyUser, catchAsync(rende
 router.get('/:id/orders/shippingInfo', isLoggedIn, verifyUser, catchAsync(renderShippingInfoTw));
 router.post('/:id/orders/shippingInfo', isLoggedIn, verifyUser, catchAsync(calculateRates));
 router.put('/:id/orders/shippingInfo', isLoggedIn, verifyUser, catchAsync(applyShipping));
-router.get('/:id/orders/customerInfo', isLoggedIn, verifyUser, catchAsync(renderCustomerInfo));
+router.get('/:id/orders/customerInfo', isLoggedIn, verifyUser, catchAsync(renderCustomerInfoTw));
 router.post('/:id/orders/customerInfo', isLoggedIn, verifyUser, catchAsync(confirmCusomerInfo));
 router.get('/:id/orders/overview', isLoggedIn, verifyUser, catchAsync(renderOverview));
 router.post('/:id/orders/createOrder', isLoggedIn, verifyUser, catchAsync(finalizeOrder));
