@@ -311,6 +311,14 @@ module.exports.calculateRates = async (req, res) => {
 	res.render('users/selectShippingMethod', { user, rates, shipTo, cartDetails });
 };
 
+module.exports.renderOverviewTw = async (req, res) => {
+	const { id } = req.params;
+	let { cart, shippingMethod, cartDetails } = req.session;
+	console.log('shipping Method' + shippingMethod);
+	if (!shippingMethod) shippingMethod = null;
+	res.render('tailwind/orderOverview', { id, cart, shippingMethod, cartDetails });
+};
+
 module.exports.applyShipping = async (req, res) => {
 	const { selectedShipping } = req.body;
 	const { id } = req.params;
@@ -324,7 +332,9 @@ module.exports.applyShipping = async (req, res) => {
 module.exports.renderOverview = async (req, res) => {
 	const { id } = req.params;
 	let { cart, shippingMethod, cartDetails } = req.session;
-	console.log('shipping Method' + shippingMethod);
+	console.log(cart);
+	console.log(shippingMethod);
+	console.log(cartDetails);
 	if (!shippingMethod) shippingMethod = null;
 	res.render('users/orderOverview', { id, cart, shippingMethod, cartDetails });
 };

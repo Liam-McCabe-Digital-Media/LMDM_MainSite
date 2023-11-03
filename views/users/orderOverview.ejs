@@ -49,7 +49,7 @@
 			<div class="col">
 				<h5>$<%= cartDetails.total %></h5>
 				<% if (shippingMethod) { %>
-				<h5>$<%= JSON.parse(shippingMethod).shippingAmount.amount %></h5>
+				<h5>$<%= shippingMethod.shippingAmount.amount %></h5>
 				<% } %>
 				<h5>$0</h5>
 			</div>
@@ -75,7 +75,7 @@
 			</div>
 			<div class="col">
 				<% if (shippingMethod) { %>
-				<h5>$<%= cartDetails.total + JSON.parse(shippingMethod).shippingAmount.amount %></h5>
+				<h5>$<%= cartDetails.total + shippingMethod.shippingAmount.amount %></h5>
 				<% } else { %>
 				<h5>$<%= cartDetails.total %></h5>
 				<%}%>
