@@ -1,3 +1,67 @@
 <% layout('tailwind/layout/userBoilerplate') %>
 
 <h1 class="text-4xl font-thin bg-gray-800 text-white text-center">Order Overview</h1>
+
+<div class="flex text-white w-full">
+	<div class="w-1/2">
+		<p class="text-3xl text-center">Cart Content</p>
+		<div class="px-3" id="productList">
+			<% for( let i = 0; i < cart.length; i++ ) { %>
+			<div class="border border-white rounded-lg text-white flex mb-1">
+				<div class="w-full pl-5 py-5 flex">
+					<div class="w-2/3">
+						<p class="text-lg text-slate-400">Name</p>
+						<p class="text-2xl"><%= JSON.parse(JSON.stringify(cart[i].product.name)) %></p>
+						<p class="text-lg text-slate-400">Alternate</p>
+						<p class="text-2xl"><%= JSON.parse(JSON.stringify(cart[i].alternate.alternate)) %></p>
+					</div>
+
+					<div class="w-1/3">
+						<p class="text-lg text-slate-400">Price</p>
+						<p class="text-2xl">$<%= JSON.parse(JSON.stringify(cart[i].alternate.price)) %></p>
+
+						<p class="text-lg text-slate-400">Quantity</p>
+						<div class="flex">
+							<p class="text-2xl"><%= cart[i].quantity %></p>
+						</div>
+					</div>
+				</div>
+				<% } %>
+			</div>
+		</div>
+	</div>
+	<div class="w-1/2">
+		<p class="text-3xl text-center">Total</p>
+		<div class="flex">
+			<div class="w-1/2">
+				<p class="text-xl">Subtotal:</p>
+				<% if (shippingMethod) { %>
+				<p class="text-xl">Shipping:</p>
+				<% } %>
+				<p class="text-xl">Tax:</p>
+			</div>
+			<div class="w-1/2">
+				<p class="text-xl">$<%= cartDetails.total %></p>
+				<% if (shippingMethod) { %>
+				<p class="text-xl">$<%= shippingMethod.shippingAmount.amount %></p>
+				<% } %>
+				<p class="text-xl">$0</p>
+			</div>
+		</div>
+		<p class="text-lg w-2/3 text-slate-400">
+			*This is only notifying you the amount of tax to collect from the customer, LMDM is not
+			collecting taxes from customer
+		</p>
+		<hr />
+		<div class="flex">
+			<div class="w-1/2"><p class="text-xl">Total:</p></div>
+			<div class="w-1/2">
+				<% if (shippingMethod) { %>
+				<p class="text-xl">$<%= cartDetails.total + shippingMethod.shippingAmount.amount %></p>
+				<% } else { %>
+				<p class="text-xl">$<%= cartDetails.total %></p>
+				<%}%>
+			</div>
+		</div>
+	</div>
+</div>
