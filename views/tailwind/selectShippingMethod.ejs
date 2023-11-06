@@ -2,8 +2,8 @@
 
 <h1 class="text-white text-3xl text-center h-full items-center font-light mb-6">Shipping</h1>
 
-<div class="flex flex-col w-full h-full text-white fixed">
-	<div class="flex h-3/5">
+<div class="flex flex-col w-full h-full text-white relative">
+	<div class="flex">
 		<!-- methods -->
 		<div class="w-1/2 text-center h-full">
 			<p class="text-2xl mb-5">Select Shipping</p>
@@ -23,71 +23,75 @@
 			<p class="text-lg text-slate-400">Scroll For More</p>
 		</div>
 		<!-- address -->
-		<div class="w-1/2 text-center">
+		<div class="w-1/2 h-full">
 			<p class="text-2xl mb-5">Shipping To</p>
-			<div class="">
-				<p class="text-3xl text-slate-400">Name:</p>
-				<p class="text-3xl"><%= JSON.parse(JSON.stringify(shipTo.name)) %></p>
-				<p class="text-3xl text-slate-400">Phone:</p>
-				<p class="text-3xl"><%= JSON.parse(JSON.stringify(shipTo.phone)) %></p>
-				<p class="text-3xl text-slate-400">Email:</p>
-				<% if (shipTo.email) { %>
-				<p class="text-3xl"><%= JSON.parse(JSON.stringify(shipTo.email)) %></p>
-				<% } else {%>
-				<p class="text-3xl">None</p>
-				<%}%>
-				<p class="text-3xl text-slate-400">Address One:</p>
-				<p class="text-3xl"><%= JSON.parse(JSON.stringify(shipTo.addressLine1)) %></p>
-				<% if (shipTo.addressLine2) { %>
-				<p class="text-3xl text-slate-400">Address Two:</p>
-				<p class="text-3xl"><%= JSON.parse(JSON.stringify(shipTo.addressLine2)) %></p>
-				<% } %>
-				<p class="text-3xl text-slate-400">City:</p>
-				<p class="text-3xl"><%= JSON.parse(JSON.stringify(shipTo.cityLocality)) %></p>
-				<p class="text-3xl text-slate-400">State:</p>
-				<p class="text-3xl"><%= JSON.parse(JSON.stringify(shipTo.stateProvince)) %></p>
-				<p class="text-3xl text-slate-400">Zipcode:</p>
-				<p class="text-3xl"><%= JSON.parse(JSON.stringify(shipTo.postalCode)) %></p>
+			<div class="flex">
+				<div class="w-1/2">
+					<p class="text-3xl text-slate-400">Name:</p>
+					<p class="text-3xl"><%= JSON.parse(JSON.stringify(shipTo.name)) %></p>
+					<p class="text-3xl text-slate-400">Phone:</p>
+					<p class="text-3xl"><%= JSON.parse(JSON.stringify(shipTo.phone)) %></p>
+					<p class="text-3xl text-slate-400">Email:</p>
+					<% if (shipTo.email) { %>
+					<p class="text-3xl"><%= JSON.parse(JSON.stringify(shipTo.email)) %></p>
+					<% } else {%>
+					<p class="text-3xl">None</p>
+					<%}%>
+				</div>
+				<div class="w-1/2">
+					<p class="text-3xl text-slate-400">Address One:</p>
+					<p class="text-3xl"><%= JSON.parse(JSON.stringify(shipTo.addressLine1)) %></p>
+					<% if (shipTo.addressLine2) { %>
+					<p class="text-3xl text-slate-400">Address Two:</p>
+					<p class="text-3xl"><%= JSON.parse(JSON.stringify(shipTo.addressLine2)) %></p>
+					<% } %>
+					<p class="text-3xl text-slate-400">City:</p>
+					<p class="text-3xl"><%= JSON.parse(JSON.stringify(shipTo.cityLocality)) %></p>
+					<p class="text-3xl text-slate-400">State:</p>
+					<p class="text-3xl"><%= JSON.parse(JSON.stringify(shipTo.stateProvince)) %></p>
+					<p class="text-3xl text-slate-400">Zipcode:</p>
+					<p class="text-3xl"><%= JSON.parse(JSON.stringify(shipTo.postalCode)) %></p>
+				</div>
+			</div>
+			<div class="border-t-2 mt-3 flex p-3">
+				<div class="w-1/2">
+					<p class="text-3xl text-slate-400">Cart:</p>
+					<p class="text-3xl" id="cartLabel">$<%= JSON.stringify(cartDetails.total) %></p>
+					<p class="text-3xl text-slate-400">Shipping:</p>
+					<p class="text-3xl" id="shippingCostLabel">Please Select Shipping</p>
+					<p class="text-3xl text-slate-400">Total:</p>
+					<p class="text-3xl" id="totalLabel">Please Select Shipping</p>
+				</div>
+				<div class="flex">
+					<form action="/users/<%= user._id %>/orders/shippingInfo?_method=PUT" method="POST">
+						<input type="hidden" id="selectedShipping" name="selectedShipping" value="hello" />
+						<button
+							id="continueBtn"
+							class="inline-flex items-center px-4 py-2 mt-3 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
+						>
+							Continue<svg
+								class="w-3.5 h-3.5 ml-2"
+								aria-hidden="true"
+								xmlns="http://www.w3.org/2000/svg"
+								fill="none"
+								viewBox="0 0 14 10"
+							>
+								<path
+									stroke="currentColor"
+									stroke-linecap="round"
+									stroke-linejoin="round"
+									stroke-width="2"
+									d="M1 5h12m0 0L9 1m4 4L9 9"
+								/>
+								.
+							</svg>
+						</button>
+					</form>
+				</div>
 			</div>
 		</div>
 	</div>
 	<!-- totals -->
-	<div class="border-t-2 mt-3 flex p-3">
-		<div class="w-1/5">
-			<p class="text-3xl text-slate-400">Cart:</p>
-			<p class="text-3xl" id="cartLabel">$<%= JSON.stringify(cartDetails.total) %></p>
-			<p class="text-3xl text-slate-400">Shipping:</p>
-			<p class="text-3xl" id="shippingCostLabel">Please Select Shipping</p>
-			<p class="text-3xl text-slate-400">Total:</p>
-			<p class="text-3xl" id="totalLabel">Please Select Shipping</p>
-		</div>
-		<div class="w-4/5 flex items-end">
-			<form action="/users/<%= user._id %>/orders/shippingInfo?_method=PUT" method="POST">
-				<input type="hidden" id="selectedShipping" name="selectedShipping" value="hello" />
-				<button
-					id="continueBtn"
-					class="inline-flex items-center px-4 py-2 mt-3 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
-				>
-					Continue<svg
-						class="w-3.5 h-3.5 ml-2"
-						aria-hidden="true"
-						xmlns="http://www.w3.org/2000/svg"
-						fill="none"
-						viewBox="0 0 14 10"
-					>
-						<path
-							stroke="currentColor"
-							stroke-linecap="round"
-							stroke-linejoin="round"
-							stroke-width="2"
-							d="M1 5h12m0 0L9 1m4 4L9 9"
-						/>
-						.
-					</svg>
-				</button>
-			</form>
-		</div>
-	</div>
 </div>
 
 <script>

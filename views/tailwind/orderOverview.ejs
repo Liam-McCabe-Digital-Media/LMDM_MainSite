@@ -43,7 +43,7 @@
 			<div class="w-1/2">
 				<p class="text-xl">$<%= cartDetails.total %></p>
 				<% if (shippingMethod) { %>
-				<p class="text-xl">$<%= shippingMethod.shippingAmount.amount %></p>
+				<p class="text-xl">$<%= JSON.parse(shippingMethod).shippingAmount.amount %></p>
 				<% } %>
 				<p class="text-xl">$0</p>
 			</div>
@@ -54,10 +54,24 @@
 		</p>
 		<hr />
 		<div class="flex">
-			<div class="w-1/2"><p class="text-xl">Total:</p></div>
+			<div class="w-1/2">
+				<p class="text-xl">Total:</p>
+				<form action="/users/<%=user._id%>/orders/createOrder" method="POST">
+					<button
+						class="rounded-lg p-2 bg-blue-500 broder-blue-500 hover:bg-blue-600 hover:border-blue-600"
+					>
+						Complete Order
+					</button>
+					<p class="text-slate-400">
+						*Note shipping cost will be billled to your account at the end of your billing cycle
+					</p>
+				</form>
+			</div>
 			<div class="w-1/2">
 				<% if (shippingMethod) { %>
-				<p class="text-xl">$<%= cartDetails.total + shippingMethod.shippingAmount.amount %></p>
+				<p class="text-xl">
+					$<%= cartDetails.total + JSON.parse(shippingMethod).shippingAmount.amount %>
+				</p>
 				<% } else { %>
 				<p class="text-xl">$<%= cartDetails.total %></p>
 				<%}%>

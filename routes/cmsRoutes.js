@@ -39,6 +39,8 @@ const {
 	renderShippingInfoTw,
 	renderCustomerInfoTw,
 	calculateRatesTw,
+	renderOverviewTw,
+	renderOrderConfirmationTw,
 } = require('../controllers/cmsController');
 const { getUser } = require('../newDatabase/AccountsDB');
 // router.get(
@@ -489,13 +491,13 @@ router.post('/:id/orders/shippingInfo', isLoggedIn, verifyUser, catchAsync(calcu
 router.put('/:id/orders/shippingInfo', isLoggedIn, verifyUser, catchAsync(applyShipping));
 router.get('/:id/orders/customerInfo', isLoggedIn, verifyUser, catchAsync(renderCustomerInfoTw));
 router.post('/:id/orders/customerInfo', isLoggedIn, verifyUser, catchAsync(confirmCusomerInfo));
-router.get('/:id/orders/overview', isLoggedIn, verifyUser, catchAsync(renderOverview));
+router.get('/:id/orders/overview', isLoggedIn, verifyUser, catchAsync(renderOverviewTw));
 router.post('/:id/orders/createOrder', isLoggedIn, verifyUser, catchAsync(finalizeOrder));
 router.get(
 	'/:id/orders/:orderId/confirmation',
 	isLoggedIn,
 	verifyUser,
-	catchAsync(renderOrderConfirmation),
+	catchAsync(renderOrderConfirmationTw),
 );
 //renders the dashboard populated with user '/:id' information pulled from database
 router.get('/:id/dashboard', isLoggedIn, verifyUser, catchAsync(renderDashboardTw));

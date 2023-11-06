@@ -314,9 +314,23 @@ module.exports.calculateRates = async (req, res) => {
 module.exports.renderOverviewTw = async (req, res) => {
 	const { id } = req.params;
 	let { cart, shippingMethod, cartDetails } = req.session;
+	const user = await getUser(id);
 	console.log('shipping Method' + shippingMethod);
 	if (!shippingMethod) shippingMethod = null;
-	res.render('tailwind/orderOverview', { id, cart, shippingMethod, cartDetails });
+	res.render('tailwind/orderOverview', { user, cart, shippingMethod, cartDetails });
+};
+
+module.exports.renderOrderConfirmationTw = async (req, res) => {
+	const { id, orderId } = req.params;
+	const order = await getOrder(orderId);
+	const user = await getUser(id);
+	let labelLink = null;
+	try {
+		labelLink = order.fulfillment.shippingLabel.labelDownload.href;
+	} catch (e) {
+		labelLink = null;
+	}
+	res.render('tailwind/orderConfirmation', { user, orderId, labelLink });
 };
 
 module.exports.applyShipping = async (req, res) => {
