@@ -26,18 +26,22 @@
 			Back to Order
 		</a>
 	</div>
-	<div class="flex flex-col w-2/3 mb-3">
-		<label for="name" class="text-light">Product Name</label>
-		<h1 class="text-white text-3xl"><%= product.name %></h1>
+	<div class="flex h-full w-full justify-center mb-5">
+		<div class="w-1/3 flex flex-col justify-center items-center">
+			<div class="">
+				<label for="name" class="text-slate-400">Product Name</label>
+				<h1 class="text-white text-3xl"><%= product.name %></h1>
+				<label for="category" class="text-slate-400">Product Category</label>
+				<h1 class="text-hwite text-3xl"><%= product.category %></h1>
+				<label for="description" class="text-slate-400">Description</label>
+				<p class="text-white text-2xl"><%= product.description %></p>
+			</div>
+		</div>
+		<div class="w-1/3">
+			<div class="w-full"><img src="/images/images.jpeg" alt="" class="rounded-lg w-5/6" /></div>
+		</div>
 	</div>
-	<div class="flex flex-col w-2/3 mb-3">
-		<label for="category" class="text-light">Product Category</label>
-		<h1 class="text-hwite text-3xl"><%= product.category %></h1>
-	</div>
-	<div class="flex flex-col w-2/3 mb-3">
-		<label for="description" class="text-light">Description</label>
-		<p class="text-white text-2xl"><%= product.description %></p>
-	</div>
+
 	<h3 class="text-2xl font-light">Alternates</h3>
 	<div class="flex flex-col w-2/3 mb-3" id="inputContainer">
 		<% for( let i = 0; i < product.stock.length; i++ ) { %>
