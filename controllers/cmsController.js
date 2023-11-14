@@ -333,6 +333,20 @@ module.exports.renderOrderConfirmationTw = async (req, res) => {
 	res.render('tailwind/orderConfirmation', { user, orderId, labelLink });
 };
 
+module.exports.renderViewOrderTw = async (req, res) => {
+	const { id, orderId } = req.params;
+	const order = await getOrder(orderId);
+	const user = await getUser(id);
+	let labelLink = null;
+	try {
+		labelLink = order.fulfillment.shoppingLabel.labelDownload.href;
+	} catch (e) {
+		labelLink = null;
+	}
+	console.log(order);
+	res.render('tailwind/viewOrder', { user, order, labelLink });
+};
+
 module.exports.applyShipping = async (req, res) => {
 	const { selectedShipping } = req.body;
 	const { id } = req.params;

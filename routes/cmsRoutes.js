@@ -41,6 +41,7 @@ const {
 	calculateRatesTw,
 	renderOverviewTw,
 	renderOrderConfirmationTw,
+	renderViewOrderTw,
 } = require('../controllers/cmsController');
 const { getUser } = require('../newDatabase/AccountsDB');
 // router.get(
@@ -499,6 +500,7 @@ router.get(
 	verifyUser,
 	catchAsync(renderOrderConfirmationTw),
 );
+router.get('/:id/orders/:orderId/viewOrder', isLoggedIn, verifyUser, catchAsync(renderViewOrderTw));
 //renders the dashboard populated with user '/:id' information pulled from database
 router.get('/:id/dashboard', isLoggedIn, verifyUser, catchAsync(renderDashboardTw));
 
