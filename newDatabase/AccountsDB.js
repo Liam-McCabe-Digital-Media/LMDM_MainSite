@@ -5,6 +5,11 @@ module.exports.getUser = async (id) => {
 	return user;
 };
 
+module.exports.getUserByUsername = async (username) => {
+	const user = await User.findOne({ username });
+	return user;
+};
+
 module.exports.getShipmentObjects = async (user) => {
 	await user.populate('address');
 	let shipFrom = {

@@ -1,4 +1,6 @@
 const { getAllProducts, getProduct } = require('../newDatabase/ProductDB');
+const { getUser, getUserByUsername } = require('../newDatabase/AccountsDB');
+
 const User = require('../newModels/User');
 
 module.exports.getProductFromDB = async (req, res) => {
@@ -39,8 +41,14 @@ module.exports.addProductToCart = async (req, res) => {
 
 module.exports.getAllProductsFromDB = async (req, res) => {
 	const { store } = req.body;
-	const user = await User.findOne({ username: store });
+	const user = await getUserByUsername(store);
 	const products = await getAllProducts(user._id);
 	console.log(products);
 	return res.json(products);
+};
+
+module.exports.getShippingRates = async (req, res) => {
+	const { store } = req.body;
+	const user = await getUserByUsername(store);
+	const products = await getAllProducts(user._id);
 };
