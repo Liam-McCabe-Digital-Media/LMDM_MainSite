@@ -1,7 +1,9 @@
 const Order = require('../newModels/Order');
 
-module.exports.createOrder = async (cart, cartDetails, customer) => {
+module.exports.createOrderNoShipping = async (userId, cart, cartDetails, customer) => {
 	const newOrder = await Order.create({
+		store: userId,
+		customerName: { first: customer.firstName, last: customer.lastName },
 		customer: customer._id,
 		orderContent: cart,
 		orderDetails: cartDetails,
@@ -9,8 +11,10 @@ module.exports.createOrder = async (cart, cartDetails, customer) => {
 	return newOrder;
 };
 
-module.exports.createOrder = async (cart, cartDetails, customer, shippingMethod, label) => {
+module.exports.createOrder = async (userId, cart, cartDetails, customer, shippingMethod, label) => {
 	const newOrder = await Order.create({
+		store: userId,
+		customerName: { first: customer.firstName, last: customer.LastName },
 		customer: customer._id,
 		orderContent: cart,
 		orderDetails: cartDetails,
@@ -27,4 +31,9 @@ module.exports.createOrder = async (cart, cartDetails, customer, shippingMethod,
 module.exports.getOrder = async (id) => {
 	const order = await Order.findById(id);
 	return order;
+};
+
+module.exports.getAllOrders = async (userId) => {
+	const orders = await Order.find({ store: userId });
+	return orders;
 };

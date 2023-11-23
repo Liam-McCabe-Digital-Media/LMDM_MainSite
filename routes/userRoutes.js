@@ -10,6 +10,9 @@ const {
 	registerUser,
 } = require('../controllers/userController');
 
+router.get('/test', (req, res) => {
+	res.render('testing');
+});
 //renders login page
 router.get('/login', renderLogin);
 

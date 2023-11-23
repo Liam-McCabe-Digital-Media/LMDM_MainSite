@@ -14,7 +14,7 @@ const {
 	removeAlternateFromCart,
 	addAlternateToOrder,
 	renderDashboard,
-	renderNewOrder,
+	renderNewOrderTw,
 	renderOrders,
 	renderPaymentSelect,
 	renderShippingInfo,
@@ -24,11 +24,24 @@ const {
 	saveShippingInfo,
 	calculateRates,
 	renderCustomerInfo,
-	createOrderNoShipping,
+	confirmCusomerInfo,
 	renderOverview,
 	applyShipping,
 	finalizeOrder,
 	renderOrderConfirmation,
+	renderDashboardTw,
+	renderProductsTW,
+	renderEditProductTW,
+	renderNewProductTW,
+	renderOrdersTW,
+	renderViewProductTw,
+	renderViewProductForCartTw,
+	renderShippingInfoTw,
+	renderCustomerInfoTw,
+	calculateRatesTw,
+	renderOverviewTw,
+	renderOrderConfirmationTw,
+	renderViewOrderTw,
 } = require('../controllers/cmsController');
 const { getUser } = require('../newDatabase/AccountsDB');
 // router.get(
@@ -202,6 +215,114 @@ const { getUser } = require('../newDatabase/AccountsDB');
 // 					warningMessages: [],
 // 					errorMessages: [],
 // 				},
+// 				{
+// 					rateId: 'se-3182336119',
+// 					rateType: 'shipment',
+// 					carrierId: 'se-4800261',
+// 					shippingAmount: { currency: 'usd', amount: 83.73 },
+// 					insuranceAmount: { currency: 'usd', amount: 0 },
+// 					confirmationAmount: { currency: 'usd', amount: 0 },
+// 					otherAmount: { currency: 'usd', amount: 0 },
+// 					taxAmount: null,
+// 					zone: null,
+// 					packageType: null,
+// 					deliveryDays: 1,
+// 					guaranteedService: true,
+// 					estimatedDeliveryDate: '2023-06-21T08:00:00Z',
+// 					carrierDeliveryDays: 'Tomorrow by 08:00 AM',
+// 					shipDate: '2023-06-20T00:00:00Z',
+// 					negotiatedRate: false,
+// 					serviceType: 'UPS Next Day Air® Early',
+// 					serviceCode: 'ups_next_day_air_early_am',
+// 					trackable: true,
+// 					carrierCode: 'ups',
+// 					carrierNickname: 'ShipEngine Test Account - UPS',
+// 					carrierFriendlyName: 'UPS',
+// 					validationStatus: 'valid',
+// 					warningMessages: [],
+// 					errorMessages: [],
+// 				},
+// 				{
+// 					rateId: 'se-3182336119',
+// 					rateType: 'shipment',
+// 					carrierId: 'se-4800261',
+// 					shippingAmount: { currency: 'usd', amount: 83.73 },
+// 					insuranceAmount: { currency: 'usd', amount: 0 },
+// 					confirmationAmount: { currency: 'usd', amount: 0 },
+// 					otherAmount: { currency: 'usd', amount: 0 },
+// 					taxAmount: null,
+// 					zone: null,
+// 					packageType: null,
+// 					deliveryDays: 1,
+// 					guaranteedService: true,
+// 					estimatedDeliveryDate: '2023-06-21T08:00:00Z',
+// 					carrierDeliveryDays: 'Tomorrow by 08:00 AM',
+// 					shipDate: '2023-06-20T00:00:00Z',
+// 					negotiatedRate: false,
+// 					serviceType: 'UPS Next Day Air® Early',
+// 					serviceCode: 'ups_next_day_air_early_am',
+// 					trackable: true,
+// 					carrierCode: 'ups',
+// 					carrierNickname: 'ShipEngine Test Account - UPS',
+// 					carrierFriendlyName: 'UPS',
+// 					validationStatus: 'valid',
+// 					warningMessages: [],
+// 					errorMessages: [],
+// 				},
+// 				{
+// 					rateId: 'se-3182336119',
+// 					rateType: 'shipment',
+// 					carrierId: 'se-4800261',
+// 					shippingAmount: { currency: 'usd', amount: 83.73 },
+// 					insuranceAmount: { currency: 'usd', amount: 0 },
+// 					confirmationAmount: { currency: 'usd', amount: 0 },
+// 					otherAmount: { currency: 'usd', amount: 0 },
+// 					taxAmount: null,
+// 					zone: null,
+// 					packageType: null,
+// 					deliveryDays: 1,
+// 					guaranteedService: true,
+// 					estimatedDeliveryDate: '2023-06-21T08:00:00Z',
+// 					carrierDeliveryDays: 'Tomorrow by 08:00 AM',
+// 					shipDate: '2023-06-20T00:00:00Z',
+// 					negotiatedRate: false,
+// 					serviceType: 'UPS Next Day Air® Early',
+// 					serviceCode: 'ups_next_day_air_early_am',
+// 					trackable: true,
+// 					carrierCode: 'ups',
+// 					carrierNickname: 'ShipEngine Test Account - UPS',
+// 					carrierFriendlyName: 'UPS',
+// 					validationStatus: 'valid',
+// 					warningMessages: [],
+// 					errorMessages: [],
+// 				},
+// 				{
+// 					rateId: 'se-3182336119',
+// 					rateType: 'shipment',
+// 					carrierId: 'se-4800261',
+// 					shippingAmount: { currency: 'usd', amount: 83.73 },
+// 					insuranceAmount: { currency: 'usd', amount: 0 },
+// 					confirmationAmount: { currency: 'usd', amount: 0 },
+// 					otherAmount: { currency: 'usd', amount: 0 },
+// 					taxAmount: null,
+// 					zone: null,
+// 					packageType: null,
+// 					deliveryDays: 1,
+// 					guaranteedService: true,
+// 					estimatedDeliveryDate: '2023-06-21T08:00:00Z',
+// 					carrierDeliveryDays: 'Tomorrow by 08:00 AM',
+// 					shipDate: '2023-06-20T00:00:00Z',
+// 					negotiatedRate: false,
+// 					serviceType: 'UPS Next Day Air® Early',
+// 					serviceCode: 'ups_next_day_air_early_am',
+// 					trackable: true,
+// 					carrierCode: 'ups',
+// 					carrierNickname: 'ShipEngine Test Account - UPS',
+// 					carrierFriendlyName: 'UPS',
+// 					validationStatus: 'valid',
+// 					warningMessages: [],
+// 					errorMessages: [],
+// 				},
 // 			],
 // 			invalidRates: [],
 // 			rateRequestId: 'se-448459902',
@@ -224,7 +345,7 @@ const { getUser } = require('../newDatabase/AccountsDB');
 // 			addressResidentialIndicator: 'yes',
 // 		};
 // 		const { cartDetails } = req.session;
-// 		res.render('users/selectShippingMethod', { user, rates, shipTo, cartDetails });
+// 		res.render('tailwind/selectShippingMethod', { user, rates, shipTo, cartDetails });
 // 	}),
 // );
 // router.post(
@@ -254,7 +375,6 @@ router.get(
 					startingPrice: 15,
 					startingAlternate: 'large',
 					stock: [{ alternate: 'large', quantity: 5, price: 15, _id: '647fa78f48239a2f7fe6fc68' }],
-					__v: 0,
 				},
 				alternate: { alternate: 'large', quantity: 5, price: 15, _id: '647fa78f48239a2f7fe6fc68' },
 			},
@@ -293,37 +413,102 @@ router.get(
 	}),
 );
 
+router.get(
+	'/:id/testTw',
+	isLoggedIn,
+	verifyUser,
+	catchAsync(async (req, res) => {
+		req.session.cart = [
+			{
+				quantity: '1',
+				product: {
+					_id: '647fa78f48239a2f7fe6fc67',
+					store: '647fa760bcfbc22c4e0796ac',
+					name: 'decorous jacket',
+					category: 'jacket',
+					description: 'example description of product',
+					startingPrice: 15,
+					startingAlternate: 'large',
+					stock: [{ alternate: 'large', quantity: 5, price: 15, _id: '647fa78f48239a2f7fe6fc68' }],
+				},
+				alternate: { alternate: 'large', quantity: 5, price: 15, _id: '647fa78f48239a2f7fe6fc68' },
+			},
+		];
+		req.session.cartDetails = { total: 15, itemCount: '01', shippingCost: 17.5 };
+		req.session.shippingMethod = {
+			rateId: 'se-3219579941',
+			rateType: 'shipment',
+			carrierId: 'se-4800261',
+			shippingAmount: { currency: 'usd', amount: 17.5 },
+			insuranceAmount: { currency: 'usd', amount: 0 },
+			confirmationAmount: { currency: 'usd', amount: 0 },
+			otherAmount: { currency: 'usd', amount: 0 },
+			taxAmount: null,
+			zone: null,
+			packageType: null,
+			deliveryDays: 1,
+			guaranteedService: true,
+			estimatedDeliveryDate: '2023-07-01T23:00:00Z',
+			carrierDeliveryDays: 'Tomorrow by 11:00 PM',
+			shipDate: '2023-06-30T00:00:00Z',
+			negotiatedRate: false,
+			serviceType: 'UPS® Ground',
+			serviceCode: 'ups_ground',
+			trackable: true,
+			carrierCode: 'ups',
+			carrierNickname: 'ShipEngine Test Account - UPS',
+			carrierFriendlyName: 'UPS',
+			validationStatus: 'valid',
+			warningMessages: [],
+			errorMessages: [],
+		};
+		const { cart, cartDetails, shippingMethod } = req.session;
+		const { id } = req.params;
+		const user = await getUser(id);
+		res.render('tailwind/orderOverview', { user, cart, cartDetails, shippingMethod });
+	}),
+);
+
+//test routes for the tailwind update
+// router.get('/:id/test', isLoggedIn, verifyUser, catchAsync(renderDashboardTw));
+
+router.get('/:id/test', isLoggedIn, verifyUser, catchAsync(renderShippingInfoTw));
+
+router.get('/:id/products', isLoggedIn, verifyUser, catchAsync(renderProductsTW));
+router.get('/:id/:productId/edit', isLoggedIn, verifyUser, catchAsync(renderEditProductTW));
+
 router.get('/:id/profile', isLoggedIn, verifyUser, catchAsync(renderProfile));
 router.get('/:id/profile/editShipping', isLoggedIn, verifyUser, catchAsync(renderEditShipping));
 router.post('/:id/profile/editShipping', isLoggedIn, verifyUser, catchAsync(saveShippingInfo));
 router.post('/:id/');
-router.get('/:id/orders', isLoggedIn, verifyUser, catchAsync(renderOrders));
+router.get('/:id/orders', isLoggedIn, verifyUser, catchAsync(renderOrdersTW));
 
-router.get('/:id/orders/newOrder', isLoggedIn, verifyUser, catchAsync(renderNewOrder));
+router.get('/:id/orders/newOrder', isLoggedIn, verifyUser, catchAsync(renderNewOrderTw));
 
 router.get('/:id/orders/selectPayment', isLoggedIn, verifyUser, catchAsync(renderPaymentSelect));
 
-router.get('/:id/orders/shippingInfo', isLoggedIn, verifyUser, catchAsync(renderShippingInfo));
-router.post('/:id/orders/shippingInfo', isLoggedIn, verifyUser, catchAsync(calculateRates));
+router.get('/:id/orders/shippingInfo', isLoggedIn, verifyUser, catchAsync(renderShippingInfoTw));
+router.post('/:id/orders/shippingInfo', isLoggedIn, verifyUser, catchAsync(calculateRatesTw));
 router.put('/:id/orders/shippingInfo', isLoggedIn, verifyUser, catchAsync(applyShipping));
-router.get('/:id/orders/customerInfo', isLoggedIn, verifyUser, catchAsync(renderCustomerInfo));
-router.post('/:id/orders/customerInfo', isLoggedIn, verifyUser, catchAsync(createOrderNoShipping));
-router.get('/:id/orders/overview', isLoggedIn, verifyUser, catchAsync(renderOverview));
+router.get('/:id/orders/customerInfo', isLoggedIn, verifyUser, catchAsync(renderCustomerInfoTw));
+router.post('/:id/orders/customerInfo', isLoggedIn, verifyUser, catchAsync(confirmCusomerInfo));
+router.get('/:id/orders/overview', isLoggedIn, verifyUser, catchAsync(renderOverviewTw));
 router.post('/:id/orders/createOrder', isLoggedIn, verifyUser, catchAsync(finalizeOrder));
 router.get(
 	'/:id/orders/:orderId/confirmation',
 	isLoggedIn,
 	verifyUser,
-	catchAsync(renderOrderConfirmation),
+	catchAsync(renderOrderConfirmationTw),
 );
+router.get('/:id/orders/:orderId/viewOrder', isLoggedIn, verifyUser, catchAsync(renderViewOrderTw));
 //renders the dashboard populated with user '/:id' information pulled from database
-router.get('/:id/dashboard', isLoggedIn, verifyUser, catchAsync(renderDashboard));
+router.get('/:id/dashboard', isLoggedIn, verifyUser, catchAsync(renderDashboardTw));
 
 router.get(
 	'/:id/:productId/viewProduct',
 	isLoggedIn,
 	verifyUser,
-	catchAsync(renderViewProductForCart),
+	catchAsync(renderViewProductForCartTw),
 );
 
 router.post(
@@ -333,30 +518,30 @@ router.post(
 	catchAsync(addAlternateToOrder),
 );
 
-router.delete(
-	'/:id/removeFromCart/:productId/:alternateId',
+router.put(
+	'/:id/:productId/:alternateId/removeFromOrder',
 	isLoggedIn,
 	verifyUser,
 	catchAsync(removeAlternateFromCart),
 );
 
 router.put(
-	'/:id/updateQuantity/:alternateId',
+	'/:id/:productId/:alternateId/updateQuantity',
 	isLoggedIn,
 	verifyUser,
 	catchAsync(updateCartQuantity),
 );
 router
 	.route('/:id/new')
-	.get(isLoggedIn, verifyUser, catchAsync(renderNewProduct))
+	.get(isLoggedIn, verifyUser, catchAsync(renderNewProductTW))
 	.post(isLoggedIn, verifyUser, catchAsync(createNewProduct));
 
 router
 	.route('/:id/:productId')
-	.get(isLoggedIn, verifyUser, catchAsync(renderViewProduct))
+	.get(isLoggedIn, verifyUser, catchAsync(renderViewProductTw))
 	.post(isLoggedIn, verifyUser, catchAsync(modifyProduct))
 	.delete(isLoggedIn, verifyUser, catchAsync(deleteProductMethod));
 
-router.get('/:id/:productId/edit', isLoggedIn, verifyUser, catchAsync(renderEdit));
+router.get('/:id/:productId/edit', isLoggedIn, verifyUser, catchAsync(renderNewProductTW));
 
 module.exports = router;

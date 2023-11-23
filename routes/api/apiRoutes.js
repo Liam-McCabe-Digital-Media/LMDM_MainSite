@@ -20,8 +20,10 @@ router.post('/allProducts', postVerifyKey, catchAsync(getAllProductsFromDB));
 
 router.post('/addToCart', postVerifyKey, catchAsync(addProductToCart));
 
-router.post('/removeFromCart', verifyKey, catchAsync(removeFromCart));
+router.post('/removeFromCart', postVerifyKey, catchAsync(removeFromCart));
 
 router.post('/:id', postVerifyKey, catchAsync(getProductFromDB));
+
+// router.post('/getShippingRates', postVerifyKey, catchAsync(getShippingRates));
 
 module.exports = router;

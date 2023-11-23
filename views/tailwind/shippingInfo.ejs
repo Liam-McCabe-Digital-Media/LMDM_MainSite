@@ -1,0 +1,111 @@
+<% layout('tailwind/layout/userBoilerplate') %>
+<h1 class="text-4xl font-thin bg-gray-800 text-white text-center">Shipping Info</h1>
+
+<div class="flex flex-col items-center justify-center w-full">
+	<form action="/users/<%=user._id%>/orders/shippingInfo" method="POST" class="w-1/2">
+		<a
+			href="/users/<%= user._id %>/orders/newOrder"
+			class="text-blue-500 text-lg flex flex-1 items-center justify-start mb-3"
+		>
+			<svg
+				class="w-4 h-4 text-blue-500 inline mr-1"
+				aria-hidden="true"
+				xmlns="http://www.w3.org/2000/svg"
+				fill="none"
+				viewBox="0 0 8 14"
+			>
+				<path
+					stroke="currentColor"
+					stroke-linecap="round"
+					stroke-linejoin="round"
+					stroke-width="2"
+					d="M7 1 1.3 6.326a.91.91 0 0 0 0 1.348L7 13"
+				/>
+			</svg>
+			Back to New Order
+		</a>
+		<div class="flex mb-3 w-full">
+			<input
+				type="text"
+				class="rounded-lg w-1/2"
+				placeholder="First Name"
+				name="customer[firstName]"
+				required
+			/>
+			<input
+				type="text"
+				class="rounded-lg w-1/2"
+				placeholder="Last Name"
+				name="customer[lastName]"
+				required
+			/>
+		</div>
+		<input
+			type="text"
+			class="rounded-lg mb-3 w-full"
+			placeholder="Phone Number"
+			name="customer[phone]"
+			required
+		/>
+		<input
+			type="email"
+			class="rounded-lg mb-3 w-full"
+			placeholder="Email"
+			name="customer[email]"
+			required
+		/>
+		<input
+			class="rounded-lg mb-3 w-full"
+			type="text"
+			name="address[street]"
+			placeholder="Address"
+			required
+		/>
+		<input
+			class="rounded-lg mb-3 w-full"
+			type="text"
+			name="address[streetTwo]"
+			placeholder="Address 2"
+		/>
+		<input
+			class="rounded-lg mb-3 w-full"
+			type="text"
+			name="address[city]"
+			placeholder="City"
+			required
+		/>
+		<div class="flex mb-3 w-full">
+			<input
+				type="text"
+				class="rounded-lg w-1/2"
+				placeholder="Zipcode"
+				name="address[zipcode]"
+				required
+			/>
+			<input
+				type="text"
+				class="rounded-lg w-1/2"
+				placeholder="State"
+				name="address[state]"
+				required
+			/>
+		</div>
+		<div class="flex mb-3 w-full justify-end">
+			<a href="/users/<%=user._id%>/orders/customerInfo"
+				><button
+					action="button"
+					type="button"
+					id="shippingToggle"
+					class="rounded-lg no-underline bg-yellow-500 text-white p-2 hover:bg-yellow-600 mx-3"
+				>
+					No Shipping
+				</button></a
+			>
+			<button class="text-white rounded-lg bg-blue-600 hover:bg-blue-700 py-2 px-4">
+				Continue
+			</button>
+		</div>
+	</form>
+</div>
+
+<!-- drawer component -->

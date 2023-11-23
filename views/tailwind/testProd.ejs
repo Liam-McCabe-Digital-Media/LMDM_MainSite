@@ -1,0 +1,33 @@
+<div id="productList" class="flex flex-wrap justify-center items-center bg-gray-900 pt-2">
+	<% for( let product of products ) { %> <% let total = 0; for(let size of product.stock){ total +=
+	size.quantity; } %>
+	<div
+		name="<%= product.name %>"
+		href="#"
+		class="m-2 flex flex-col items-center bg-white border border-gray-200 rounded-lg shadow md:min-w-xl md:flex-row md:max-w-xl dark:border-gray-700 dark:bg-gray-800 overflow-hidden"
+	>
+		<img
+			class="object-cover w-full rounded-t-lg h-96 md:h-auto md:w-48 md:rounded-none md:rounded-l-lg"
+			src="/images/images.jpeg"
+			alt=""
+		/>
+		<div class="flex flex-col justify-between px-4 leading-normal">
+			<h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white break-normal">
+				<%= product.name %>
+			</h5>
+			<p class="mb-3 font-normal text-gray-700 dark:text-gray-400"><%= product.description %></p>
+			<h6 class="mb-2 text-xl font-light tracking-tight text-white">
+				Total in Stock: <%= total %>
+			</h6>
+			<div class="flex-row">
+				<a href="/users/<%= user._id %>/<%=product._id%>"
+					><button class="rounded-lg px-3 py-2 bg-blue-500">View</button></a
+				>
+				<a href="/users/<%= user._id %>/<%=product._id%>/edit"
+					><button class="rounded-lg px-3 py-2 bg-yellow-500">Edit</button></a
+				>
+			</div>
+		</div>
+	</div>
+	<% } %>
+</div>
