@@ -1,0 +1,89 @@
+<% layout('tailwind/layout/userBoilerplate') %>
+
+<div class="flex justify-center w-full">
+	<div class="w-1/2 text-center text-white rounded-lg border">
+		<h1 class="text-4xl">Profile</h1>
+		<div class="w-full">
+			<p class="text-2xl text-slate-400">Store Name</p>
+			<p class="text-3xl"><%= user.username %></p>
+		</div>
+		<div class="flex w-full">
+			<div class="w-1/2">
+				<p class="text-2xl text-slate-400">First Name</p>
+				<p class="text-3xl"><%= user.firstName %></p>
+			</div>
+			<div class="w-1/2">
+				<p class="text-2xl text-slate-400">Last Name</p>
+				<p class="text-3xl"><%= user.lastName %></p>
+			</div>
+		</div>
+		<div class="flex w-full">
+			<div class="w-1/2">
+				<p class="text-2xl text-slate-400">email</p>
+				<p class="text-3xl"><%= user.email %></p>
+			</div>
+			<div class="w-1/2">
+				<p class="text-2xl text-slate-400">Phone Number</p>
+				<p class="text-3xl"><%= user.phone %></p>
+			</div>
+		</div>
+		<div class="w-full">
+			<p class="text-2xl text-slate-400">API Key</p>
+			<p class="text-xl"><%= user.key %></p>
+		</div>
+		<hr />
+		<p class="text-2xl text-slate-400">Address</p>
+		<% if (user.address) { %>
+		<div class="w-full">
+			<p class="text-2xl text-slate-400">Street</p>
+			<p class="text-3xl"><%= user.address.street %></p>
+		</div>
+		<% if (user.address.streetTwo) { %>
+		<div class="w-full">
+			<p class="text-2xl text-slate-400">Store Name</p>
+			<p class="text-3xl"><%= user.address.streetTwo %></p>
+		</div>
+		<% } %>
+		<div class="w-full">
+			<p class="text-2xl text-slate-400">City</p>
+			<p class="text-3xl"><%= user.address.city %></p>
+		</div>
+		<div class="flex w-full">
+			<div class="w-1/2">
+				<p class="text-2xl text-slate-400">Zipcode</p>
+				<p class="text-3xl"><%= user.address.zipcode %></p>
+			</div>
+			<div class="w-1/2">
+				<p class="text-2xl text-slate-400">State</p>
+				<p class="text-3xl"><%= user.address.state %></p>
+			</div>
+		</div>
+		<% } else {%>
+		<p class="text-3xl">None</p>
+		<%}%>
+		<div class="flex w-full justify-center py-2">
+			<a href="profile/editProfile">
+				<button
+					class="edit-button mx-1 items-center p-2 flex flex-row border rounded-lg border-blue-600 bg-blue-600 hover:bg-blue-700 hover:border-blue-700"
+				>
+					<svg
+						class="w-4 h-4 mr-2"
+						fill="currentColor"
+						viewBox="0 0 20 20"
+						xmlns="http://www.w3.org/2000/svg"
+					>
+						<path
+							d="M17.414 2.586a2 2 0 00-2.828 0L7 10.172V13h2.828l7.586-7.586a2 2 0 000-2.828z"
+						></path>
+						<path
+							fill-rule="evenodd"
+							d="M2 6a2 2 0 012-2h4a1 1 0 010 2H4v10h10v-4a1 1 0 112 0v4a2 2 0 01-2 2H4a2 2 0 01-2-2V6z"
+							clip-rule="evenodd"
+						></path>
+					</svg>
+					Edit Profile
+				</button>
+			</a>
+		</div>
+	</div>
+</div>

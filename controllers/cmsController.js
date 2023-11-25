@@ -268,6 +268,18 @@ module.exports.renderProfile = async (req, res) => {
 	res.render('users/profile', { user });
 };
 
+module.exports.renderProfileTw = async (req, res) => {
+	const user = await getUser(req.params.id);
+	await user.populate('address');
+	res.render('tailwind/profile', { user });
+};
+
+module.exports.renderEditProfileTw = async (req, res) => {
+	const user = await getUser(req.params.id);
+	await user.populate('address');
+	res.render('tailwind/editProfile', { user });
+};
+
 module.exports.renderEditShipping = async (req, res) => {
 	const user = await getUser(req.params.id);
 	if (user.address) await user.populate('address');

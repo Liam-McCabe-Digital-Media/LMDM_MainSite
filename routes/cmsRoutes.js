@@ -42,6 +42,8 @@ const {
 	renderOverviewTw,
 	renderOrderConfirmationTw,
 	renderViewOrderTw,
+	renderProfileTw,
+	renderEditProfileTw,
 } = require('../controllers/cmsController');
 const { getUser } = require('../newDatabase/AccountsDB');
 // router.get(
@@ -477,9 +479,10 @@ router.get('/:id/test', isLoggedIn, verifyUser, catchAsync(renderShippingInfoTw)
 router.get('/:id/products', isLoggedIn, verifyUser, catchAsync(renderProductsTW));
 router.get('/:id/:productId/edit', isLoggedIn, verifyUser, catchAsync(renderEditProductTW));
 
-router.get('/:id/profile', isLoggedIn, verifyUser, catchAsync(renderProfile));
+router.get('/:id/profile', isLoggedIn, verifyUser, catchAsync(renderProfileTw));
 router.get('/:id/profile/editShipping', isLoggedIn, verifyUser, catchAsync(renderEditShipping));
 router.post('/:id/profile/editShipping', isLoggedIn, verifyUser, catchAsync(saveShippingInfo));
+router.get('/:id/profile/edit', isLoggedIn, verifyUser, catchAsync(renderEditProfileTw));
 router.post('/:id/');
 router.get('/:id/orders', isLoggedIn, verifyUser, catchAsync(renderOrdersTW));
 
