@@ -476,13 +476,20 @@ router.get(
 
 router.get('/:id/test', isLoggedIn, verifyUser, catchAsync(renderShippingInfoTw));
 
+router.get('/:id/profile', isLoggedIn, verifyUser, catchAsync(renderProfileTw));
+router
+	.route('/:id/profile/editShipping')
+	.get(isLoggedIn, verifyUser, catchAsync(renderEditShipping))
+	.post(isLoggedIn, verifyUser, catchAsync(saveShippingInfo));
+
+router
+	.route('/:id/profile/edit')
+	.get(isLoggedIn, verifyUser, catchAsync(renderEditProfileTw))
+	.post(isLoggedIn, verifyUser, catchAsync());
+
 router.get('/:id/products', isLoggedIn, verifyUser, catchAsync(renderProductsTW));
 router.get('/:id/:productId/edit', isLoggedIn, verifyUser, catchAsync(renderEditProductTW));
 
-router.get('/:id/profile', isLoggedIn, verifyUser, catchAsync(renderProfileTw));
-router.get('/:id/profile/editShipping', isLoggedIn, verifyUser, catchAsync(renderEditShipping));
-router.post('/:id/profile/editShipping', isLoggedIn, verifyUser, catchAsync(saveShippingInfo));
-router.get('/:id/profile/edit', isLoggedIn, verifyUser, catchAsync(renderEditProfileTw));
 router.post('/:id/');
 router.get('/:id/orders', isLoggedIn, verifyUser, catchAsync(renderOrdersTW));
 
@@ -490,11 +497,17 @@ router.get('/:id/orders/newOrder', isLoggedIn, verifyUser, catchAsync(renderNewO
 
 router.get('/:id/orders/selectPayment', isLoggedIn, verifyUser, catchAsync(renderPaymentSelect));
 
-router.get('/:id/orders/shippingInfo', isLoggedIn, verifyUser, catchAsync(renderShippingInfoTw));
-router.post('/:id/orders/shippingInfo', isLoggedIn, verifyUser, catchAsync(calculateRatesTw));
-router.put('/:id/orders/shippingInfo', isLoggedIn, verifyUser, catchAsync(applyShipping));
-router.get('/:id/orders/customerInfo', isLoggedIn, verifyUser, catchAsync(renderCustomerInfoTw));
-router.post('/:id/orders/customerInfo', isLoggedIn, verifyUser, catchAsync(confirmCusomerInfo));
+router
+	.route('/:id/orders/shippingInfo')
+	.get(isLoggedIn, verifyUser, catchAsync(renderShippingInfoTw))
+	.post(isLoggedIn, verifyUser, catchAsync(calculateRatesTw))
+	.put(isLoggedIn, verifyUser, catchAsync(applyShipping));
+
+router
+	.route('/:id/orders/customerInfo')
+	.get(isLoggedIn, verifyUser, catchAsync(renderCustomerInfoTw))
+	.post(isLoggedIn, verifyUser, catchAsync(confirmCusomerInfo));
+
 router.get('/:id/orders/overview', isLoggedIn, verifyUser, catchAsync(renderOverviewTw));
 router.post('/:id/orders/createOrder', isLoggedIn, verifyUser, catchAsync(finalizeOrder));
 router.get(
