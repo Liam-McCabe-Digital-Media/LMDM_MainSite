@@ -44,6 +44,7 @@ const {
 	renderViewOrderTw,
 	renderProfileTw,
 	renderEditProfileTw,
+	saveProfileInfo,
 } = require('../controllers/cmsController');
 const { getUser } = require('../newDatabase/AccountsDB');
 // router.get(
@@ -485,7 +486,7 @@ router
 router
 	.route('/:id/profile/edit')
 	.get(isLoggedIn, verifyUser, catchAsync(renderEditProfileTw))
-	.post(isLoggedIn, verifyUser, catchAsync());
+	.post(isLoggedIn, verifyUser, catchAsync(saveProfileInfo));
 
 router.get('/:id/products', isLoggedIn, verifyUser, catchAsync(renderProductsTW));
 router.get('/:id/:productId/edit', isLoggedIn, verifyUser, catchAsync(renderEditProductTW));

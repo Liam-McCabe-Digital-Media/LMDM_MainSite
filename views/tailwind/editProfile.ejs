@@ -1,0 +1,140 @@
+<% layout('tailwind/layout/userBoilerplate') %>
+
+<p class="text-center text-white font-light text-3xl">
+	Edit Profile For Store <%= user.username %>
+</p>
+<div class="flex flex-col items-center justify-center w-full">
+	<form action="/users/<%=user._id%>/profile/edit" method="POST" class="w-1/2">
+		<div class="flex mb-3 w-full">
+			<input
+				type="text"
+				class="rounded-lg w-1/2"
+				placeholder="First Name"
+				name="newUser[firstName]"
+				value="<%= user.firstName %>"
+				required
+			/>
+			<input
+				type="text"
+				class="rounded-lg w-1/2"
+				placeholder="Last Name"
+				name="newUser[lastName]"
+				value="<%= user.lastName %>"
+				required
+			/>
+		</div>
+		<input
+			type="text"
+			class="rounded-lg mb-3 w-full"
+			placeholder="Phone Number"
+			name="newUser[phone]"
+			value="<%= user.phone %>"
+			required
+		/>
+		<input
+			type="email"
+			class="rounded-lg mb-3 w-full"
+			placeholder="Email"
+			name="newUser[email]"
+			value="<%= user.email %>"
+			required
+		/>
+
+		<div class="<% if (user.address) { %> block <% } else { %> hidden <%}%>" id="addressBlock">
+			<input
+				class="rounded-lg mb-3 w-full"
+				type="text"
+				name="address[street]"
+				placeholder="Address"
+				value="<% if (user.address) { %><%= user.address.street %><% } %>"
+			/>
+			<input
+				class="rounded-lg mb-3 w-full"
+				type="text"
+				name="address[streetTwo]"
+				value="<% if (user.address) { %><%= user.address.streetTwo %><% } %>"
+				placeholder="Address 2"
+			/>
+			<input
+				class="rounded-lg mb-3 w-full"
+				type="text"
+				name="address[city]"
+				placeholder="City"
+				value="<% if (user.address) { %><%= user.address.city %><% } %>"
+			/>
+			<div class="flex mb-3 w-full">
+				<input
+					type="text"
+					class="rounded-lg w-1/2"
+					placeholder="Zipcode"
+					name="address[zipcode]"
+					value="<% if (user.address) { %><%= user.address.zipcode %><% } %>"
+				/>
+				<input
+					type="text"
+					class="rounded-lg w-1/2"
+					placeholder="State"
+					name="address[state]"
+					value="<% if (user.address) { %><%= user.address.state %><% } %>"
+				/>
+			</div>
+		</div>
+		<input
+			name="addressPresent"
+			id="addressPresent"
+			type="number"
+			class="hidden"
+			value="<% if (user.address) { %>1<% } else { %>0<%}%>"
+		/>
+		<div class="flex mb-3 w-full justify-end">
+			<button
+				onclick="removeAddress()"
+				type="button"
+				id="removeAddressButton"
+				class="<% if (user.address) { %> block <% } else { %> hidden <%}%> rounded-lg no-underline bg-yellow-500 text-white p-2 hover:bg-yellow-600 mx-3"
+			>
+				Remove Address
+			</button>
+			<button
+				onclick="addAddress()"
+				type="button"
+				id="addAddressButton"
+				class="<% if (user.address) { %> hidden <% } else { %> block <%}%>rounded-lg no-underline bg-yellow-500 text-white p-2 hover:bg-yellow-600 mx-3"
+			>
+				Add Address
+			</button>
+			<button class="text-white rounded-lg bg-blue-600 hover:bg-blue-700 py-2 px-4">Save</button>
+		</div>
+	</form>
+</div>
+
+<script>
+	function removeAddress() {
+		let addressBlock = document.getElementById('addressBlock');
+		let addressPresent = document.getElementById('addressPresent');
+		addressPresent.value = 0;
+		console.log('remove address');
+		addressBlock.classList.remove('block');
+		addressBlock.classList.add('hidden');
+		let addButton = document.getElementById('addAddressButton');
+		addButton.classList.remove('hidden');
+		addButton.classList.add('block');
+		let removeButton = document.getElementById('removeAddressButton');
+		removeButton.classList.remove('block');
+		removeButton.classList.add('hidden');
+	}
+	function addAddress() {
+		let addressBlock = document.getElementById('addressBlock');
+		let addressPresent = document.getElementById('addressPresent');
+		addressPresent.value = 1;
+		addressBlock.classList.remove('hidden');
+		addressBlock.classList.add('block');
+		let removeButton = document.getElementById('removeAddressButton');
+		removeButton.classList.remove('hidden');
+		removeButton.classList.add('block');
+		let addButton = document.getElementById('addAddressButton');
+		addButton.classList.remove('block');
+		addButton.classList.add('hidden');
+	}
+</script>
+<!-- drawer component -->

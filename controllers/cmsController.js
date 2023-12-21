@@ -1,5 +1,10 @@
 const express = require('express');
-const { getUser, getShipmentObjects } = require('../newDatabase/AccountsDB');
+const {
+	getUser,
+	getShipmentObjects,
+	updateUser,
+	updateUserWithAddress,
+} = require('../newDatabase/AccountsDB');
 const {
 	getAllProducts,
 	createProduct,
@@ -8,7 +13,7 @@ const {
 	updateProduct,
 } = require('../newDatabase/ProductDB');
 const { getOrderObject } = require('../utils/orders');
-const { createAddress, updateAddress } = require('../newDatabase/AddressDB');
+const { createAddress, updateAddress, deleteAddress } = require('../newDatabase/AddressDB');
 const { createCustomer } = require('../newDatabase/CustomerDB');
 const { getRatesWithShipmentDetails, getLabelFromRate } = require('../utils/ShipEngine');
 const {
@@ -278,6 +283,19 @@ module.exports.renderEditProfileTw = async (req, res) => {
 	const user = await getUser(req.params.id);
 	await user.populate('address');
 	res.render('tailwind/editProfile', { user });
+};
+
+module.exports.saveProfileInfo = async (req, res) => {
+	const user = await getUser(req.params.id);
+	const newUser = req.body.newUser;
+	const addressPresent = req.body.addressPresent;
+	if (typeof req.body.address !== typeof undefined && addressPresent == 1) {
+		const newAddress = req.body.address;
+		await updateUserWithAddress(user._id, newUser, newAddress);
+	} else {
+		await updateUser(user._id, newUser);
+	}
+	res.redirect(`/users/${user._id}/profile`);
 };
 
 module.exports.renderEditShipping = async (req, res) => {

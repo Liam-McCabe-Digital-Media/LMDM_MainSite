@@ -14,3 +14,7 @@ module.exports.updateAddress = async (id, address) => {
 	const updated = await Address.findOneAndUpdate({ _id: id }, address);
 	return updated;
 };
+
+module.exports.deleteAddress = async (id) => {
+	await Address.findByIdAndDelete(id);
+};
