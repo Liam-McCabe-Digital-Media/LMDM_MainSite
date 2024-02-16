@@ -1,7 +1,9 @@
 const ShipEngine = require('shipengine');
-const shipengine = new ShipEngine('TEST_m/sAspxYPgrdX/zzoCu8XfoW2obSP4D3PRpydm6LoI0');
+const testKey = 'TEST_m/sAspxYPgrdX/zzoCu8XfoW2obSP4D3PRpydm6LoI0';
 
-module.exports.getRatesWithShipmentDetails = async (shipTo, shipFrom) => {
+module.exports.getRatesWithShipmentDetails = async (shipTo, shipFrom, shipengineKey = testKey) => {
+	// const shipengine = new ShipEngine(shipengineKey);
+	const shipengine = new ShipEngine(shipengineKey);
 	const params = {
 		rateOptions: {
 			//test UPS
@@ -58,7 +60,8 @@ module.exports.getRatesWithShipmentDetails = async (shipTo, shipFrom) => {
 			displayScheme: 'label',
 		};
 		// const label = await shipengine.createLabelFromRate(params2);
-		console.log(result);
+		// console.log(result);
+		console.log(result.rateResponse.rates);
 		return result.rateResponse;
 		// console.log(result.rateResponse.rates);
 	} catch (e) {
@@ -81,7 +84,9 @@ module.exports.verifyAddress = async (address) => {
 	};
 };
 
-module.exports.getLabelFromRate = async (rate) => {
+module.exports.getLabelFromRate = async (rate, shipengineKey = testKey) => {
+	// const shipengine = new ShipEngine(shipengineKey);
+	const shipengine = new ShipEngine(shipengineKey);
 	const label = await shipengine.createLabelFromRate(rate);
 	return label;
 };

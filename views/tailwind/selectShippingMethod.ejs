@@ -13,8 +13,9 @@
 					class="bg-yellow-500 hover:bg-yellow-600 rounded-lg w-1/3 m-2 p-2"
 					onclick="selectShipping('<%= JSON.stringify(rates.rates[i]) %>')"
 				>
+					<p class="text-lg"><%= JSON.stringify(rates.rates[i].serviceType) %></p>
 					<p class="text-lg">Estimated Delivery Date</p>
-					<p class="text-lg"><%= JSON.stringify(rates.rates[i].estimatedDeliveryDate) %></p>
+					<p class="text-lg"><%= JSON.stringify(rates.rates[i].carrierDeliveryDays) %></p>
 					<p class="text-lg">Shipment cost</p>
 					<p class="text-lg">$<%= JSON.stringify(rates.rates[i].shippingAmount.amount) %></p>
 				</a>

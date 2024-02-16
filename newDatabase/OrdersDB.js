@@ -14,7 +14,7 @@ module.exports.createOrderNoShipping = async (userId, cart, cartDetails, custome
 module.exports.createOrder = async (userId, cart, cartDetails, customer, shippingMethod, label) => {
 	const newOrder = await Order.create({
 		store: userId,
-		customerName: { first: customer.firstName, last: customer.LastName },
+		customerName: { first: customer.firstName, last: customer.lastName },
 		customer: customer._id,
 		orderContent: cart,
 		orderDetails: cartDetails,

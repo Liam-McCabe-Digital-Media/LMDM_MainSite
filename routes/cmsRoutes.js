@@ -6,29 +6,28 @@ const { isLoggedIn, verifyUser } = require('../middleware');
 const {
 	deleteProductMethod,
 	modifyProduct,
+	createNewProduct,
+	saveProfileInfo,
+} = require('../controllers/cmsController');
+
+const {
+	renderPaymentSelect,
 	renderEdit,
 	renderViewProduct,
 	renderViewProductForCart,
-	createNewProduct,
-	renderNewProduct,
-	removeAlternateFromCart,
-	addAlternateToOrder,
-	renderDashboard,
-	renderNewOrderTw,
-	renderOrders,
-	renderPaymentSelect,
-	renderShippingInfo,
-	updateCartQuantity,
-	renderProfile,
 	renderEditShipping,
-	saveShippingInfo,
+	renderNewProduct,
+	renderDashboard,
+	renderOrders,
+	renderShippingInfo,
+	renderProfile,
 	calculateRates,
 	renderCustomerInfo,
-	confirmCusomerInfo,
 	renderOverview,
-	applyShipping,
-	finalizeOrder,
 	renderOrderConfirmation,
+} = require('../controllers/renderController');
+
+const {
 	renderDashboardTw,
 	renderProductsTW,
 	renderEditProductTW,
@@ -44,8 +43,18 @@ const {
 	renderViewOrderTw,
 	renderProfileTw,
 	renderEditProfileTw,
-	saveProfileInfo,
-} = require('../controllers/cmsController');
+	renderNewOrderTw,
+} = require('../controllers/renderControllerTw');
+
+const {
+	removeAlternateFromCart,
+	addAlternateToOrder,
+	updateCartQuantity,
+	saveShippingInfo,
+	confirmCusomerInfo,
+	applyShipping,
+	finalizeOrder,
+} = require('../controllers/orderController');
 const { getUser } = require('../newDatabase/AccountsDB');
 // router.get(
 // 	'/:id/test',
